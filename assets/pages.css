@@ -7,7 +7,7 @@
 
 :root {
   --ink: #16191f; --slate: #1e2330; --slate-2: #252b38;
-  --silver: #8a8f9e; --mist: #b8bcc8; --calcaire: #f2f1ee;
+  --silver: #979cab; --mist: #b8bcc8; --calcaire: #f2f1ee;
   --green: #2e7d4f; --green-lt: #4aa36e; --white: #ffffff;
   --line: rgba(255,255,255,0.09);
   --font-display: 'Nippo', 'Raleway', system-ui, sans-serif;
@@ -22,10 +22,6 @@ body { font-family: var(--font-body); background: var(--ink); color: var(--white
 a { color: inherit; }
 :focus-visible { outline: 1px solid var(--green-lt); outline-offset: 5px; border-radius: 2px; }
 ::selection { background: var(--green); color: var(--white); }
-body::after {
-  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 50; opacity: 0.05;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
 .skip { position: fixed; left: 12px; top: 12px; z-index: 100; transform: translateY(-200%); background: var(--green); color: var(--white); padding: 0.7rem 1rem; font-weight: 700; font-size: 0.8rem; text-decoration: none; }
 .skip:focus { transform: none; }
 .wrap { width: 100%; max-width: calc(1344px + 2 * var(--margin)); margin: 0 auto; padding: 0 var(--margin); }
@@ -37,29 +33,27 @@ body::after {
 .logo svg { width: 38px; height: 16px; fill: none; stroke: var(--green-lt); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 .back {
   display: inline-flex; align-items: center; gap: 0.6rem; height: 44px; padding: 0 1.1rem; border-radius: 100px; border: 1px solid rgba(255,255,255,0.2); text-decoration: none;
-  font-family: var(--font-display); font-size: 0.64rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; transition: border-color 0.3s;
+  font-family: var(--font-display); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; transition: border-color 0.3s;
 }
 .back:hover { border-color: var(--green-lt); }
 .back svg, .btn svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
 /* Typo partagée */
-.idx { font-family: var(--font-display); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--green-lt); }
-.idx::before { content: '('; } .idx::after { content: ')'; }
-.meta { font-family: var(--font-display); font-size: 0.66rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--silver); }
+.meta { font-family: var(--font-display); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--silver); }
 .btn {
   display: inline-flex; align-items: center; gap: 0.7rem; white-space: nowrap; text-decoration: none;
-  font-family: var(--font-display); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  font-family: var(--font-display); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
   padding: 1.05rem 1.9rem; border-radius: 100px; background: var(--green); color: var(--white); transition: background 0.3s, transform 0.35s var(--quint);
 }
-.btn:hover { background: #33885a; transform: translateY(-3px); }
+.btn:hover { background: #276b44; }
 .btn.line { background: transparent; border: 1px solid rgba(255,255,255,0.2); }
 .btn.line:hover { border-color: var(--green-lt); }
 
 /* Page légale */
 main { flex: 1; }
 .doc-head { padding: 14vh 0 6vh; border-bottom: 1px solid var(--line); }
-.doc-head h1 { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: clamp(2.6rem, 8vw, 7.4rem); line-height: 0.88; letter-spacing: -0.02em; margin: 1.4rem 0 1.6rem; }
-.doc-head h1 em { font-style: normal; font-weight: 300; text-transform: none; color: var(--green-lt); letter-spacing: 0; }
+.doc-head h1 { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: clamp(2.6rem, 8vw, 7.4rem); line-height: 0.88; letter-spacing: -0.02em; margin: 0 0 1.6rem; }
+.doc-head h1 em { font-style: normal; }
 .doc-head p { color: var(--mist); max-width: 40rem; }
 .doc { display: grid; grid-template-columns: 1fr 2fr; gap: 48px; padding: 8vh 0 14vh; }
 .toc { position: sticky; top: 32px; align-self: start; }
@@ -80,7 +74,7 @@ main { flex: 1; }
 .doc-body a { color: var(--green-lt); text-underline-offset: 3px; }
 .doc-body dl { display: grid; grid-template-columns: 12rem 1fr; border-top: 1px solid var(--line); }
 .doc-body dt, .doc-body dd { padding: 0.9rem 0; border-bottom: 1px solid var(--line); }
-.doc-body dt { font-family: var(--font-display); font-size: 0.66rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--silver); padding-top: 1.1rem; }
+.doc-body dt { font-family: var(--font-display); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--silver); padding-top: 1.1rem; }
 .doc-body dd { color: var(--white); }
 @media (max-width: 900px) {
   .doc { grid-template-columns: 1fr; gap: 0; }
@@ -99,8 +93,8 @@ main { flex: 1; }
 
 /* 404 et merci */
 .solo { flex: 1; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; padding: 10vh 0 34vh; }
-.solo h1 { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: clamp(3.2rem, 13vw, 12rem); line-height: 0.86; letter-spacing: -0.025em; margin: 1.4rem 0 2rem; position: relative; z-index: 1; }
-.solo h1 em { font-style: normal; font-weight: 600; text-transform: none; color: transparent; -webkit-text-stroke: 2px var(--green-lt); letter-spacing: 0; }
+.solo h1 { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: clamp(3.2rem, 13vw, 12rem); line-height: 0.86; letter-spacing: -0.025em; margin: 0 0 2rem; position: relative; z-index: 1; }
+.solo h1 em { font-style: normal; }
 .solo p { color: var(--mist); max-width: 34rem; font-size: 1.05rem; margin-bottom: 2.4rem; position: relative; z-index: 1; }
 .solo .actions { display: flex; gap: 0.8rem; flex-wrap: wrap; position: relative; z-index: 1; }
 .solo-crest { position: absolute; left: 0; right: 0; bottom: 0; height: 32vh; pointer-events: none; }
