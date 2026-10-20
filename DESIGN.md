@@ -1,42 +1,44 @@
 # Design PrimeShape
 
-Direction : des aplats de couleur, comme les toiles de Cézanne sur la Sainte-Victoire. Chaque section est un plan de couleur pleine. La profondeur vient du paysage : des plans de montagnes translucides superposés (perspective atmosphérique), et des panneaux de verre dépoli posés devant eux. Pas de dégradé, pas de grain, pas d'effet au survol au-delà d'un changement de couleur.
+Direction : le carnet d'entraînement d'Andy. Le haut de page est la couverture (encre, élastique vert, étiquette collée), les sections sont les pages (papier calcaire quadrillé, marge verte), le pied de page est le dos du carnet. Les annotations sont faites au feutre vert et se tracent quand elles arrivent à l'écran.
 
 ## Couleurs (imposées)
 
 | Rôle | Valeur |
 |---|---|
-| Encre (fond principal) | `#16191f` |
-| Ardoise (plan secondaire) | `#1e2330` |
-| Vert (plan « Valeurs », boutons) | `#2e7d4f` |
-| Vert clair (accent sur fond sombre) | `#4aa36e` |
-| Vert foncé (accent sur fond clair) | `#29714a` |
-| Calcaire (plan clair) | `#f2f1ee` |
-| Texte secondaire sur sombre | `#b8bcc8`, discret `#979cab` |
-| Texte secondaire sur clair | `#4a4f5c`, discret `#5f6474` |
+| Encre : couverture, texte, en-tête de fiche | `#16191f` |
+| Calcaire : papier des pages | `#f2f1ee` |
+| Feuille posée (fiches, formulaire, avis) | `#fbfaf7` |
+| Vert : élastique, boutons, intercalaire, coches | `#2e7d4f` |
+| Vert clair : feutre, accent sur encre | `#4aa36e` |
+| Vert foncé : texte vert sur papier | `#29714a` |
+| Texte secondaire sur papier | `#464b57`, discret `#5f6474` |
+| Texte secondaire sur encre | `#b8bcc8`, discret `#979cab` |
+| Quadrillage | encre à 6 %, carreaux de 24px |
+| Marge | vert à 50 %, 1,5px |
 
-Ordre des plans sur l'accueil : encre (héros) → ardoise → vert → calcaire → encre → ardoise → encre (contact) → encre (pied de page).
+## Typographie
 
-## Typographie (imposée)
+- Titres : Nippo 700, capitales (imposée). `h1` jusqu'à 6.4rem, `.h2` `clamp(2rem, 4.4vw, 3.6rem)`.
+- Texte : Raleway (imposée), 1rem à 1.1rem, interlignage 1.75.
+- Écriture à la main : Kalam 700 (`.hand`), uniquement pour des notes courtes : étiquette de couverture, légende de la photo, sous-titres des fiches, numéros d'étapes, phrases d'encouragement. Jamais pour un paragraphe ni un bouton.
 
-- Titres : Nippo 700, capitales. `h1` jusqu'à 6.6rem, `.h2` `clamp(2rem, 4.2vw, 3.6rem)`, interlignage 0.92 à 1.
-- Texte : Raleway, 1rem à 1.1rem (`.lead`), interlignage 1.75, 34rem de large au plus.
-- Petites étiquettes (`.meta`) : Nippo 600, 0.78rem, capitales, interlettrage 0.08em. À utiliser rarement.
+## Matières et composants
 
-## Composants
-
-- Bouton : pilule pleine verte (`.btn-green`) ou contour 1px (`.btn-line`), Nippo capitales 0.72rem.
-- Séparateurs : filets de 1px (`--line` sur sombre, `--line-dark` sur clair).
-- Verre (`.glass`) : fond blanc à 4,5 %, bordure blanche à 10 %, flou 20px, rayon 22px, ombre portée douce. Uniquement devant le paysage (formules, avis, formulaire de contact) et pour la barre une fois qu'on défile ; jamais sur un fond clair.
-- Paysage (`.scape`) : 4 plans, du plus lointain au plus proche, vert à 8 %, vert à 13 %, Sainte-Victoire ardoise avec son arête verte, premier plan opaque de la couleur de la section suivante. En haut de page, les plans glissent à des vitesses différentes au défilement ; en bas de la section contact, ils sont fixes.
-- Vidéo : format vertical 9:16, coins arrondis 22px, muette, en boucle, lecture seulement quand elle est à l'écran, arrêtée avec « réduire les animations ». Encodage H.264 720p, sans son.
-- Logo : trait de crête vert + PRIME (blanc) SHAPE (vert clair).
-- Signature : le paysage en plans superposés en haut et en bas de page ; la trace du parcours qui se dessine au défilement.
+- Couverture et dos : encre unie, élastique vert de 14px près du bord droit.
+- Étiquette : papier calcaire réglé, tournée de -2°, ombre courte.
+- Pages : quadrillage et marge verte continus sur toutes les sections claires ; un léger empilement de tranches de pages sous la couverture.
+- Intercalaire (valeurs) : aplat vert pleine largeur.
+- Feuilles posées (`.sheet`) : blanc cassé, ombre douce, légèrement tournées (±0,5 à 1°). Fiches de formules avec en-tête (encre pour Premium) et lignes cochées.
+- Photo : la vidéo est une photo tirée sur papier blanc, scotchée par deux bandes vertes translucides, légende manuscrite.
+- Traits au feutre (`.mark`) : cercle autour de « à deux. », soulignés sous certains mots, coches dans des cases dessinées. Ils se tracent une fois à l'écran ; déjà tracés si « réduire les animations ».
+- Boutons : pilule verte pleine, ou contour encre 1.5px sur papier.
+- Croquis du parcours : arête de la Sainte-Victoire au stylo, trace au feutre vert qui avance au défilement.
 
 ## Espacements
 
-Sections `.plane` : `clamp(5rem, 13vh, 9rem)` en haut et en bas. Marges latérales 48px, 32px en tablette, 20px en mobile. Grille 12 colonnes (4 en mobile).
+Pages `.page` : `clamp(4.5rem, 12vh, 8rem)` en haut et en bas. Marges latérales 48px, 40px en tablette, 22px en mobile. Contenu limité à 1200px.
 
 ## À ne pas faire
 
-Écran de chargement, curseur personnalisé, texte qui défile, étiquettes au-dessus des titres, titres bicolores, texte en contour, cartes inclinées, apparitions animées sur chaque bloc.
+Verre dépoli, dégradés décoratifs, néon, écran de chargement, curseur personnalisé, texte qui défile, étiquettes au-dessus des titres, apparitions animées sur chaque bloc, Kalam en texte courant.

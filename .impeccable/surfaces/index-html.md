@@ -7,21 +7,20 @@ related_targets: []
 
 # Accueil PrimeShape
 
-Mode : Persuade. Visiteur : débutant ou adulte en reprise, à Aix, sur téléphone. Action : laisser son contact pour être prévenu au lancement (formulaire de contact, email en repli).
-Contraintes épinglées par l'utilisateur : couleurs actuelles (encre #16191f, ardoise #1e2330, vert #2e7d4f / #4aa36e, calcaire #f2f1ee), polices Nippo + Raleway, logo. Demande : « plus sobre ». Le reste est libre.
-Roll dégradé (catalogue injoignable), direction assignée n°3 traduite dans la palette épinglée.
+Mode : Persuade. Visiteur : débutant ou adulte en reprise, à Aix, sur téléphone. Action : laisser son contact pour être prévenu au lancement.
+Contraintes épinglées : couleurs (encre, ardoise, vert, calcaire), polices Nippo + Raleway, logo. Univers choisi par Andy : carnet d'entraînement.
 
 ## Direction contract
 
-THESIS: La page est faite d'aplats, comme les toiles de Cézanne sur la Sainte-Victoire : chaque section est un plan de couleur pleine (encre, ardoise, vert, calcaire), sans cartes, sans ornement. Refuse le site de coach sombre et spectaculaire (néon, typo géante, effets).
+THESIS: Le site est le carnet d'entraînement d'Andy : on l'ouvre, on lit ses pages. Refuse le site de coach sombre, néon et générique.
 
-OWN-WORLD: Quatre aplats de la palette épinglée, une crête de montagne qui sert de frontière entre deux plans. Nippo pour les titres, en capitales, tailles mesurées ; Raleway pour le texte. Filets de 1px, boutons pleins arrondis. Aucune ombre, aucun dégradé, aucun grain.
+OWN-WORLD: Couverture encre avec élastique vert et étiquette collée ; pages calcaire quadrillées à marge verte ; feuilles blanches posées et scotchées ; feutre vert pour cercles, soulignés et coches ; Kalam pour les notes manuscrites courtes.
 
-STORY: Le visiteur comprend qu'Andy, futur coach à Aix, l'accompagnera pas à pas ; il voit honnêtement où en est sa formation ; il laisse son contact.
+STORY: Le visiteur ouvre le carnet d'un coach honnête et proche, voit une vraie séance (première traction d'un ami), comprend le parcours et les formules, laisse son contact.
 
-FIRST VIEWPORT: Aplat encre. Logo à gauche, lien « Me contacter » à droite. Titre « Chaque sommet se gravit à deux. » sur trois lignes, environ 9vw max 7.5rem, aligné à gauche. Dessous : une phrase de présentation et le bouton vert « Être prévenu au lancement ». En bas, la crête de la Sainte-Victoire en aplat ardoise qui devient le fond de la section suivante.
+FIRST VIEWPORT: Couverture encre plein écran. Étiquette « Carnet d'entraînement / Andy Scherb · Aix-en-Provence » en haut à gauche, titre « Chaque sommet se gravit à deux. » avec « à deux. » entouré au feutre, phrase de présentation, bouton vert « Être prévenu au lancement », élastique vert sur le bord droit.
 
-FORM: Plans de couleur de Cézanne, candidat 3 de 7 (balisage GR, carte IGN, Cézanne, calcaire de Bibémus, topoguide, topo d'escalade, carnet de refuge). seed:4aae36cb7604235d
-Interaction signature : la trace du parcours se dessine au défilement sur le profil de la montagne (aplat calcaire). Aucun autre mouvement.
+FORM: Carnet d'entraînement, choisi par l'utilisateur parmi trois univers (sa salle, carnet, carte de rando). seed: none (unavailable)
+Interaction signature : les traits au feutre se tracent à l'arrivée à l'écran ; la trace du parcours avance au défilement.
 
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
