@@ -29,6 +29,7 @@ Ordre des plans sur l'accueil : encre (héros) → ardoise → vert → calcaire
 - Séparateurs : filets de 1px (`--line` sur sombre, `--line-dark` sur clair).
 - Verre (`.glass`) : fond blanc à 4,5 %, bordure blanche à 10 %, flou 20px, rayon 22px, ombre portée douce. Uniquement devant le paysage (formules, avis, formulaire de contact) et pour la barre une fois qu'on défile ; jamais sur un fond clair.
 - Paysage (`.scape`) : 4 plans, du plus lointain au plus proche, vert à 8 %, vert à 13 %, Sainte-Victoire ardoise avec son arête verte, premier plan opaque de la couleur de la section suivante. En haut de page, les plans glissent à des vitesses différentes au défilement ; en bas de la section contact, ils sont fixes.
+- Vidéo : format vertical 9:16, coins arrondis 22px (dans un cadre de verre sur fond de paysage), muette, en boucle, lecture seulement quand elle est à l'écran, arrêtée avec « réduire les animations ». Encodage H.264 720p, sans son.
 - Logo : trait de crête vert + PRIME (blanc) SHAPE (vert clair).
 - Signature : le paysage en plans superposés en haut et en bas de page ; la trace du parcours qui se dessine au défilement.
 

@@ -30,7 +30,7 @@ jobs:
           mkdir _site
           cp -r index.html 404.html avis.json robots.txt sitemap.xml .nojekyll \
             favicon.ico favicon.svg apple-touch-icon.png og-image.jpg \
-            assets fonts merci cgu confidentialite mentions-legales _site/
+            assets fonts media merci cgu confidentialite mentions-legales _site/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
