@@ -36,8 +36,8 @@ Visite surtout sur téléphone, depuis un lien partagé ou une recherche locale.
 
 ## Evidence on Hand
 - Email : andyscherb10@gmail.com. Lieu : Vauvenargues / Aix-en-Provence.
-- Vidéos (dans `media/`) : Andy qui accompagne un sportif à la barre de traction (`coaching-traction.mp4`) ; mini-programme débutant « 3 exercices pour réussir ta première traction » (`premiere-traction.mp4`).
-- Vidéos non utilisées sur le site : reel « bosser 8 h » (réseaux sociaux), pompes et fentes de dos.
+- Vidéos (dans `media/`) : Andy qui accompagne un sportif à la barre de traction (`coaching-traction.mp4`).
+- Vidéos non utilisées sur le site : tuto « première traction » (écarté par Andy), reel « bosser 8 h », pompes et fentes de dos.
 - Aucun client, aucun avis, aucun chiffre : ne rien inventer.
 
 ## Product Principles
