@@ -19,7 +19,7 @@ Ordre des plans sur l'accueil : encre (héros) → ardoise → vert → calcaire
 
 ## Typographie (imposée)
 
-- Titres : Nippo 700, capitales. `h1` jusqu'à 7.5rem, `.h2` `clamp(2rem, 4.2vw, 3.6rem)`, interlignage 0.92 à 1.
+- Titres : Nippo 700, capitales. `h1` jusqu'à 6.6rem, `.h2` `clamp(2rem, 4.2vw, 3.6rem)`, interlignage 0.92 à 1.
 - Texte : Raleway, 1rem à 1.1rem (`.lead`), interlignage 1.75, 34rem de large au plus.
 - Petites étiquettes (`.meta`) : Nippo 600, 0.78rem, capitales, interlettrage 0.08em. À utiliser rarement.
 
