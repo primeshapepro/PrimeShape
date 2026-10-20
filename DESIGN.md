@@ -1,44 +1,40 @@
 # Design PrimeShape
 
-Direction : le carnet d'entraînement d'Andy. Le haut de page est la couverture (encre, élastique vert, étiquette collée), les sections sont les pages (papier calcaire quadrillé, marge verte), le pied de page est le dos du carnet. Les annotations sont faites au feutre vert et se tracent quand elles arrivent à l'écran.
+Direction : premium épuré, en thème sombre. Beaucoup d'espace, Nippo en graisse légère et en grand, une seule image forte (la vidéo de coaching), filets fins, boutons rectangulaires. Aucun effet : pas de verre, pas de halo, pas de dégradé, pas de néon, pas d'animation d'apparition.
 
 ## Couleurs (imposées)
 
-| Rôle | Valeur |
-|---|---|
-| Encre : couverture, texte, en-tête de fiche | `#16191f` |
-| Calcaire : papier des pages | `#f2f1ee` |
-| Feuille posée (fiches, formulaire, avis) | `#fbfaf7` |
-| Vert : élastique, boutons, intercalaire, coches | `#2e7d4f` |
-| Vert clair : feutre, accent sur encre | `#4aa36e` |
-| Vert foncé : texte vert sur papier | `#29714a` |
-| Texte secondaire sur papier | `#464b57`, discret `#5f6474` |
-| Texte secondaire sur encre | `#b8bcc8`, discret `#979cab` |
-| Quadrillage | encre à 6 %, carreaux de 24px |
-| Marge | vert à 50 %, 1,5px |
+Jetons sémantiques dans `:root`, inversés localement dans la section claire (`.values`).
 
-## Typographie
+| Jeton | Sombre (défaut) | Section claire |
+|---|---|---|
+| `--bg` fond | `#16191f` encre | `#f2f1ee` calcaire |
+| `--bg-2` fond alterné (formules, contact) | `#1e2330` ardoise | — |
+| `--fg` texte, filets forts, bouton principal | `#f2f1ee` | `#16191f` |
+| `--text-2` texte courant | `#b8bcc8` | `#464b57` |
+| `--text-3` texte discret | `#979cab` | `#5f6474` |
+| `--rule` filets fins | calcaire à 16 % | encre à 16 % |
+| `--accent` vert | `#4aa36e` | `#29714a` |
 
-- Titres : Nippo 700, capitales (imposée). `h1` jusqu'à 6.4rem, `.h2` `clamp(2rem, 4.4vw, 3.6rem)`.
-- Texte : Raleway (imposée), 1rem à 1.1rem, interlignage 1.75.
-- Écriture à la main : Kalam 700 (`.hand`), uniquement pour des notes courtes : étiquette de couverture, légende de la photo, sous-titres des fiches, numéros d'étapes, phrases d'encouragement. Jamais pour un paragraphe ni un bouton.
+Ordre des sections : ouverture (encre) → qui je suis (encre) → valeurs (calcaire) → parcours (encre) → formules (ardoise) → avis (encre) → contact (ardoise) → pied de page (encre).
 
-## Matières et composants
+Le vert reste rare : logo, P des valeurs, trace du parcours, sous-titre Premium, survol des boutons.
 
-- Couverture et dos : encre unie, élastique vert de 14px près du bord droit.
-- Étiquette : papier calcaire réglé, tournée de -2°, ombre courte.
-- Pages : quadrillage et marge verte continus sur toutes les sections claires ; un léger empilement de tranches de pages sous la couverture.
-- Intercalaire (valeurs) : aplat vert pleine largeur.
-- Feuilles posées (`.sheet`) : blanc cassé, ombre douce, légèrement tournées (±0,5 à 1°). Fiches de formules avec en-tête (encre pour Premium) et lignes cochées.
-- Photo : la vidéo est une photo tirée sur papier blanc, scotchée par deux bandes vertes translucides, légende manuscrite.
-- Traits au feutre (`.mark`) : cercle autour de « à deux. », soulignés sous certains mots, coches dans des cases dessinées. Ils se tracent une fois à l'écran ; déjà tracés si « réduire les animations ».
-- Boutons : pilule verte pleine, ou contour encre 1.5px sur papier.
-- Croquis du parcours : arête de la Sainte-Victoire au stylo, trace au feutre vert qui avance au défilement.
+## Typographie (imposée)
+
+- Titres : Nippo 300, capitales. `h1` `clamp(2.8rem, 5.6vw, 5.4rem)` interlignage 1, dernière ligne en Nippo 600. `.h2` `clamp(2rem, 4vw, 3.4rem)`.
+- Petits titres (faits, étapes) : Nippo 500, capitales, interlettrage 0.06em.
+- Étiquettes et menu (`.meta`, `.nav`) : Nippo 500, 0.74rem, capitales, interlettrage 0.14em.
+- Texte : Raleway, 1.08rem, interlignage 1.8.
+
+## Composants
+
+- Bouton principal : rectangle calcaire, texte encre, rayon 2px ; au survol, fond vert, texte blanc. Secondaire : contour 1px. Lien : texte souligné d'un filet.
+- Ouverture : texte à gauche, vidéo pleine hauteur à droite sous la barre ; en mobile, la vidéo passe dessous en pleine largeur.
+- Colonnes séparées par des filets de 1px ; jamais de cartes ni d'ombres.
+- Vidéo : muette, en boucle, lecture seulement à l'écran, arrêtée avec « réduire les animations ».
+- Seule animation : la trace du parcours qui avance au défilement.
 
 ## Espacements
 
-Pages `.page` : `clamp(4.5rem, 12vh, 8rem)` en haut et en bas. Marges latérales 48px, 40px en tablette, 22px en mobile. Contenu limité à 1200px.
-
-## À ne pas faire
-
-Verre dépoli, dégradés décoratifs, néon, écran de chargement, curseur personnalisé, texte qui défile, étiquettes au-dessus des titres, apparitions animées sur chaque bloc, Kalam en texte courant.
+Sections `.section` : `clamp(6rem, 16vh, 10.5rem)` en haut et en bas. Marges latérales 56px, 40px en tablette, 22px en mobile. Contenu limité à 1280px. Gouttière 32px.
