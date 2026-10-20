@@ -116,6 +116,11 @@ section[id] { scroll-margin-top: var(--bar); }
 .btn-line:hover { border-color: var(--green-lt); }
 .btn-ink { background: var(--ink); color: var(--white); }
 .btn-ink:hover { background: var(--green); }
+/* Verre : panneaux translucides posés sur le paysage */
+.glass { background: rgba(255,255,255,0.045); border: 1px solid rgba(255,255,255,0.1); border-radius: 22px; -webkit-backdrop-filter: blur(20px) saturate(150%); backdrop-filter: blur(20px) saturate(150%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 30px 60px -30px rgba(0,0,0,0.6); }
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .glass { background: rgba(37,43,56,0.92); } }
+html { scrollbar-color: var(--green) var(--ink); }
+
 /* Titres partagés */
 .h2 { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: clamp(2rem, 4.2vw, 3.6rem); line-height: 0.95; letter-spacing: -0.01em; margin-bottom: 1.4rem; text-wrap: balance; }
 .lead { font-size: 1.1rem; line-height: 1.75; color: var(--mist); max-width: 34rem; }
@@ -129,7 +134,7 @@ section[id] { scroll-margin-top: var(--bar); }
   display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding: 0 var(--margin);
   transition: background 0.3s, border-color 0.3s, transform 0.4s var(--quint); border-bottom: 1px solid transparent;
 }
-.bar.solid { background: var(--ink); border-bottom-color: var(--line); }
+.bar.solid { background: rgba(22,25,31,0.62); -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%); border-bottom-color: var(--line); }
 .bar.hide { transform: translateY(-100%); }
 .logo { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--font-display); font-weight: 700; font-size: 1rem; letter-spacing: 0.16em; text-transform: uppercase; }
 .logo b { color: var(--green-lt); font-weight: 700; }
@@ -144,18 +149,26 @@ section[id] { scroll-margin-top: var(--bar); }
 /* =========================================================
    HÉROS
    ========================================================= */
-.hero { position: relative; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; padding: calc(var(--bar) + 4vh) 0 calc(18vh + 2rem); }
-.hero h1 { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: clamp(2.8rem, 8.6vw, 7.5rem); line-height: 0.92; letter-spacing: -0.02em; margin-bottom: 2.4rem; }
+.hero { position: relative; overflow: hidden; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; padding: calc(var(--bar) + 3vh) 0 calc(30vh + 1rem); }
+.hero .wrap { position: relative; z-index: 1; }
+.hero h1 { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: clamp(2.8rem, 7.4vw, 6.6rem); line-height: 0.92; letter-spacing: -0.02em; margin-bottom: 2rem; }
 .hero h1 span { display: block; }
 .hero h1 .accent { color: var(--green-lt); }
-.hero .lead { margin-bottom: 2.4rem; }
+.hero .lead { margin-bottom: 2rem; }
 .hero .lead strong { color: var(--white); font-weight: 600; }
 .actions { display: flex; align-items: center; flex-wrap: wrap; gap: 1rem 1.8rem; }
 .actions a:not(.btn) { color: var(--mist); text-decoration: underline; text-underline-offset: 0.3em; text-decoration-color: rgba(255,255,255,0.3); }
 .actions a:not(.btn):hover { color: var(--white); text-decoration-color: var(--green-lt); }
-.status { margin-top: 3rem; font-size: 0.9rem; color: var(--silver); }
-.ridge { position: absolute; left: 0; right: 0; bottom: -1px; width: 100%; height: 18vh; fill: var(--slate); }
-@media (max-width: 767px) { .hero { padding-bottom: calc(11vh + 2rem); } .ridge { height: 11vh; } }
+.status { margin-top: 2.2rem; font-size: 0.9rem; color: var(--silver); }
+.scape { position: absolute; left: 0; right: 0; bottom: -1px; width: 100%; height: 40vh; overflow: visible; pointer-events: none; }
+.scape g { will-change: transform; }
+.scape .far path { fill: rgba(74,163,110,0.08); }
+.scape .mid path { fill: rgba(74,163,110,0.13); }
+.scape .sv .fill { fill: rgba(30,35,48,0.82); }
+.scape .sv .edge { fill: none; stroke: rgba(74,163,110,0.55); stroke-width: 1.2; stroke-linejoin: round; }
+.scape .fore { fill: var(--slate); }
+.scape-end .fore { fill: var(--ink); }
+@media (max-width: 767px) { .hero { padding-bottom: calc(16vh + 2rem); } .scape { height: 22vh; } }
 
 /* =========================================================
    QUI JE SUIS
@@ -219,13 +232,15 @@ section[id] { scroll-margin-top: var(--bar); }
 /* =========================================================
    FORMULES
    ========================================================= */
-.offers { background: var(--ink); }
+.offers { background: var(--ink); position: relative; overflow: hidden; }
+.offers .wrap { position: relative; }
+.sv-ghost { position: absolute; left: -10%; right: -10%; bottom: -18%; width: 120%; height: 70%; fill: rgba(74,163,110,0.1); pointer-events: none; }
 .offers-head { margin-bottom: 3.5rem; }
 .offers-head .ttl { grid-column: 1 / span 7; }
 .offers-head p { grid-column: 8 / span 5; align-self: end; }
-.voies { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gut) calc(var(--gut) * 3); }
-.voie { display: flex; flex-direction: column; border-top: 1px solid var(--line); padding-top: 2rem; }
-.voie.prem { border-top-color: var(--green-lt); }
+.voies { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gut); }
+.voie { position: relative; display: flex; flex-direction: column; padding: 2.6rem 2.4rem 2.4rem; }
+.voie.prem { border-color: rgba(74,163,110,0.5); }
 .voie h3 { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: clamp(2rem, 3.6vw, 3rem); line-height: 1; }
 .voie .type { margin: 0.6rem 0 1.8rem; }
 .voie.prem .type { color: var(--green-lt); }
@@ -236,17 +251,21 @@ section[id] { scroll-margin-top: var(--bar); }
 .offers-note { margin-top: 3rem; color: var(--silver); }
 @media (max-width: 767px) {
   .offers-head .ttl, .offers-head p { grid-column: 1 / -1; }
-  .voies { grid-template-columns: 1fr; row-gap: 3rem; }
+  .voies { grid-template-columns: 1fr; }
+  .voie { padding: 2rem 1.4rem; }
 }
 
 /* =========================================================
    05 · LE PREMIER PAS
    ========================================================= */
-.contact { background: var(--calcaire); color: var(--ink); }
+.contact { background: var(--ink); position: relative; overflow: hidden; padding-bottom: calc(clamp(5rem, 13vh, 9rem) + 22vh); }
+.contact .wrap { position: relative; z-index: 1; }
+.c-form { padding: 2.4rem 2.2rem; }
+@media (max-width: 767px) { .c-form { padding: 1.8rem 1.3rem; } }
 .c-left { grid-column: 1 / span 6; }
-.c-left > p { color: #4a4f5c; line-height: 1.85; max-width: 30rem; }
+.c-left > p { color: var(--mist); line-height: 1.85; max-width: 30rem; }
 .c-mail { display: inline-block; margin-top: 2rem; font-family: var(--font-display); font-weight: 700; font-size: clamp(1.1rem, 1.8vw, 1.5rem); text-decoration: underline; text-decoration-color: var(--green); text-decoration-thickness: 2px; text-underline-offset: 0.35em; word-break: break-all; }
-.c-form { grid-column: 8 / span 5; }
+.c-form { grid-column: 7 / span 6; }
 fieldset { border: none; }
 .chips-lbl { font-family: var(--font-display); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5b6070; margin-bottom: 0.9rem; display: block; }
 .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
@@ -325,13 +344,13 @@ fieldset { border: none; }
 .rv-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.6s var(--quint); scroll-margin-top: calc(var(--bar) + 16px); }
 .rv-panel.open { grid-template-rows: 1fr; margin-bottom: 3rem; }
 .rv-panel > div { overflow: hidden; }
-.rv-box { background: var(--slate-2); border: 1px solid var(--line); padding: 2.4rem 2.2rem; position: relative; }
+.rv-box { padding: 2.4rem 2.2rem; position: relative; }
 .rv-box h3 { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: 1.5rem; letter-spacing: 0.02em; margin-bottom: 1.6rem; }
-.reviews .chips-lbl { color: var(--silver); }
-.reviews .chip span { border-color: rgba(255,255,255,0.2); color: var(--mist); }
-.reviews .chip:hover span { border-color: var(--white); }
-.reviews .chip input:checked + span { background: var(--white); color: var(--ink); border-color: var(--white); }
-.reviews .chip input:focus-visible + span { outline-color: var(--green-lt); }
+:is(.reviews, .contact) .chips-lbl { color: var(--silver); }
+:is(.reviews, .contact) .chip span { border-color: rgba(255,255,255,0.2); color: var(--mist); }
+:is(.reviews, .contact) .chip:hover span { border-color: var(--white); }
+:is(.reviews, .contact) .chip input:checked + span { background: var(--white); color: var(--ink); border-color: var(--white); }
+:is(.reviews, .contact) .chip input:focus-visible + span { outline-color: var(--green-lt); }
 .stars-in { display: flex; gap: 6px; }
 .star-in { position: relative; cursor: pointer; padding: 2px; border-radius: 6px; }
 .star-in input { position: absolute; opacity: 0; width: 1px; height: 1px; }
@@ -343,12 +362,12 @@ fieldset { border: none; }
 .rv-rate { margin-bottom: 1.8rem; }
 .rv-rate-row { display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap; }
 .rv-rate-lbl { min-width: 9rem; }
-.reviews .fl input, .reviews .fl textarea, .reviews .fl select { color: var(--white); border-bottom-color: rgba(255,255,255,0.25); }
-.reviews .fl label { color: var(--silver); }
-.reviews .fl input:focus + label, .reviews .fl input:not(:placeholder-shown) + label,
-.reviews .fl textarea:focus + label, .reviews .fl textarea:not(:placeholder-shown) + label { color: var(--green-lt); }
-.reviews .fl .line { background: var(--green-lt); }
-.reviews .fl input:focus, .reviews .fl textarea:focus, .reviews .fl select:focus { border-color: var(--green-lt); }
+:is(.reviews, .contact) .fl input, :is(.reviews, .contact) .fl textarea, :is(.reviews, .contact) .fl select { color: var(--white); border-bottom-color: rgba(255,255,255,0.25); }
+:is(.reviews, .contact) .fl label { color: var(--silver); }
+:is(.reviews, .contact) .fl input:focus + label, :is(.reviews, .contact) .fl input:not(:placeholder-shown) + label,
+:is(.reviews, .contact) .fl textarea:focus + label, :is(.reviews, .contact) .fl textarea:not(:placeholder-shown) + label { color: var(--green-lt); }
+:is(.reviews, .contact) .fl .line { background: var(--green-lt); }
+:is(.reviews, .contact) .fl input:focus, :is(.reviews, .contact) .fl textarea:focus, :is(.reviews, .contact) .fl select:focus { border-color: var(--green-lt); }
 .fl.fixed label { position: static; display: block; font-family: var(--font-display); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
 .fl select {
   width: 100%; font: inherit; font-size: 1rem; background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.25); border-radius: 0;
@@ -363,17 +382,17 @@ fieldset { border: none; }
 }
 .fl input:focus, .fl textarea:focus { background-size: 100% 2px; }
 .fl .line { display: none; }
-.reviews .fl input, .reviews .fl textarea { background-image: linear-gradient(var(--green-lt), var(--green-lt)); }
+:is(.reviews, .contact) .fl input, :is(.reviews, .contact) .fl textarea { background-image: linear-gradient(var(--green-lt), var(--green-lt)); }
 .rv-count { position: absolute; right: 0; bottom: -1.4rem; font-family: var(--font-display); font-size: 0.75rem; letter-spacing: 0.04em; color: var(--silver); }
-.reviews .consent { color: var(--mist); }
-.reviews .consent input { accent-color: var(--green-lt); }
-.reviews .consent a { color: var(--green-lt); }
-.reviews .note { color: var(--silver); }
-.reviews .err { color: #ff9b8f; }
-.reviews .fl [aria-invalid="true"], .reviews select[aria-invalid="true"] { border-color: #ff9b8f; }
-.reviews .done h3 { color: var(--green-lt); }
-.reviews .done p { color: var(--mist); }
-.reviews .done a { color: var(--green-lt); }
+:is(.reviews, .contact) .consent { color: var(--mist); }
+:is(.reviews, .contact) .consent input { accent-color: var(--green-lt); }
+:is(.reviews, .contact) .consent a { color: var(--green-lt); }
+:is(.reviews, .contact) .note { color: var(--silver); }
+:is(.reviews, .contact) .err { color: #ff9b8f; }
+:is(.reviews, .contact) .fl [aria-invalid="true"], :is(.reviews, .contact) select[aria-invalid="true"] { border-color: #ff9b8f; }
+:is(.reviews, .contact) .done h3 { color: var(--green-lt); }
+:is(.reviews, .contact) .done p { color: var(--mist); }
+:is(.reviews, .contact) .done a { color: var(--green-lt); }
 
 /* Avis publiés */
 .rv-list { display: grid; gap: var(--gut); }
@@ -391,7 +410,7 @@ fieldset { border: none; }
 .rv-reply { margin-top: 1.2rem; padding: 1rem 1.2rem; background: var(--slate); border-left: 1px solid var(--green-lt); }
 .rv-reply .meta { color: var(--green-lt); display: block; margin-bottom: 0.4rem; }
 .rv-reply p { color: var(--mist); font-size: 0.92rem; line-height: 1.7; }
-.rv-empty { border: 1px solid var(--line); padding: 3.4rem 2.4rem; text-align: center; }
+.rv-empty { padding: 3.4rem 2.4rem; text-align: center; }
 .rv-empty .rv-stars { margin-bottom: 1.6rem; }
 .rv-empty .rv-stars svg { width: 30px; height: 30px; }
 .rv-empty h3 { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: clamp(1.6rem, 3vw, 2.4rem); line-height: 1; margin-bottom: 1rem; }
@@ -458,7 +477,12 @@ footer { background: var(--ink); padding: 4rem 0 2rem; border-top: 1px solid var
     </div>
     <p class="status">En formation CQP dès décembre 2026 · Aix-en-Provence et alentours</p>
   </div>
-  <svg class="ridge" viewBox="0 0 1440 240" preserveAspectRatio="none" aria-hidden="true"><path d="M0 225 L160 216 L300 204 L420 190 L520 176 L600 162 L670 148 L730 132 L780 117 L822 102 L852 87 L876 74 L893 64 L903 68 L914 56 L928 62 L940 58 L954 67 L970 84 L988 108 L1006 130 L1026 146 L1050 154 L1072 156 L1094 149 L1116 155 L1150 170 L1200 185 L1270 200 L1350 212 L1440 220 L1440 240 L0 240 Z"/></svg>
+  <svg class="scape scape-hero" viewBox="0 0 1440 320" preserveAspectRatio="none" aria-hidden="true">
+    <g class="far" data-depth="0.35"><path d="M0 168 L90 150 L170 158 L260 126 L330 138 L420 112 L500 128 L600 148 L700 138 L790 154 L880 150 L1000 146 L1120 116 L1200 130 L1290 104 L1370 124 L1440 114 V320 H0Z"/></g>
+    <g class="mid" data-depth="0.22"><path d="M0 226 L120 210 L230 220 L340 192 L420 202 L520 186 L640 208 L760 214 L900 212 L1080 212 L1180 192 L1260 202 L1350 182 L1440 194 V320 H0Z"/></g>
+    <g class="sv" data-depth="0.12"><path class="fill" d="M0 285 L160 276 L300 264 L420 250 L520 236 L600 222 L670 208 L730 192 L780 177 L822 162 L852 147 L876 134 L893 124 L903 128 L914 116 L928 122 L940 118 L954 127 L970 144 L988 168 L1006 190 L1026 206 L1050 214 L1072 216 L1094 209 L1116 215 L1150 230 L1200 245 L1270 260 L1350 272 L1440 280 L1440 320 L0 320 Z"/><path class="edge" vector-effect="non-scaling-stroke" d="M0 285 L160 276 L300 264 L420 250 L520 236 L600 222 L670 208 L730 192 L780 177 L822 162 L852 147 L876 134 L893 124 L903 128 L914 116 L928 122 L940 118 L954 127 L970 144 L988 168 L1006 190 L1026 206 L1050 214 L1072 216 L1094 209 L1116 215 L1150 230 L1200 245 L1270 260 L1350 272 L1440 280"/></g>
+    <path class="fore" d="M0 300 C200 284 420 274 640 288 S1000 304 1200 290 S1380 284 1440 292 V320 H0Z"/>
+  </svg>
 </section>
 
 <section class="about plane" id="qui" aria-labelledby="t-qui">
@@ -549,8 +573,9 @@ footer { background: var(--ink); padding: 4rem 0 2rem; border-top: 1px solid var
       <p class="lead">Disponibles après mon diplôme. Rien n'est en vente&nbsp;: laisse ton contact pour être prévenu.</p>
     </div>
 
+    <svg class="sv-ghost" viewBox="0 0 1440 320" preserveAspectRatio="none" aria-hidden="true"><path d="M0 285 L160 276 L300 264 L420 250 L520 236 L600 222 L670 208 L730 192 L780 177 L822 162 L852 147 L876 134 L893 124 L903 128 L914 116 L928 122 L940 118 L954 127 L970 144 L988 168 L1006 190 L1026 206 L1050 214 L1072 216 L1094 209 L1116 215 L1150 230 L1200 245 L1270 260 L1350 272 L1440 280 L1440 320 L0 320 Z"/></svg>
     <div class="voies">
-      <article class="voie">
+      <article class="voie glass">
         <h3>Essentiel</h3>
         <p class="type meta">Suivi en ligne</p>
         <ul>
@@ -560,7 +585,7 @@ footer { background: var(--ink); padding: 4rem 0 2rem; border-top: 1px solid var
         </ul>
         <button type="button" class="btn btn-line" data-motif="Être prévenu au lancement" data-track="cta_click" data-loc="voie_essentiel">Être prévenu <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
       </article>
-      <article class="voie prem">
+      <article class="voie prem glass">
         <h3>Premium</h3>
         <p class="type meta">Coaching physique et suivi complet</p>
         <ul>
@@ -611,7 +636,7 @@ footer { background: var(--ink); padding: 4rem 0 2rem; border-top: 1px solid var
     <div class="rv-main">
       <div class="rv-panel" id="rvPanel" inert>
         <div>
-          <div class="rv-box">
+          <div class="rv-box glass">
             <h3>Ton avis</h3>
             <form id="avisForm" name="avis" method="POST" action="merci/" data-netlify="true" netlify-honeypot="bot-field" novalidate>
               <input type="hidden" name="form-name" value="avis">
@@ -689,7 +714,7 @@ footer { background: var(--ink); padding: 4rem 0 2rem; border-top: 1px solid var
       <ol class="rv-list" id="rvList" aria-label="Avis publiés" hidden></ol>
       <button type="button" class="btn btn-line rv-more" id="rvMore" hidden>Voir plus d'avis</button>
 
-      <div class="rv-empty" id="rvEmpty">
+      <div class="rv-empty glass" id="rvEmpty">
         <span class="rv-stars" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.86 5.8 6.4.93-4.63 4.51 1.09 6.37L12 17.2l-5.72 3.01 1.09-6.37L2.74 9.33l6.4-.93z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.86 5.8 6.4.93-4.63 4.51 1.09 6.37L12 17.2l-5.72 3.01 1.09-6.37L2.74 9.33l6.4-.93z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.86 5.8 6.4.93-4.63 4.51 1.09 6.37L12 17.2l-5.72 3.01 1.09-6.37L2.74 9.33l6.4-.93z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.86 5.8 6.4.93-4.63 4.51 1.09 6.37L12 17.2l-5.72 3.01 1.09-6.37L2.74 9.33l6.4-.93z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.86 5.8 6.4.93-4.63 4.51 1.09 6.37L12 17.2l-5.72 3.01 1.09-6.37L2.74 9.33l6.4-.93z"/></svg></span>
         <h3>Pas encore d'avis.</h3>
         <p>Tu t'es entraîné ou tu as échangé avec moi&nbsp;? Ton retour compte.</p>
@@ -708,7 +733,7 @@ footer { background: var(--ink); padding: 4rem 0 2rem; border-top: 1px solid var
       <a class="c-mail" href="mailto:andyscherb10@gmail.com" data-track="cta_click" data-loc="email">andyscherb10@gmail.com</a>
     </div>
 
-    <div class="c-form">
+    <div class="c-form glass">
       <form id="contactForm" name="contact" method="POST" action="merci/" data-netlify="true" netlify-honeypot="bot-field" novalidate>
         <input type="hidden" name="form-name" value="contact">
         <p class="hp"><label>Ne pas remplir <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
@@ -755,7 +780,7 @@ footer { background: var(--ink); padding: 4rem 0 2rem; border-top: 1px solid var
         <p class="note">Merci de ne pas indiquer d'informations de santé dans ce formulaire.</p>
 
         <div class="submit-row">
-          <button type="submit" class="btn btn-ink">Faire le premier pas <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          <button type="submit" class="btn btn-green">Faire le premier pas <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
         </div>
       </form>
 
@@ -763,6 +788,12 @@ footer { background: var(--ink); padding: 4rem 0 2rem; border-top: 1px solid var
       <div class="done" id="ko" role="alert" tabindex="-1"><h3>Oups</h3><p>L'envoi n'a pas fonctionné. Écris-moi directement à <a href="mailto:andyscherb10@gmail.com">andyscherb10@gmail.com</a>.</p></div>
     </div>
   </div>
+  <svg class="scape scape-end" viewBox="0 0 1440 320" preserveAspectRatio="none" aria-hidden="true">
+    <g class="far"><path d="M0 168 L90 150 L170 158 L260 126 L330 138 L420 112 L500 128 L600 148 L700 138 L790 154 L880 150 L1000 146 L1120 116 L1200 130 L1290 104 L1370 124 L1440 114 V320 H0Z"/></g>
+    <g class="mid"><path d="M0 226 L120 210 L230 220 L340 192 L420 202 L520 186 L640 208 L760 214 L900 212 L1080 212 L1180 192 L1260 202 L1350 182 L1440 194 V320 H0Z"/></g>
+    <g class="sv"><path class="fill" d="M0 285 L160 276 L300 264 L420 250 L520 236 L600 222 L670 208 L730 192 L780 177 L822 162 L852 147 L876 134 L893 124 L903 128 L914 116 L928 122 L940 118 L954 127 L970 144 L988 168 L1006 190 L1026 206 L1050 214 L1072 216 L1094 209 L1116 215 L1150 230 L1200 245 L1270 260 L1350 272 L1440 280 L1440 320 L0 320 Z"/><path class="edge" vector-effect="non-scaling-stroke" d="M0 285 L160 276 L300 264 L420 250 L520 236 L600 222 L670 208 L730 192 L780 177 L822 162 L852 147 L876 134 L893 124 L903 128 L914 116 L928 122 L940 118 L954 127 L970 144 L988 168 L1006 190 L1026 206 L1050 214 L1072 216 L1094 209 L1116 215 L1150 230 L1200 245 L1270 260 L1350 272 L1440 280"/></g>
+    <path class="fore" d="M0 300 C200 284 420 274 640 288 S1000 304 1200 290 S1380 284 1440 292 V320 H0Z"/>
+  </svg>
 </section>
 
 </main>
@@ -812,8 +843,11 @@ footer { background: var(--ink); padding: 4rem 0 2rem; border-top: 1px solid var
 
   /* ---------- Boucle unique d'animation ---------- */
   var rSec = d.getElementById('parcours');
+  /* Héros : les plans de montagne glissent à des vitesses différentes */
+  var depth = reduce ? [] : Array.prototype.map.call(d.querySelectorAll('[data-depth]'), function (g) { return { el: g, k: +g.getAttribute('data-depth') }; });
   function frame() {
     var y = window.scrollY, vh = window.innerHeight, dy = y - lastY;
+    if (y < vh * 1.2) depth.forEach(function (l) { l.el.style.transform = 'translate3d(0,' + (y * l.k).toFixed(1) + 'px,0)'; });
     var rr = reduce ? null : rSec.getBoundingClientRect();
 
     bar.classList.toggle('solid', y > 30);

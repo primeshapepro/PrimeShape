@@ -1,6 +1,6 @@
 # Design PrimeShape
 
-Direction : des aplats de couleur, comme les toiles de Cézanne sur la Sainte-Victoire. Chaque section est un plan de couleur pleine, sans carte ni ornement. Sobre : pas d'ombre, pas de dégradé, pas de grain, pas d'effet au survol au-delà d'un changement de couleur.
+Direction : des aplats de couleur, comme les toiles de Cézanne sur la Sainte-Victoire. Chaque section est un plan de couleur pleine. La profondeur vient du paysage : des plans de montagnes translucides superposés (perspective atmosphérique), et des panneaux de verre dépoli posés devant eux. Pas de dégradé, pas de grain, pas d'effet au survol au-delà d'un changement de couleur.
 
 ## Couleurs (imposées)
 
@@ -15,7 +15,7 @@ Direction : des aplats de couleur, comme les toiles de Cézanne sur la Sainte-Vi
 | Texte secondaire sur sombre | `#b8bcc8`, discret `#979cab` |
 | Texte secondaire sur clair | `#4a4f5c`, discret `#5f6474` |
 
-Ordre des plans sur l'accueil : encre (héros) → ardoise → vert → calcaire → encre → ardoise → calcaire → encre (pied de page).
+Ordre des plans sur l'accueil : encre (héros) → ardoise → vert → calcaire → encre → ardoise → encre (contact) → encre (pied de page).
 
 ## Typographie (imposée)
 
@@ -26,9 +26,11 @@ Ordre des plans sur l'accueil : encre (héros) → ardoise → vert → calcaire
 ## Composants
 
 - Bouton : pilule pleine verte (`.btn-green`) ou contour 1px (`.btn-line`), Nippo capitales 0.72rem.
-- Séparateurs : filets de 1px (`--line` sur sombre, `--line-dark` sur clair). Pas de cartes.
+- Séparateurs : filets de 1px (`--line` sur sombre, `--line-dark` sur clair).
+- Verre (`.glass`) : fond blanc à 4,5 %, bordure blanche à 10 %, flou 20px, rayon 22px, ombre portée douce. Uniquement devant le paysage (formules, avis, formulaire de contact) et pour la barre une fois qu'on défile ; jamais sur un fond clair.
+- Paysage (`.scape`) : 4 plans, du plus lointain au plus proche, vert à 8 %, vert à 13 %, Sainte-Victoire ardoise avec son arête verte, premier plan opaque de la couleur de la section suivante. En haut de page, les plans glissent à des vitesses différentes au défilement ; en bas de la section contact, ils sont fixes.
 - Logo : trait de crête vert + PRIME (blanc) SHAPE (vert clair).
-- Signature : la crête de la Sainte-Victoire en aplat, frontière entre le héros et la section suivante ; la trace du parcours qui se dessine au défilement.
+- Signature : le paysage en plans superposés en haut et en bas de page ; la trace du parcours qui se dessine au défilement.
 
 ## Espacements
 
