@@ -1,0 +1,73 @@
+PRIMESHAPE · MISE EN LIGNE SUR NETLIFY
+=======================================
+
+1. Va sur https://app.netlify.com/drop et glisse CE DOSSIER entier (pas un fichier seul).
+2. Dans Site configuration > Site details > Change site name, choisis « primeshape »
+   pour obtenir l'adresse primeshape.netlify.app.
+   Si le nom est pris, garde l'adresse proposée et demande à Claude de la remplacer
+   partout (sitemap, image de partage, référencement).
+3. Active les formulaires : menu Forms > Enable form detection,
+   puis glisse de nouveau le dossier pour redéployer.
+   Deux formulaires apparaîtront : « contact » (messages) et « avis » (avis clients).
+4. Pour recevoir les messages par email : Site configuration > Notifications >
+   Emails and webhooks > Form submission notifications > Add notification > Email.
+5. Vérifie que ton compte Netlify est bien à ton vrai nom (les mentions légales
+   indiquent que ton identité a été communiquée à l'hébergeur).
+6. Une fois en ligne, déclare le site sur Google Search Console et envoie
+   https://primeshape.netlify.app/sitemap.xml
+
+PUBLIER UN AVIS
+---------------
+Les avis envoyés arrivent dans Netlify > Forms > avis. Ils ne s'affichent PAS
+automatiquement : tu les vérifies d'abord (la personne a-t-elle vraiment fait une
+séance ou échangé avec toi ? pas d'insulte, pas d'info de santé ?).
+
+Pour publier un avis accepté, ouvre le fichier avis.json (avec le Bloc-notes ou
+TextEdit) et ajoute-le entre les crochets. Exemple avec deux avis :
+
+[
+  {
+    "nom": "Thomas M.",
+    "note": 5,
+    "texte": "Le commentaire exactement comme la personne l'a écrit.",
+    "contexte": "Séance ou entraînement",
+    "experience": "2026-12",
+    "date": "2027-01-08",
+    "reponse": "Facultatif : ta réponse publique."
+  },
+  {
+    "nom": "Julie",
+    "note": 4,
+    "texte": "Un autre avis.",
+    "contexte": "Échange ou rencontre",
+    "experience": "2026-11",
+    "date": "2026-12-02"
+  }
+]
+
+- "nom" : prénom + initiale du nom (jamais le nom complet, jamais l'email)
+- "note" : 1 à 5
+- "experience" : mois de la séance ou de l'échange (AAAA-MM), donné dans le formulaire
+- "date" : date de publication (AAAA-MM-JJ), le jour où tu l'ajoutes
+- une virgule entre deux avis, pas de virgule après le dernier
+Puis redéploie le dossier. La note moyenne et le nombre d'avis se calculent tout seuls.
+
+Règles à respecter (elles sont affichées sur le site et dans les CGU) :
+- ne jamais écrire ni inventer un avis toi-même, ni en faire écrire contre un avantage ;
+- ne jamais refuser un avis juste parce qu'il est négatif ;
+- si tu refuses un avis, explique la raison à son auteur par email ;
+- retirer les avis au bout de 3 ans, ou dès que leur auteur le demande.
+Tu peux demander à Claude d'ajouter les avis pour toi : copie-lui ceux que tu acceptes.
+
+Contenu du dossier
+- index.html : le site
+- avis.json : les avis publiés (vide au départ)
+- mentions-legales/, confidentialite/, cgu/ : pages légales
+- 404.html : page d'erreur personnalisée (servie automatiquement par Netlify)
+- merci/ : confirmation d'envoi quand JavaScript est désactivé
+- robots.txt, sitemap.xml : référencement
+- _headers : HTTPS strict et en-têtes de sécurité
+- favicon.svg, favicon.ico, apple-touch-icon.png, og-image.jpg : icônes et image de partage
+- fonts/ : polices Nippo et Raleway (hébergées sur le site, aucun appel à Google)
+
+Ne modifie pas les fichiers du dossier fonts/ (licence Fontshare).
