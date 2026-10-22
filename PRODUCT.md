@@ -21,12 +21,12 @@ La proximité : un coach local (basé à Vauvenargues), joignable, qui suit vrai
 Visite surtout sur téléphone, depuis un lien partagé ou une recherche locale. Rien n'est en vente : on laisse son contact. Les formulaires (contact, avis) dépendent pour l'instant de Netlify Forms, non fonctionnels sur GitHub Pages ; un email direct sert de repli.
 
 ## Capabilities and Constraints
-- Site statique HTML/CSS/JS, publié sur GitHub Pages (`primeshapepro.github.io/PrimeShape/`), domaine Cloudflare à venir.
+- Site statique HTML/CSS/JS, publié sur GitHub Pages, sur le domaine `prime-shape.fr` (acheté chez Infomaniak).
 - Deux formules futures : Essentiel (suivi en ligne) et Premium (séances à domicile + suivi complet). Tarifs non fixés.
 - Parcours : formation CQP, puis diplôme et carte pro, puis ouverture des formules.
 - Avis clients : système de collecte et de publication modérée (avis.json), aucun avis pour l'instant.
 - Polices auto-hébergées (Nippo, Raleway), aucun appel externe, aucun cookie.
-- Ouvert : solution de formulaires hors Netlify, mentions légales à mettre à jour pour l'hébergeur.
+- Ouvert : solution de formulaires hors Netlify.
 
 ## Brand Commitments
 - Nom PrimeShape et logo (trait de crête de montagne).
