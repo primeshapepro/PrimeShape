@@ -382,16 +382,9 @@ fieldset { border: none; }
 /* =========================================================
    PIED DE PAGE
    ========================================================= */
-footer { background: var(--bg); color: var(--fg); border-top: 1px solid var(--rule); padding: 4.5rem 0 calc(var(--mark) * 0.8 + 3rem); }
-
-/* Logotype géant en filigrane, en bas de l'écran, entre le fond des sections et leur contenu.
-   Plus large que l'écran, il glisse de droite à gauche au fil de la lecture ; la section claire passe par-dessus. */
-:root { --mark: clamp(8rem, 30vw, 30rem); }
-.bg-mark { position: fixed; left: 0; right: 0; bottom: 0; z-index: 1; overflow: hidden; pointer-events: none; user-select: none; }
-.bg-mark p { display: inline-block; font-family: var(--font-display); font-weight: 300; text-transform: uppercase; font-size: var(--mark); line-height: 0.8; letter-spacing: -0.02em; color: rgba(242,241,238,0.06); margin-left: -0.07em; white-space: nowrap; will-change: transform; }
-.bg-mark b { font-weight: 600; }
-main > section > *, footer > * { position: relative; z-index: 2; }
-.values { position: relative; z-index: 3; }
+footer { background: var(--bg); color: var(--fg); border-top: 1px solid var(--rule); padding: 4.5rem 0 2.4rem; overflow: hidden; }
+.f-mark { font-family: var(--font-display); font-weight: 300; text-transform: uppercase; font-size: clamp(3.4rem, 14.4vw, 13.4rem); line-height: 0.8; letter-spacing: -0.02em; color: rgba(242,241,238,0.07); margin: 4.5rem 0 -0.4rem -0.07em; white-space: nowrap; user-select: none; }
+.f-mark b { font-weight: 600; }
 .f-row { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1.6rem 2rem; }
 .f-row .logo b { color: var(--green-lt); }
 .f-row .logo svg { stroke: var(--green-lt); }
@@ -412,7 +405,6 @@ main > section > *, footer > * { position: relative; z-index: 2; }
 <body>
 <a class="skip" href="./#main">Aller au contenu</a>
 
-<div class="bg-mark" id="bgMark" aria-hidden="true"><div class="wrap"><p>Prime<b>Shape</b></p></div></div>
 <header class="bar" id="bar">
   <a href="./#top" class="logo" aria-label="PrimeShape, retour en haut">
     <svg viewBox="0 0 44 18" aria-hidden="true"><path d="M1 17 L10 15 L18 12 L24 8.5 L28 5.5 L30.5 3.5 L32 4.6 L33.5 2.5 L35.5 5 L37.5 9 L39.5 10.5 L41 10 L43 13"/></svg>
@@ -727,6 +719,7 @@ main > section > *, footer > * { position: relative; z-index: 2; }
       <a href="cgu/">Conditions d'utilisation</a>
       <span>© 2026 PrimeShape · Andy Scherb · Vauvenargues</span>
     </nav>
+    <p class="f-mark" aria-hidden="true">Prime<b>Shape</b></p>
   </div>
 </footer>
 
@@ -766,7 +759,7 @@ main > section > *, footer > * { position: relative; z-index: 2; }
   })();
 
   /* ---------- Boucle unique d'animation ---------- */
-  var rSec = d.getElementById('parcours'), mark = d.getElementById('bgMark'), markP = mark.querySelector('p');
+  var rSec = d.getElementById('parcours');
   function frame() {
     var y = window.scrollY, vh = window.innerHeight, dy = y - lastY;
     var rr = reduce ? null : rSec.getBoundingClientRect();
@@ -779,12 +772,6 @@ main > section > *, footer > * { position: relative; z-index: 2; }
       var rp = clamp((vh * 0.8 - rr.top) / (rr.height * 0.55), 0, 1);
       trail.style.strokeDashoffset = (1 - rp).toFixed(4);
       wps.forEach(function (g, k) { var on = rp >= wpFrac[k] - 0.01; g.classList.toggle('on', on); steps[k].classList.toggle('on', on || k === 0); });
-    }
-
-    if (!reduce) {
-      /* Logotype : début du mot au début de la page, fin du mot en bas de page */
-      var travel = Math.max(0, 2 * Math.max(markP.offsetLeft, 0) + markP.offsetWidth - mark.clientWidth), max = root.scrollHeight - vh;
-      markP.style.transform = 'translateX(' + (-travel * clamp(max > 0 ? y / max : 0, 0, 1)).toFixed(1) + 'px)';
     }
 
     lastY = y;
