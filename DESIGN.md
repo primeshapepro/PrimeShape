@@ -33,7 +33,10 @@ Le vert reste rare : logo, P des valeurs, trace du parcours, sous-titre Premium,
 - Ouverture : texte à gauche, vidéo pleine hauteur à droite sous la barre ; en mobile, la vidéo passe dessous en pleine largeur.
 - Colonnes séparées par des filets de 1px ; jamais de cartes ni d'ombres.
 - Vidéo : muette, en boucle, lecture seulement à l'écran, arrêtée avec « réduire les animations ».
-- Seule animation : la trace du parcours qui avance au défilement.
+- Légende de la vidéo : étiquette encre en bas à gauche (« En séance · Première traction »), style cartel de galerie.
+- Pied de page : grand logotype PrimeShape en filigrane (calcaire à 7 %, décoratif, masqué aux lecteurs d'écran).
+- Seule animation de défilement : la trace du parcours. Micro-interactions au survol uniquement : filet sous les liens du menu, soulignement des liens qui se retrace, bouton vert foncé à l'appui.
+- Surfaces du navigateur : barre de défilement fine aux couleurs du thème, curseur de saisie et cases en vert.
 
 ## Espacements
 
