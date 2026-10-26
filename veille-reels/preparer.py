@@ -10,9 +10,10 @@
 
     python3 veille-reels/preparer.py fiches AAAA-MM-JJ images.json
         images.json associe chaque code de reel à l'adresse de sa vignette dans le
-        catalogue (« /_blob/... »). Écrit une fiche par reel et la fiche de la
-        semaine dans resultats/fiches-AAAA-MM-JJ/, prêtes pour la base du catalogue
-        (collections « reels » et « semaines »).
+        catalogue (« /_blob/... »). Donne à chaque nouveau reel le numéro suivant
+        (#014, #015…) dans l'ordre du rang, l'inscrit dans references.json, et
+        écrit une fiche par reel dans resultats/fiches-AAAA-MM-JJ/, prête pour la
+        collection « reels » du catalogue.
 
 Format d'une entrée de la sélection :
     "<code>": {"rang": 1, "pilier": "motivation" | "exercice" | "sante",
@@ -29,6 +30,7 @@ from pathlib import Path
 from PIL import Image
 
 DOSSIER = Path(__file__).resolve().parent / "resultats"
+REFERENCES = Path(__file__).resolve().parent / "references.json"
 LARGEUR, HAUTEUR = 360, 640
 
 
@@ -69,9 +71,25 @@ def fiches(jour, fichier_images):
     images = json.loads(Path(fichier_images).read_text())
     sortie = DOSSIER / f"fiches-{jour}"
     sortie.mkdir(exist_ok=True)
+
+    # Un numéro par reel, jamais réutilisé : un reel déjà numéroté garde le sien.
+    references = json.loads(REFERENCES.read_text())
+    numeros = {ref["code"]: int(n) for n, ref in references.items()}
+    suivant = max(numeros.values(), default=0) + 1
+    for c in sorted(selection, key=lambda c: selection[c]["rang"]):
+        if c not in numeros:
+            numeros[c] = suivant
+            references[f"{suivant:03d}"] = {
+                "code": c, "url": reels[c]["url"], "compte": reels[c]["compte"],
+                "semaine": jour, "pilier": selection[c]["pilier"],
+            }
+            suivant += 1
+    REFERENCES.write_text(json.dumps(references, ensure_ascii=False, indent=2) + "\n")
+
     for c, analyse in selection.items():
         r = reels[c]
         fiche = {
+            "numero": numeros[c],
             "semaine": jour, "compte": r["compte"], "url": r["url"], "date": r["date"],
             "vues": r["vues"], "likes": r["likes"], "commentaires": r["commentaires"],
             "score": r["score"], "mediane_compte": r["mediane_compte"],
@@ -79,7 +97,8 @@ def fiches(jour, fichier_images):
             "alerte": None, **analyse,
         }
         (sortie / f"{c}.json").write_text(json.dumps(fiche, ensure_ascii=False))
-    print(f"{len(selection)} fiches dans {sortie}")
+    print(f"{len(selection)} fiches dans {sortie}, numéros "
+          f"#{min(numeros[c] for c in selection):03d} à #{max(numeros[c] for c in selection):03d}")
 
 
 if __name__ == "__main__":

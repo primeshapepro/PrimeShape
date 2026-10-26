@@ -38,9 +38,11 @@ h1{font-family:var(--f-titre);font-weight:500;font-size:clamp(2.1rem,6vw,3.6rem)
 .puce:hover{border-color:var(--vert);color:var(--blanc-os)}
 .puce[aria-pressed="true"]{background:var(--sapin);border-color:var(--sapin);color:var(--blanc)}
 .puce .n{font-variant-numeric:tabular-nums;color:inherit;opacity:.8}
-.choix-semaine{display:flex;gap:10px;align-items:center;margin-left:auto}
-select{font:inherit;font-size:13px;color:var(--blanc-os);background:var(--graphite);border:2px solid var(--bordure);border-radius:10px;padding:6px 10px}
-button:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid var(--vert);outline-offset:2px}
+.choix-semaine,.cherche{display:flex;gap:10px;align-items:center}
+.cherche{margin-left:auto}
+select,input[type="search"]{font:inherit;font-size:13px;color:var(--blanc-os);background:var(--graphite);border:2px solid var(--bordure);border-radius:10px;padding:6px 10px}
+input[type="search"]{width:7.5em;letter-spacing:normal;text-transform:none}
+button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--vert);outline-offset:2px}
 .liste{display:grid;grid-template-columns:1fr;gap:20px}
 @media (min-width:1100px){.liste{grid-template-columns:1fr 1fr}}
 .fiche{display:grid;grid-template-columns:132px minmax(0,1fr);gap:18px;border:2px solid var(--bordure);border-radius:20px;padding:16px;background:var(--noir)}
@@ -53,6 +55,7 @@ button:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid var(
 .score.fort{background:var(--sapin);color:var(--blanc)}
 .corps{display:flex;flex-direction:column;gap:12px;min-width:0}
 .haut{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline}
+.numero{font-family:var(--f-titre);font-weight:600;font-size:16px;line-height:1;color:var(--blanc-os);letter-spacing:.02em;font-variant-numeric:tabular-nums}
 .compte{font-weight:500;color:var(--blanc-os);text-decoration:none;font-size:14px}
 .compte:hover{color:var(--vert)}
 .accroche{font-family:var(--f-titre);font-weight:500;font-size:clamp(1.25rem,2.6vw,1.6rem);line-height:1.08;letter-spacing:.01em;color:var(--blanc-os);margin:0;text-wrap:balance;overflow-wrap:anywhere}
@@ -78,7 +81,7 @@ button:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid var(
 .message{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));background:var(--blanc-os);color:var(--noir);border-radius:14px;padding:10px 16px;font-weight:500;font-size:14px;max-width:calc(100% - 32px)}
 @media (max-width:520px){
   .fiche{grid-template-columns:92px minmax(0,1fr);gap:14px;padding:14px}
-  .choix-semaine{margin-left:0}
+  .cherche{margin-left:0}
 }
 @media (prefers-reduced-motion:no-preference){.puce,.lien,.compte{transition:background-color .15s,border-color .15s,color .15s}}
 </style>
@@ -106,6 +109,7 @@ button:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid var(
       <button class="puce" type="button" id="s-a_monter" data-statut="a_monter" aria-pressed="false">À monter <span class="n" id="n-a_monter">0</span></button>
       <button class="puce" type="button" id="s-monte" data-statut="monte" aria-pressed="false">Montés <span class="n" id="n-monte">0</span></button>
     </div>
+    <label class="cherche label" for="numero">N° <input id="numero" type="search" inputmode="numeric" placeholder="ex. 7" autocomplete="off"></label>
     <label class="choix-semaine label" for="semaine">Semaine <select id="semaine"></select></label>
   </nav>
 
@@ -125,11 +129,12 @@ button:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid var(
 <script>
 const PILIERS = {motivation: "Motivation", exercice: "Exercice à la maison", sante: "Conseils santé"};
 const STATUTS = {a_monter: "À monter", monte: "Monté", ecarte: "Pas pour moi"};
-const etat = {db: null, reels: [], semaines: {}, choix: {}, filtre: "tous", statut: null, semaine: null};
+const etat = {db: null, reels: [], semaines: {}, choix: {}, filtre: "tous", statut: null, semaine: null, numero: null};
 const nombre = new Intl.NumberFormat("fr-FR");
 const decimal = new Intl.NumberFormat("fr-FR", {maximumFractionDigits: 1});
 const $ = (id) => document.getElementById(id);
 const fois = (x) => (x >= 10 ? nombre.format(Math.round(x)) : decimal.format(x));
+const num = (n) => "#" + String(n).padStart(3, "0");
 
 function el(tag, attrs = {}, ...enfants) {
   const n = document.createElement(tag);
@@ -184,6 +189,7 @@ function fiche(r) {
     vignette,
     el("div", {class: "corps"},
       el("div", {class: "haut"},
+        r.numero ? el("span", {class: "numero", text: num(r.numero)}) : null,
         el("p", {class: "label vert", text: PILIERS[r.pilier] || r.pilier || ""}),
         el("a", {class: "compte", href: `https://www.instagram.com/${r.compte}/`, target: "_blank", rel: "noopener", text: "@" + r.compte})),
       el("h2", {class: "accroche", text: r.accroche || ""}),
@@ -205,7 +211,7 @@ function rendre() {
     select.dataset.options = options;
   }
   select.value = etat.semaine || "";
-  select.disabled = !!etat.statut;
+  select.disabled = !!etat.statut || etat.numero !== null;
 
   for (const s of Object.keys(STATUTS)) {
     const n = Object.values(etat.choix).filter((v) => v === s).length;
@@ -226,10 +232,12 @@ function rendre() {
     $("resume").textContent = morceaux.join(", ") + "." + (info.note ? " " + info.note : "");
   }
 
-  let visibles = etat.statut
-    ? etat.reels.filter((r) => etat.choix[r.id] === etat.statut)
-    : reelsSemaine;
-  if (etat.filtre !== "tous") visibles = visibles.filter((r) => r.pilier === etat.filtre);
+  let visibles = etat.numero !== null
+    ? etat.reels.filter((r) => r.numero === etat.numero)
+    : etat.statut
+      ? etat.reels.filter((r) => etat.choix[r.id] === etat.statut)
+      : reelsSemaine;
+  if (etat.filtre !== "tous" && etat.numero === null) visibles = visibles.filter((r) => r.pilier === etat.filtre);
   visibles.sort((a, b) =>
     (etat.choix[a.id] === "ecarte") - (etat.choix[b.id] === "ecarte") ||
     (a.rang ?? 99) - (b.rang ?? 99) || (b.score || 0) - (a.score || 0));
@@ -240,6 +248,7 @@ function rendre() {
   if (garde) document.querySelector(`[data-id="${CSS.escape(garde[0])}"][data-choix="${garde[1]}"]`)?.focus();
 
   if (!etat.reels.length) vide("La sélection arrive ici.", "Chaque lundi, les reels retenus pour toi s'affichent sur cette page, avec pourquoi ils marchent et comment les refaire. Tu coches ceux que tu veux monter.");
+  else if (!visibles.length && etat.numero !== null) vide(`Pas encore de reel ${num(etat.numero)}.`, "Les numéros suivent l'ordre des sélections : vérifie le numéro ou efface la recherche.");
   else if (!visibles.length) vide("Rien ici pour l'instant.", etat.statut === "a_monter" ? "Coche « À monter » sur une fiche pour la retrouver ici." : etat.statut === "monte" ? "Les reels que tu as déjà tournés s'afficheront ici." : "Aucun reel de ce pilier cette semaine. Choisis « Tous » pour voir toute la sélection.");
   else $("vide").hidden = true;
 }
@@ -267,6 +276,11 @@ document.addEventListener("click", (ev) => {
   else if (b.dataset.choix && etat.db) choisir(b.dataset.id, b.dataset.choix);
 });
 $("semaine").addEventListener("change", (ev) => { etat.semaine = ev.target.value; rendre(); });
+$("numero").addEventListener("input", (ev) => {
+  const n = parseInt(ev.target.value.replace(/\D/g, ""), 10);
+  etat.numero = Number.isFinite(n) ? n : null;
+  rendre();
+});
 
 function suivre(nom, appliquer) {
   etat.db.collection(nom).onSnapshot((snap) => { appliquer(snap.docs); rendre(); },

@@ -67,11 +67,32 @@ Page privée d'Andy : https://claude.ai/artifact/QyyrrDEwYMtQdhEnSLV5wz
 Sa base contient trois collections :
 
 - `reels` : une fiche par reel retenu, identifiée par le code du reel
-  (`https://www.instagram.com/p/<code>/`), écrite par Claude ;
+  (`https://www.instagram.com/p/<code>/`), avec son `numero`, écrite par Claude ;
 - `semaines` : une fiche par semaine (`AAAA-MM-JJ`) avec `parcourus`,
   `percent`, `cout_usd` et une `note` facultative, écrite par Claude ;
 - `choix` : le choix d'Andy pour chaque reel (`a_monter`, `monte`, `ecarte`),
   écrit par la page. Claude n'y touche pas.
+
+## Les numéros (#001, #002…)
+
+Chaque reel retenu reçoit un numéro qui ne change plus et n'est jamais
+réutilisé, d'une sélection à l'autre. `references.json` est le registre :
+numéro → code, lien, compte, semaine, pilier. Le catalogue affiche le numéro
+sur chaque fiche et permet de chercher par numéro.
+
+Quand Andy dit « fais le montage du #007 » et envoie ses rushs :
+
+1. Retrouver le reel dans `references.json` (et l'analyse dans la fiche
+   `reels/<code>` du catalogue : accroche, pourquoi ça marche, ta version).
+2. Récupérer la vidéo de référence fraîche : les liens vidéo d'Instagram
+   expirent, donc relancer l'acteur Apify `apify~instagram-reel-scraper` avec le
+   lien du reel dans `username` (environ 0,003 $), puis télécharger `videoUrl`.
+3. En tirer le découpage : durée de chaque plan, texte à l'écran, moment de
+   l'accroche, rythme, type de son.
+4. Monter les rushs d'Andy sur ce modèle (ffmpeg), avec la charte PrimeShape :
+   sous-titres en Nippo Semibold sur pastille noire, zones sûres du format
+   reel 1080 × 1920. On reprend la structure, jamais les images ni le son de
+   l'original.
 
 ## La sélection de chaque lundi
 
@@ -93,7 +114,8 @@ du 9 novembre 2026 ; les autres lundis, la tâche s'arrête tout de suite.
    `python3 veille-reels/preparer.py vignettes AAAA-MM-JJ`.
 4. Claude envoie les vignettes dans les fichiers du catalogue (Artifact,
    `asset: true`), note leurs adresses dans un `images.json`, puis lance
-   `python3 veille-reels/preparer.py fiches AAAA-MM-JJ images.json`.
+   `python3 veille-reels/preparer.py fiches AAAA-MM-JJ images.json`, qui
+   numérote les nouveaux reels et met à jour `references.json`.
 5. Claude écrit les fiches dans `reels` et la fiche de la semaine dans
    `semaines` (ArtifactData, en un seul lot), puis propose dans `config.json`
    les comptes découverts qui méritent d'être suivis.
