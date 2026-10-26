@@ -75,6 +75,10 @@ Sa base contient trois collections :
 
 ## La sélection de chaque lundi
 
+Une tâche programmée réveille la session Claude de la veille chaque lundi à
+9 h 38 (heure de Paris). La sélection n'a lieu qu'un lundi sur deux, à partir
+du 9 novembre 2026 ; les autres lundis, la tâche s'arrête tout de suite.
+
 1. `python3 veille-reels/collecte.py` (ou `--essai` pour un test à quelques
    centimes) récupère via Apify les reels récents des comptes suivis et des
    hashtags de `config.json` : c'est le « scroll ». Il écrit
