@@ -43,8 +43,9 @@ def main():
         print(f"\n{dim.upper()}")
         for valeur, n in sorted(comptes[dim].items(), key=lambda kv: (-kv[1]["garde"], kv[1]["ecarte"])):
             print(f"  {valeur:<40} gardés {n['garde']:>2}   écartés {n['ecarte']:>2}   sans avis {n['sans_avis']:>2}")
-            # Les piliers sont le contenu d'Andy : on n'en écarte jamais un entier.
-            if dim != "pilier" and n["ecarte"] >= 2 and n["garde"] == 0:
+            # Les piliers sont le contenu d'Andy, et l'anglais comme le français
+            # lui vont : on n'écarte jamais un pilier ni une langue entière.
+            if dim not in ("pilier", "langue") and n["ecarte"] >= 2 and n["garde"] == 0:
                 a_eviter.append(f"{dim} « {valeur} » ({n['ecarte']} écartés)")
             if n["garde"] >= 2:
                 a_privilegier.append(f"{dim} « {valeur} » ({n['garde']} gardés)")
