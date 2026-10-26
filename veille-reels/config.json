@@ -31,10 +31,11 @@
     "over40fitness",
     "beginnerworkout"
   ],
-  "reels_par_compte": 20,
-  "reels_par_hashtag": 30,
+  "reels_par_compte": 12,
+  "reels_par_hashtag": 12,
   "jours_max": 30,
+  "jours_max_hashtag": 120,
   "score_min": 3,
   "vues_min_hashtag": 20000,
-  "comptes_hashtag_max": 15
+  "comptes_hashtag_max": 8
 }

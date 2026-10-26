@@ -109,26 +109,35 @@ def main():
         par_compte, par_hashtag = 12, 10
 
     limite = datetime.now(timezone.utc) - timedelta(days=config["jours_max"])
+    # Les vues habituelles se calculent sur une période deux fois plus longue,
+    # sans les reels épinglés (souvent d'anciens succès qui fausseraient la médiane).
+    entree_comptes = {
+        "resultsLimit": par_compte,
+        "skipPinnedPosts": True,
+        "onlyPostsNewerThan": f"{limite - timedelta(days=config['jours_max']):%Y-%m-%d}",
+    }
 
     print(f"1. Reels de {len(comptes)} comptes suivis", flush=True)
-    bruts = lancer(ACTEUR_REELS, {"username": comptes, "resultsLimit": par_compte})
+    bruts = lancer(ACTEUR_REELS, {"username": comptes, **entree_comptes})
 
     print(f"2. Reels de {len(hashtags)} hashtags", flush=True)
     bruts_hashtags = lancer(ACTEUR_HASHTAGS, {
         "hashtags": hashtags, "resultsType": "reels", "resultsLimit": par_hashtag,
     })
 
-    # Les comptes trouvés par hashtag dont un reel dépasse le seuil : on récupère
-    # leurs derniers reels pour connaître leurs vues habituelles.
-    deja = {c.lower() for c in comptes}
-    a_mesurer = sorted({
-        r["ownerUsername"] for r in bruts_hashtags
-        if est_reel(r) and r.get("ownerUsername") and r["ownerUsername"].lower() not in deja
-        and vues(r) >= config["vues_min_hashtag"]
-    })[: 3 if args.essai else config["comptes_hashtag_max"]]
+    # Les comptes trouvés par hashtag dont un reel dépasse le seuil, du plus vu au
+    # moins vu : on récupère leurs derniers reels pour connaître leurs vues habituelles.
+    suivis = {c.lower() for c in comptes}
+    meilleur = {}
+    for r in bruts_hashtags:
+        auteur = r.get("ownerUsername")
+        if est_reel(r) and auteur and auteur.lower() not in suivis and vues(r) >= config["vues_min_hashtag"]:
+            meilleur[auteur] = max(meilleur.get(auteur, 0), vues(r))
+    a_mesurer = sorted(meilleur, key=meilleur.get, reverse=True)[
+        : 3 if args.essai else config["comptes_hashtag_max"]]
     if a_mesurer:
         print(f"3. Vues habituelles de {len(a_mesurer)} comptes découverts", flush=True)
-        bruts += lancer(ACTEUR_REELS, {"username": a_mesurer, "resultsLimit": par_compte})
+        bruts += lancer(ACTEUR_REELS, {"username": a_mesurer, **entree_comptes})
 
     par_auteur = {}
     for r in bruts:
@@ -139,25 +148,34 @@ def main():
         for auteur, reels in par_auteur.items() if len(reels) >= 5
     }
 
+    # Les reels mis en avant par les hashtags sont souvent plus anciens : on les garde
+    # sur une période plus longue, ce sont des formats qui ont fait leurs preuves.
+    limite_hashtag = datetime.now(timezone.utc) - timedelta(days=config["jours_max_hashtag"])
     candidats = {}
-    sources = [(r, "compte suivi") for r in bruts] + [(r, "hashtag") for r in bruts_hashtags]
-    for r, source in sources:
+    for r, par_hashtag_seul in [(r, False) for r in bruts] + [(r, True) for r in bruts_hashtags]:
+        auteur = (r.get("ownerUsername") or "").lower()
         d = date_reel(r)
-        if not est_reel(r) or not d or d < limite or not r.get("ownerUsername"):
-            continue
         cle = r.get("shortCode") or r.get("url")
-        if cle in candidats:
+        if not est_reel(r) or not d or not auteur or cle in candidats:
             continue
-        candidats[cle] = resume(r, medianes.get(r["ownerUsername"].lower()), source)
+        if d >= limite:
+            source = "compte suivi" if auteur in suivis else "compte découvert"
+        elif d >= limite_hashtag and par_hashtag_seul:
+            source = "format qui a cartonné"
+        else:
+            continue
+        candidats[cle] = resume(r, medianes.get(auteur), source)
 
     resultats = sorted(candidats.values(), key=lambda x: (x["score"] or 0, x["vues"]), reverse=True)
     sortie = DOSSIER / "resultats" / f"{datetime.now():%Y-%m-%d}{'-essai' if args.essai else ''}.json"
     sortie.parent.mkdir(exist_ok=True)
     sortie.write_text(json.dumps(resultats, ensure_ascii=False, indent=2))
 
-    percent = [r for r in resultats if (r["score"] or 0) >= config["score_min"]]
-    print(f"\n{len(resultats)} reels de moins de {config['jours_max']} jours, "
-          f"dont {len(percent)} qui percent (×{config['score_min']} ou plus).")
+    recents = [r for r in resultats if r["source"] != "format qui a cartonné"]
+    percent = [r for r in recents if (r["score"] or 0) >= config["score_min"]]
+    print(f"\n{len(recents)} reels de moins de {config['jours_max']} jours, "
+          f"dont {len(percent)} qui percent (×{config['score_min']} ou plus), "
+          f"et {len(resultats) - len(recents)} formats qui ont cartonné via les hashtags.")
     print(f"Fichier : {sortie}")
 
 

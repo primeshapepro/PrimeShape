@@ -61,18 +61,37 @@ Veille locale (Aix-en-Provence), pour voir ce que font les coachs du coin :
 
 ## Comment ça tourne
 
-1. Apify récupère les reels récents des hashtags et des comptes ci-dessus
-   (c'est le « scroll »), avec vues, likes, commentaires, légende et vidéo.
-2. Le script calcule le score de percée et garde les reels qui percent.
-3. Claude regarde chaque reel retenu (légende, image, texte parlé) et ne garde
+1. `python3 veille-reels/collecte.py` (ou `--essai` pour un test à quelques
+   centimes) récupère via Apify les reels récents des comptes suivis et des
+   hashtags de `config.json` : c'est le « scroll ».
+2. Le script calcule le score de percée et écrit `resultats/AAAA-MM-JJ.json`
+   (non versionné : ce sont les données d'autres créateurs).
+3. Claude regarde les reels retenus (légende, image de couverture) et ne garde
    que ceux qui entrent dans les piliers ci-dessus, avec pour chacun :
    l'accroche, pourquoi ça marche, et comment Andy peut le refaire.
 4. Le résultat arrive dans un catalogue où Andy coche les reels à monter.
 
-## Réglages nécessaires
+Ce que l'essai du 26 octobre 2026 a appris :
 
-Dans les réglages de l'environnement cloud :
+- Les hashtags renvoient les meilleurs reels des derniers mois, rarement ceux
+  de la semaine. Ils servent à découvrir des comptes ; les reels de moins de
+  120 jours qu'ils remontent sont gardés comme « formats qui ont cartonné ».
+- Un format qui explose peut porter un contenu faux (astuces santé miracles) :
+  on garde la structure, jamais les affirmations. Rien qui contredise la
+  promesse « sans promesse miracle » de PrimeShape.
+- Les comptes découverts pertinents sont à ajouter à `comptes` dans
+  `config.json` au fil des semaines.
 
-- variable d'environnement ou secret `APIFY_TOKEN` (la clé API Apify) ;
-- domaines autorisés : `api.apify.com`, et pour regarder les vidéos
-  `cdninstagram.com` et `fbcdn.net`.
+## Coût
+
+Compte Apify gratuit : 5 $ de crédit par mois. Chaque reel coûte 0,0026 $.
+Les réglages de `config.json` visent environ 450 reels par collecte, soit à
+peu près 1,20 $ : une collecte par semaine reste dans le crédit gratuit.
+La transcription des vidéos coûte 0,048 $ par minute : à réserver aux reels
+retenus.
+
+## Réglages de l'environnement cloud (faits)
+
+- Secret réseau « Apify » sur `api.apify.com` : la clé est ajoutée aux
+  requêtes sans apparaître dans la session (`APIFY_TOKEN` marche aussi).
+- Domaines autorisés : `api.apify.com`, `*.cdninstagram.com`, `*.fbcdn.net`.
