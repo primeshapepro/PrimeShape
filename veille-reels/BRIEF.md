@@ -17,11 +17,20 @@ Un reel est retenu s'il entre dans au moins un des trois piliers :
 2. **Exercices à la maison** : sans matériel ou presque, faisables par un débutant.
 3. **Conseils santé** : hygiène de vie, sommeil, nutrition, sport et santé.
 
-Et s'il parle au même public : débutants et adultes en reprise, 30 à 60 ans,
-ton simple et bienveillant. On écarte le bodybuilding, la performance pure,
-les promesses miracles et les transformations physiques mises en avant.
-Le français passe en priorité ; un reel en anglais est gardé si l'idée se refait
-facilement en français.
+Et s'il parle au même public : débutants et adultes en reprise, de 20 à
+70 ans sur les réseaux (30 à 70 ans en présentiel), ton simple et
+bienveillant. On ne cible pas surtout les plus de 40 ou 50 ans. On écarte le
+bodybuilding, la performance pure, les promesses miracles et les
+transformations physiques mises en avant. Le français passe en priorité ; un
+reel en anglais n'est gardé que si l'idée se refait facilement en français.
+
+Andy veut des reels viraux : au moins 100 000 vues (`vues_min_viral`), et au
+moins 3 fois les vues habituelles du compte quand on les connaît. Il aime
+particulièrement les reels qui expliquent pourquoi une habitude simple fait du
+bien (« Fais 10 000 pas par jour, voici pourquoi »).
+
+Ses goûts précis, appris de ses choix, sont dans `gouts.md` : ils priment sur
+cette section.
 
 ## Le score de percée
 
@@ -105,20 +114,30 @@ du 9 novembre 2026 ; les autres lundis, la tâche s'arrête tout de suite.
    hashtags de `config.json` : c'est le « scroll ». Il écrit
    `resultats/AAAA-MM-JJ.json`, trié par score de percée (non versionné : ce
    sont les données d'autres créateurs).
-2. Claude passe en revue les candidats (score de 2 ou plus, et gros reels des
-   comptes découverts), regarde leurs images de couverture, et garde 10 à 15
-   reels qui entrent dans les piliers ci-dessus. Il évite ceux déjà présents
-   dans `reels`.
-3. Claude écrit son analyse dans `resultats/selection-AAAA-MM-JJ.json`
-   (format dans `preparer.py`), puis lance
+2. Claude fait d'abord le bilan des goûts : il exporte les collections
+   `reels` et `choix` du catalogue (lecture seule), lance
+   `python3 veille-reels/gouts.py <dossier>`, relit `gouts.md`, puis y ajoute
+   ce que les nouveaux choix et raisons d'Andy apprennent. Il ajuste
+   `config.json` selon les règles de `gouts.md` (comptes à retirer ou ajouter,
+   hashtags).
+3. Claude passe en revue les reels viraux (au moins 100 000 vues, et au moins
+   3 fois les vues habituelles du compte quand on les connaît), regarde leurs
+   images de couverture, et garde 10 à 15 reels qui entrent dans les piliers
+   et respectent `gouts.md`. Il évite ceux déjà présents dans
+   `references.json`. S'il y a moins de 10 reels viraux qui conviennent, il
+   en propose moins plutôt que de baisser la barre.
+4. Claude écrit son analyse dans `resultats/selection-AAAA-MM-JJ.json`
+   (format dans `preparer.py`, avec `sujet`, `format` et `langue` pour que le
+   bilan des goûts suivant puisse comparer), puis lance
    `python3 veille-reels/preparer.py vignettes AAAA-MM-JJ`.
-4. Claude envoie les vignettes dans les fichiers du catalogue (Artifact,
+5. Claude envoie les vignettes dans les fichiers du catalogue (Artifact,
    `asset: true`), note leurs adresses dans un `images.json`, puis lance
    `python3 veille-reels/preparer.py fiches AAAA-MM-JJ images.json`, qui
    numérote les nouveaux reels et met à jour `references.json`.
-5. Claude écrit les fiches dans `reels` et la fiche de la semaine dans
-   `semaines` (ArtifactData, en un seul lot), puis propose dans `config.json`
-   les comptes découverts qui méritent d'être suivis.
+6. Claude écrit les fiches dans `reels` et la fiche de la semaine dans
+   `semaines` (ArtifactData, en un seul lot), ajoute à `config.json` les
+   comptes découverts qui ressemblent à ce qu'Andy garde, et termine
+   `gouts.md` par une ligne datée sur ce qui a changé.
 
 Ce que l'essai du 26 octobre 2026 a appris :
 
@@ -135,8 +154,9 @@ Ce que l'essai du 26 octobre 2026 a appris :
 
 Compte Apify gratuit : 5 $ de crédit par mois. Chaque reel coûte 0,0026 $.
 La première collecte complète (26 octobre 2026, 12 comptes et 16 hashtags) a
-parcouru 345 reels pour 0,90 $. Avec les 4 comptes ajoutés ensuite, compter
-environ 1 $ par semaine : une collecte par semaine reste dans le crédit gratuit.
+parcouru 345 reels pour 0,90 $. Depuis, 16 comptes suivis et 20 reels par
+hashtag (pour trouver assez de reels viraux) : compter environ 1,60 $ par
+collecte. Une collecte toutes les deux semaines reste dans le crédit gratuit.
 La transcription des vidéos coûte 0,048 $ par minute : à réserver aux reels
 retenus.
 

@@ -173,9 +173,14 @@ def main():
 
     recents = [r for r in resultats if r["source"] != "format qui a cartonné"]
     percent = [r for r in recents if (r["score"] or 0) >= config["score_min"]]
+    # Viral : assez de vues, et au-dessus des vues habituelles du compte quand on les connaît.
+    viraux = [r for r in resultats if r["vues"] >= config["vues_min_viral"]
+              and (r["score"] is None or r["score"] >= config["score_min"])]
     print(f"\n{len(recents)} reels de moins de {config['jours_max']} jours, "
           f"dont {len(percent)} qui percent (×{config['score_min']} ou plus), "
           f"et {len(resultats) - len(recents)} formats qui ont cartonné via les hashtags.")
+    print(f"{len(viraux)} reels viraux ({config['vues_min_viral']} vues ou plus) : "
+          f"ce sont les seuls à proposer à Andy.")
     print(f"Fichier : {sortie}")
 
 

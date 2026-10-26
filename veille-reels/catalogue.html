@@ -32,6 +32,8 @@ body{background:var(--noir);color:var(--texte);font-family:var(--f-texte);font-s
 h1{font-family:var(--f-titre);font-weight:500;font-size:clamp(2.1rem,6vw,3.6rem);line-height:1.02;letter-spacing:.01em;color:var(--blanc-os);margin:0;text-transform:uppercase;text-wrap:balance}
 .aplat{background:var(--sapin);color:var(--blanc);padding:0 .18em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 .resume{margin:0;color:var(--texte);font-size:16px}
+.legende{margin:0;color:var(--gris);font-size:13px}
+.legende b{color:var(--blanc);background:var(--sapin);border-radius:14px;padding:1px 8px;font-weight:600}
 .filtres{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center}
 .groupe{display:flex;flex-wrap:wrap;gap:8px}
 .puce{font:inherit;font-weight:500;font-size:13px;color:var(--texte);background:transparent;border:2px solid var(--bordure);border-radius:999px;padding:7px 14px;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
@@ -60,6 +62,9 @@ button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{ou
 .compte:hover{color:var(--vert)}
 .accroche{font-family:var(--f-titre);font-weight:500;font-size:clamp(1.25rem,2.6vw,1.6rem);line-height:1.08;letter-spacing:.01em;color:var(--blanc-os);margin:0;text-wrap:balance;overflow-wrap:anywhere}
 .chiffres{margin:0;font-size:13px;color:var(--gris);font-variant-numeric:tabular-nums}
+.tags{margin:0;font-size:12px;color:var(--gris);letter-spacing:.02em}
+.raison{width:100%;font:inherit;font-size:13px;color:var(--blanc-os);background:var(--graphite);border:2px solid var(--bordure);border-radius:10px;padding:8px 10px}
+.raison::placeholder{color:var(--gris)}
 .alerte{margin:0;border-left:3px solid var(--alerte);padding:2px 0 2px 12px;color:var(--blanc-os);font-size:14px}
 .alerte b{color:var(--alerte);font-weight:600}
 .bloc{display:flex;flex-direction:column;gap:4px}
@@ -96,6 +101,7 @@ button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{ou
     <p class="label vert" id="semaine-label">Sélection de la semaine</p>
     <h1>Les reels à refaire <span class="aplat">cette semaine.</span></h1>
     <p class="resume" id="resume">Chaque lundi, Claude parcourt les reels de ta niche, garde ceux qui percent et ne te montre que ceux qui te ressemblent : motivation, exercices à la maison, conseils santé.</p>
+    <p class="legende">Le chiffre sur la vignette compare le reel aux autres reels du même compte : <b>×2,6</b> veut dire 2,6 fois plus de vues que d'habitude pour ce compte. En vert, à partir de ×3 : ça perce.</p>
   </section>
 
   <nav class="filtres" aria-label="Filtrer les reels">
@@ -129,7 +135,7 @@ button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{ou
 <script>
 const PILIERS = {motivation: "Motivation", exercice: "Exercice à la maison", sante: "Conseils santé"};
 const STATUTS = {a_monter: "À monter", monte: "Monté", ecarte: "Pas pour moi"};
-const etat = {db: null, reels: [], semaines: {}, choix: {}, filtre: "tous", statut: null, semaine: null, numero: null};
+const etat = {db: null, reels: [], semaines: {}, choix: {}, raisons: {}, brouillons: {}, filtre: "tous", statut: null, semaine: null, numero: null};
 const nombre = new Intl.NumberFormat("fr-FR");
 const decimal = new Intl.NumberFormat("fr-FR", {maximumFractionDigits: 1});
 const $ = (id) => document.getElementById(id);
@@ -173,7 +179,7 @@ function fiche(r) {
   const titreScore = r.score ? `×${fois(r.score)}` : null;
   const vignette = el("a", {class: "vignette", href: r.url, target: "_blank", rel: "noopener", "aria-label": `Voir le reel de @${r.compte} sur Instagram`},
     r.image ? el("img", {src: r.image, alt: "", loading: "lazy"}) : el("span", {class: "sans-image", text: "@" + r.compte}),
-    titreScore ? el("span", {class: "score" + (r.score >= 3 ? " fort" : ""), text: titreScore}) : null);
+    titreScore ? el("span", {class: "score" + (r.score >= 3 ? " fort" : ""), text: titreScore, title: `${fois(r.score)} fois les vues habituelles de @${r.compte}`}) : null);
 
   const chiffres = [`${nombre.format(r.vues || 0)} vues`];
   if (r.score) chiffres.push(`${fois(r.score)} fois ses vues habituelles`);
@@ -193,11 +199,15 @@ function fiche(r) {
         el("p", {class: "label vert", text: PILIERS[r.pilier] || r.pilier || ""}),
         el("a", {class: "compte", href: `https://www.instagram.com/${r.compte}/`, target: "_blank", rel: "noopener", text: "@" + r.compte})),
       el("h2", {class: "accroche", text: r.accroche || ""}),
+      r.sujet ? el("p", {class: "tags", text: [r.sujet, r.format, r.langue === "en" ? "en anglais" : null].filter(Boolean).join(" · ")}) : null,
       el("p", {class: "chiffres", text: chiffres.join(" · ")}),
       r.alerte ? el("p", {class: "alerte"}, el("b", {text: "Format à reprendre, contenu à éviter. "}), document.createTextNode(r.alerte)) : null,
       r.pourquoi ? el("div", {class: "bloc"}, el("p", {class: "label", text: "Pourquoi ça marche"}), el("p", {text: r.pourquoi})) : null,
       r.ta_version ? el("div", {class: "ta-version"}, el("p", {class: "label", text: "Ta version"}), el("p", {text: r.ta_version})) : null,
-      el("div", {class: "actions"}, choix, el("a", {class: "lien", href: r.url, target: "_blank", rel: "noopener", text: "Voir sur Instagram ↗"}))));
+      el("div", {class: "actions"}, choix, el("a", {class: "lien", href: r.url, target: "_blank", rel: "noopener", text: "Voir sur Instagram ↗"})),
+      statut === "ecarte" ? el("input", {class: "raison", type: "text", id: "raison-" + r.id, "data-id": r.id, "data-raison": "1", maxlength: "200", autocomplete: "off",
+        placeholder: "Pourquoi pas pour toi ? (facultatif)", "aria-label": "Pourquoi ce reel n'est pas pour toi",
+        value: etat.brouillons[r.id] ?? etat.raisons[r.id] ?? ""}) : null));
 }
 
 function rendre() {
@@ -243,9 +253,12 @@ function rendre() {
     (a.rang ?? 99) - (b.rang ?? 99) || (b.score || 0) - (a.score || 0));
 
   const focus = document.activeElement;
-  const garde = focus && focus.dataset && focus.dataset.id ? [focus.dataset.id, focus.dataset.choix] : null;
+  const garde = focus && focus.dataset && focus.dataset.id ? [focus.dataset.id, focus.dataset.choix, focus.dataset.raison] : null;
   $("liste").replaceChildren(...visibles.map(fiche));
-  if (garde) document.querySelector(`[data-id="${CSS.escape(garde[0])}"][data-choix="${garde[1]}"]`)?.focus();
+  if (garde && garde[2]) {
+    const champ = $("raison-" + garde[0]);
+    if (champ) { champ.focus(); champ.setSelectionRange(champ.value.length, champ.value.length); }
+  } else if (garde) document.querySelector(`[data-id="${CSS.escape(garde[0])}"][data-choix="${garde[1]}"]`)?.focus();
 
   if (!etat.reels.length) vide("La sélection arrive ici.", "Chaque lundi, les reels retenus pour toi s'affichent sur cette page, avec pourquoi ils marchent et comment les refaire. Tu coches ceux que tu veux monter.");
   else if (!visibles.length && etat.numero !== null) vide(`Pas encore de reel ${num(etat.numero)}.`, "Les numéros suivent l'ordre des sélections : vérifie le numéro ou efface la recherche.");
@@ -276,6 +289,23 @@ document.addEventListener("click", (ev) => {
   else if (b.dataset.choix && etat.db) choisir(b.dataset.id, b.dataset.choix);
 });
 $("semaine").addEventListener("change", (ev) => { etat.semaine = ev.target.value; rendre(); });
+document.addEventListener("input", (ev) => {
+  if (ev.target.dataset && ev.target.dataset.raison) etat.brouillons[ev.target.dataset.id] = ev.target.value;
+});
+document.addEventListener("change", async (ev) => {
+  const champ = ev.target;
+  if (!champ.dataset || !champ.dataset.raison || !etat.db) return;
+  const id = champ.dataset.id;
+  const raison = champ.value.trim();
+  if (raison === (etat.raisons[id] || "")) { delete etat.brouillons[id]; return; }
+  try {
+    await etat.db.doc("choix/" + id).update({raison: raison || null});
+    delete etat.brouillons[id];
+    message("Merci, c'est noté pour les prochaines sélections.");
+  } catch (e) {
+    message("Ta raison n'a pas été enregistrée. Réessaie dans un instant.");
+  }
+});
 $("numero").addEventListener("input", (ev) => {
   const n = parseInt(ev.target.value.replace(/\D/g, ""), 10);
   etat.numero = Number.isFinite(n) ? n : null;
@@ -298,6 +328,9 @@ function suivre(nom, appliquer) {
   etat.db = db;
   suivre("reels", (docs) => { etat.reels = docs.map((d) => ({id: d.id, ...d.data()})); });
   suivre("semaines", (docs) => { etat.semaines = Object.fromEntries(docs.map((d) => [d.id, d.data()])); });
-  suivre("choix", (docs) => { etat.choix = Object.fromEntries(docs.map((d) => [d.id, d.data().statut])); });
+  suivre("choix", (docs) => {
+    etat.choix = Object.fromEntries(docs.map((d) => [d.id, d.data().statut]));
+    etat.raisons = Object.fromEntries(docs.map((d) => [d.id, d.data().raison || ""]));
+  });
 })();
 </script>

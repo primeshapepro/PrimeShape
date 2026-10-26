@@ -25,21 +25,22 @@
     "coachsportif",
     "perdredupoids",
     "sportapres40ans",
-    "sportapres50ans",
+    "10000pas",
     "exercicesalamaison",
     "motivationsport",
     "hygienedevie",
     "nutritionsante",
     "reequilibragealimentaire",
     "fitnessfrance",
-    "over40fitness",
+    "bienfaitsdusport",
     "beginnerworkout"
   ],
   "reels_par_compte": 12,
-  "reels_par_hashtag": 12,
+  "reels_par_hashtag": 20,
   "jours_max": 30,
   "jours_max_hashtag": 120,
   "score_min": 3,
   "vues_min_hashtag": 20000,
-  "comptes_hashtag_max": 8
+  "comptes_hashtag_max": 8,
+  "vues_min_viral": 100000
 }

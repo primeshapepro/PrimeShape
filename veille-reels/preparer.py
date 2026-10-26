@@ -17,8 +17,12 @@
 
 Format d'une entrée de la sélection :
     "<code>": {"rang": 1, "pilier": "motivation" | "exercice" | "sante",
+               "sujet": "Sommeil", "format": "tableau à enregistrer", "langue": "fr" | "en",
                "accroche": "...", "pourquoi": "...", "ta_version": "...",
                "alerte": "..." (facultatif : format à reprendre, contenu à éviter)}
+Réutiliser autant que possible les sujets et formats déjà employés (voir
+gouts.py) : c'est ce qui permet de comparer les choix d'Andy d'une sélection à
+l'autre.
 """
 
 import json
