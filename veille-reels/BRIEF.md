@@ -59,17 +59,40 @@ Comptes vérifiés (abonnés approximatifs, octobre 2026) :
 Veille locale (Aix-en-Provence), pour voir ce que font les coachs du coin :
 @theocoaching_aix, @fitness_nicolas, @davidvicard, @abccoachs.
 
-## Comment ça tourne
+## Le catalogue
+
+Page privée d'Andy : https://claude.ai/artifact/QyyrrDEwYMtQdhEnSLV5wz
+(source : `catalogue.html`, à republier sur cette adresse si on la modifie).
+
+Sa base contient trois collections :
+
+- `reels` : une fiche par reel retenu, identifiée par le code du reel
+  (`https://www.instagram.com/p/<code>/`), écrite par Claude ;
+- `semaines` : une fiche par semaine (`AAAA-MM-JJ`) avec `parcourus`,
+  `percent`, `cout_usd` et une `note` facultative, écrite par Claude ;
+- `choix` : le choix d'Andy pour chaque reel (`a_monter`, `monte`, `ecarte`),
+  écrit par la page. Claude n'y touche pas.
+
+## La sélection de chaque lundi
 
 1. `python3 veille-reels/collecte.py` (ou `--essai` pour un test à quelques
    centimes) récupère via Apify les reels récents des comptes suivis et des
-   hashtags de `config.json` : c'est le « scroll ».
-2. Le script calcule le score de percée et écrit `resultats/AAAA-MM-JJ.json`
-   (non versionné : ce sont les données d'autres créateurs).
-3. Claude regarde les reels retenus (légende, image de couverture) et ne garde
-   que ceux qui entrent dans les piliers ci-dessus, avec pour chacun :
-   l'accroche, pourquoi ça marche, et comment Andy peut le refaire.
-4. Le résultat arrive dans un catalogue où Andy coche les reels à monter.
+   hashtags de `config.json` : c'est le « scroll ». Il écrit
+   `resultats/AAAA-MM-JJ.json`, trié par score de percée (non versionné : ce
+   sont les données d'autres créateurs).
+2. Claude passe en revue les candidats (score de 2 ou plus, et gros reels des
+   comptes découverts), regarde leurs images de couverture, et garde 10 à 15
+   reels qui entrent dans les piliers ci-dessus. Il évite ceux déjà présents
+   dans `reels`.
+3. Claude écrit son analyse dans `resultats/selection-AAAA-MM-JJ.json`
+   (format dans `preparer.py`), puis lance
+   `python3 veille-reels/preparer.py vignettes AAAA-MM-JJ`.
+4. Claude envoie les vignettes dans les fichiers du catalogue (Artifact,
+   `asset: true`), note leurs adresses dans un `images.json`, puis lance
+   `python3 veille-reels/preparer.py fiches AAAA-MM-JJ images.json`.
+5. Claude écrit les fiches dans `reels` et la fiche de la semaine dans
+   `semaines` (ArtifactData, en un seul lot), puis propose dans `config.json`
+   les comptes découverts qui méritent d'être suivis.
 
 Ce que l'essai du 26 octobre 2026 a appris :
 
@@ -85,8 +108,9 @@ Ce que l'essai du 26 octobre 2026 a appris :
 ## Coût
 
 Compte Apify gratuit : 5 $ de crédit par mois. Chaque reel coûte 0,0026 $.
-Les réglages de `config.json` visent environ 450 reels par collecte, soit à
-peu près 1,20 $ : une collecte par semaine reste dans le crédit gratuit.
+La première collecte complète (26 octobre 2026, 12 comptes et 16 hashtags) a
+parcouru 345 reels pour 0,90 $. Avec les 4 comptes ajoutés ensuite, compter
+environ 1 $ par semaine : une collecte par semaine reste dans le crédit gratuit.
 La transcription des vidéos coûte 0,048 $ par minute : à réserver aux reels
 retenus.
 

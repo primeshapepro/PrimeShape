@@ -1,0 +1,289 @@
+<title>Veille reels PrimeShape</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+@font-face{font-family:'Nippo';src:url(/_blob/6807229816c230b56591915879b8c72d) format('woff2');font-weight:200 700;font-display:swap}
+@font-face{font-family:'Clash Display';src:url(/_blob/7263eb725e6d97688e711baf18b5a8e8) format('woff2');font-weight:200 700;font-display:swap}
+/* Charte PrimeShape « Noir massif », thème sombre unique par choix.
+   Layout : en-tête, filtres, puis une fiche par reel (vignette 9:16 à gauche, analyse à droite), deux colonnes sur grand écran. */
+:root{
+  --noir:#0C0E0D;
+  --graphite:#1A1E1C;
+  --bordure:#2A2F2C;
+  --blanc-os:#EDEEE9;
+  --texte:#C4C8C3;
+  --gris:#9AA09B;
+  --sapin:#2E7D4F;
+  --vert:#4AA36E;
+  --blanc:#FFFFFF;
+  --alerte:#D9A441;
+  --f-titre:'Clash Display','Trebuchet MS',sans-serif;
+  --f-texte:'Nippo','Trebuchet MS',sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--noir);color:var(--texte);font-family:var(--f-texte);font-size:15px;line-height:1.45}
+.page{max-width:1280px;margin:0 auto;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:32px}
+.tete{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border-bottom:2px solid var(--bordure);padding-bottom:18px}
+.marque{font-weight:700;letter-spacing:.12em;color:var(--blanc-os);font-size:17px}
+.marque span{color:var(--vert)}
+.label{font-weight:500;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gris);margin:0}
+.label.vert{color:var(--vert)}
+.intro{display:flex;flex-direction:column;gap:14px;max-width:62ch}
+h1{font-family:var(--f-titre);font-weight:500;font-size:clamp(2.1rem,6vw,3.6rem);line-height:1.02;letter-spacing:.01em;color:var(--blanc-os);margin:0;text-transform:uppercase;text-wrap:balance}
+.aplat{background:var(--sapin);color:var(--blanc);padding:0 .18em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.resume{margin:0;color:var(--texte);font-size:16px}
+.filtres{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center}
+.groupe{display:flex;flex-wrap:wrap;gap:8px}
+.puce{font:inherit;font-weight:500;font-size:13px;color:var(--texte);background:transparent;border:2px solid var(--bordure);border-radius:999px;padding:7px 14px;cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+.puce:hover{border-color:var(--vert);color:var(--blanc-os)}
+.puce[aria-pressed="true"]{background:var(--sapin);border-color:var(--sapin);color:var(--blanc)}
+.puce .n{font-variant-numeric:tabular-nums;color:inherit;opacity:.8}
+.choix-semaine{display:flex;gap:10px;align-items:center;margin-left:auto}
+select{font:inherit;font-size:13px;color:var(--blanc-os);background:var(--graphite);border:2px solid var(--bordure);border-radius:10px;padding:6px 10px}
+button:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid var(--vert);outline-offset:2px}
+.liste{display:grid;grid-template-columns:1fr;gap:20px}
+@media (min-width:1100px){.liste{grid-template-columns:1fr 1fr}}
+.fiche{display:grid;grid-template-columns:132px minmax(0,1fr);gap:18px;border:2px solid var(--bordure);border-radius:20px;padding:16px;background:var(--noir)}
+.fiche.ecarte{opacity:.45}
+.fiche.a_monter{border-color:var(--sapin)}
+.vignette{position:relative;display:block;align-self:start;aspect-ratio:9/16;max-width:100%;border-radius:12px;overflow:hidden;background:var(--graphite)}
+.vignette img{width:100%;height:100%;object-fit:cover;display:block}
+.vignette .sans-image{position:absolute;inset:0;display:grid;place-items:center;padding:8px;text-align:center;font-size:12px;color:var(--gris)}
+.score{position:absolute;left:8px;bottom:8px;background:var(--noir);color:var(--blanc-os);font-weight:600;font-size:13px;border-radius:14px;padding:3px 9px;font-variant-numeric:tabular-nums}
+.score.fort{background:var(--sapin);color:var(--blanc)}
+.corps{display:flex;flex-direction:column;gap:12px;min-width:0}
+.haut{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline}
+.compte{font-weight:500;color:var(--blanc-os);text-decoration:none;font-size:14px}
+.compte:hover{color:var(--vert)}
+.accroche{font-family:var(--f-titre);font-weight:500;font-size:clamp(1.25rem,2.6vw,1.6rem);line-height:1.08;letter-spacing:.01em;color:var(--blanc-os);margin:0;text-wrap:balance;overflow-wrap:anywhere}
+.chiffres{margin:0;font-size:13px;color:var(--gris);font-variant-numeric:tabular-nums}
+.alerte{margin:0;border-left:3px solid var(--alerte);padding:2px 0 2px 12px;color:var(--blanc-os);font-size:14px}
+.alerte b{color:var(--alerte);font-weight:600}
+.bloc{display:flex;flex-direction:column;gap:4px}
+.bloc p{margin:0}
+.ta-version{background:var(--sapin);color:var(--blanc);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:4px}
+.ta-version .label{color:var(--blanc);opacity:.85}
+.ta-version p{margin:0}
+.actions{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;padding-top:4px}
+.choix{display:flex;flex-wrap:wrap;gap:6px}
+.choix .puce{font-size:12px;padding:6px 12px}
+.choix .puce[data-choix="ecarte"][aria-pressed="true"]{background:var(--graphite);border-color:var(--gris);color:var(--blanc-os)}
+.lien{color:var(--vert);font-weight:500;font-size:13px;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px}
+.lien:hover{color:var(--blanc-os)}
+.vide{border:2px dashed var(--bordure);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:10px;max-width:62ch}
+.vide h2{font-family:var(--f-titre);font-weight:500;color:var(--blanc-os);margin:0;font-size:1.4rem;line-height:1.1}
+.vide p{margin:0}
+.pied{border-top:2px solid var(--bordure);padding-top:18px;display:flex;flex-wrap:wrap;gap:8px 32px;justify-content:space-between;color:var(--gris);font-size:13px}
+.pied p{margin:0;max-width:62ch}
+.message{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));background:var(--blanc-os);color:var(--noir);border-radius:14px;padding:10px 16px;font-weight:500;font-size:14px;max-width:calc(100% - 32px)}
+@media (max-width:520px){
+  .fiche{grid-template-columns:92px minmax(0,1fr);gap:14px;padding:14px}
+  .choix-semaine{margin-left:0}
+}
+@media (prefers-reduced-motion:no-preference){.puce,.lien,.compte{transition:background-color .15s,border-color .15s,color .15s}}
+</style>
+
+<div class="page">
+  <header class="tete">
+    <div class="marque" aria-label="PrimeShape">PRIME<span>SHAPE</span></div>
+    <p class="label">Veille reels · Instagram</p>
+  </header>
+
+  <section class="intro">
+    <p class="label vert" id="semaine-label">Sélection de la semaine</p>
+    <h1>Les reels à refaire <span class="aplat">cette semaine.</span></h1>
+    <p class="resume" id="resume">Chaque lundi, Claude parcourt les reels de ta niche, garde ceux qui percent et ne te montre que ceux qui te ressemblent : motivation, exercices à la maison, conseils santé.</p>
+  </section>
+
+  <nav class="filtres" aria-label="Filtrer les reels">
+    <div class="groupe" role="group" aria-label="Pilier">
+      <button class="puce" type="button" id="f-tous" data-filtre="tous" aria-pressed="true">Tous</button>
+      <button class="puce" type="button" id="f-motivation" data-filtre="motivation" aria-pressed="false">Motivation</button>
+      <button class="puce" type="button" id="f-exercice" data-filtre="exercice" aria-pressed="false">Exercice à la maison</button>
+      <button class="puce" type="button" id="f-sante" data-filtre="sante" aria-pressed="false">Conseils santé</button>
+    </div>
+    <div class="groupe" role="group" aria-label="Mes choix">
+      <button class="puce" type="button" id="s-a_monter" data-statut="a_monter" aria-pressed="false">À monter <span class="n" id="n-a_monter">0</span></button>
+      <button class="puce" type="button" id="s-monte" data-statut="monte" aria-pressed="false">Montés <span class="n" id="n-monte">0</span></button>
+    </div>
+    <label class="choix-semaine label" for="semaine">Semaine <select id="semaine"></select></label>
+  </nav>
+
+  <main id="liste" class="liste" aria-live="polite"></main>
+
+  <div id="vide" class="vide">
+    <h2 id="vide-titre">La sélection arrive ici.</h2>
+    <p id="vide-texte">Chaque lundi, les reels retenus pour toi s'affichent sur cette page, avec pourquoi ils marchent et comment les refaire. Tu coches ceux que tu veux monter.</p>
+  </div>
+
+  <footer class="pied">
+    <p>On reprend l'idée, l'accroche et le rythme d'un reel, puis tu tournes ta propre version. On ne republie jamais la vidéo de quelqu'un d'autre.</p>
+    <p>Comptes, hashtags et réglages : veille-reels/config.json dans le dépôt PrimeShape.</p>
+  </footer>
+</div>
+
+<script>
+const PILIERS = {motivation: "Motivation", exercice: "Exercice à la maison", sante: "Conseils santé"};
+const STATUTS = {a_monter: "À monter", monte: "Monté", ecarte: "Pas pour moi"};
+const etat = {db: null, reels: [], semaines: {}, choix: {}, filtre: "tous", statut: null, semaine: null};
+const nombre = new Intl.NumberFormat("fr-FR");
+const decimal = new Intl.NumberFormat("fr-FR", {maximumFractionDigits: 1});
+const $ = (id) => document.getElementById(id);
+const fois = (x) => (x >= 10 ? nombre.format(Math.round(x)) : decimal.format(x));
+
+function el(tag, attrs = {}, ...enfants) {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (v === null || v === undefined || v === false) continue;
+    if (k === "class") n.className = v; else if (k === "text") n.textContent = v; else n.setAttribute(k, v);
+  }
+  for (const e of enfants) if (e) n.append(e);
+  return n;
+}
+
+function dateCourte(iso) {
+  const d = new Date(iso);
+  return isNaN(d) ? "" : d.toLocaleDateString("fr-FR", {day: "numeric", month: "short"});
+}
+
+function dateLongue(jour) {
+  const d = new Date(jour + "T12:00:00");
+  return isNaN(d) ? jour : d.toLocaleDateString("fr-FR", {day: "numeric", month: "long", year: "numeric"});
+}
+
+function message(texte) {
+  const m = el("div", {class: "message", role: "status", text: texte});
+  document.body.append(m);
+  setTimeout(() => m.remove(), 4000);
+}
+
+function vide(titre, texte) {
+  $("vide-titre").textContent = titre;
+  $("vide-texte").textContent = texte;
+  $("vide").hidden = false;
+}
+
+function fiche(r) {
+  const statut = etat.choix[r.id];
+  const titreScore = r.score ? `×${fois(r.score)}` : null;
+  const vignette = el("a", {class: "vignette", href: r.url, target: "_blank", rel: "noopener", "aria-label": `Voir le reel de @${r.compte} sur Instagram`},
+    r.image ? el("img", {src: r.image, alt: "", loading: "lazy"}) : el("span", {class: "sans-image", text: "@" + r.compte}),
+    titreScore ? el("span", {class: "score" + (r.score >= 3 ? " fort" : ""), text: titreScore}) : null);
+
+  const chiffres = [`${nombre.format(r.vues || 0)} vues`];
+  if (r.score) chiffres.push(`${fois(r.score)} fois ses vues habituelles`);
+  if (r.duree) chiffres.push(`${Math.round(r.duree)} s`);
+  if (r.date) chiffres.push(`publié le ${dateCourte(r.date)}`);
+
+  const choix = el("div", {class: "choix", role: "group", "aria-label": "Mon choix"});
+  for (const [cle, libelle] of Object.entries(STATUTS)) {
+    choix.append(el("button", {class: "puce", type: "button", "data-id": r.id, "data-choix": cle, "aria-pressed": String(statut === cle), text: libelle}));
+  }
+
+  return el("article", {class: "fiche" + (statut ? " " + statut : ""), "data-id": r.id},
+    vignette,
+    el("div", {class: "corps"},
+      el("div", {class: "haut"},
+        el("p", {class: "label vert", text: PILIERS[r.pilier] || r.pilier || ""}),
+        el("a", {class: "compte", href: `https://www.instagram.com/${r.compte}/`, target: "_blank", rel: "noopener", text: "@" + r.compte})),
+      el("h2", {class: "accroche", text: r.accroche || ""}),
+      el("p", {class: "chiffres", text: chiffres.join(" · ")}),
+      r.alerte ? el("p", {class: "alerte"}, el("b", {text: "Format à reprendre, contenu à éviter. "}), document.createTextNode(r.alerte)) : null,
+      r.pourquoi ? el("div", {class: "bloc"}, el("p", {class: "label", text: "Pourquoi ça marche"}), el("p", {text: r.pourquoi})) : null,
+      r.ta_version ? el("div", {class: "ta-version"}, el("p", {class: "label", text: "Ta version"}), el("p", {text: r.ta_version})) : null,
+      el("div", {class: "actions"}, choix, el("a", {class: "lien", href: r.url, target: "_blank", rel: "noopener", text: "Voir sur Instagram ↗"}))));
+}
+
+function rendre() {
+  const semaines = [...new Set(etat.reels.map((r) => r.semaine).filter(Boolean))].sort().reverse();
+  if (!etat.semaine || !semaines.includes(etat.semaine)) etat.semaine = semaines[0] || null;
+
+  const select = $("semaine");
+  const options = semaines.map((s) => `${s}`).join("|");
+  if (select.dataset.options !== options) {
+    select.replaceChildren(...semaines.map((s) => el("option", {value: s, text: dateLongue(s)})));
+    select.dataset.options = options;
+  }
+  select.value = etat.semaine || "";
+  select.disabled = !!etat.statut;
+
+  for (const s of Object.keys(STATUTS)) {
+    const n = Object.values(etat.choix).filter((v) => v === s).length;
+    const compteur = $("n-" + s);
+    if (compteur) compteur.textContent = n;
+  }
+  document.querySelectorAll("[data-filtre]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.filtre === etat.filtre)));
+  document.querySelectorAll("[data-statut]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.statut === etat.statut)));
+
+  const info = etat.semaines[etat.semaine] || {};
+  const reelsSemaine = etat.reels.filter((r) => r.semaine === etat.semaine);
+  if (etat.semaine) {
+    $("semaine-label").textContent = `Semaine du ${dateLongue(etat.semaine)}`;
+    const morceaux = [];
+    if (info.parcourus) morceaux.push(`${nombre.format(info.parcourus)} reels parcourus`);
+    if (info.percent) morceaux.push(`${nombre.format(info.percent)} qui percent`);
+    morceaux.push(`${reelsSemaine.length} retenus pour toi`);
+    $("resume").textContent = morceaux.join(", ") + "." + (info.note ? " " + info.note : "");
+  }
+
+  let visibles = etat.statut
+    ? etat.reels.filter((r) => etat.choix[r.id] === etat.statut)
+    : reelsSemaine;
+  if (etat.filtre !== "tous") visibles = visibles.filter((r) => r.pilier === etat.filtre);
+  visibles.sort((a, b) =>
+    (etat.choix[a.id] === "ecarte") - (etat.choix[b.id] === "ecarte") ||
+    (a.rang ?? 99) - (b.rang ?? 99) || (b.score || 0) - (a.score || 0));
+
+  const focus = document.activeElement;
+  const garde = focus && focus.dataset && focus.dataset.id ? [focus.dataset.id, focus.dataset.choix] : null;
+  $("liste").replaceChildren(...visibles.map(fiche));
+  if (garde) document.querySelector(`[data-id="${CSS.escape(garde[0])}"][data-choix="${garde[1]}"]`)?.focus();
+
+  if (!etat.reels.length) vide("La sélection arrive ici.", "Chaque lundi, les reels retenus pour toi s'affichent sur cette page, avec pourquoi ils marchent et comment les refaire. Tu coches ceux que tu veux monter.");
+  else if (!visibles.length) vide("Rien ici pour l'instant.", etat.statut === "a_monter" ? "Coche « À monter » sur une fiche pour la retrouver ici." : etat.statut === "monte" ? "Les reels que tu as déjà tournés s'afficheront ici." : "Aucun reel de ce pilier cette semaine. Choisis « Tous » pour voir toute la sélection.");
+  else $("vide").hidden = true;
+}
+
+async function choisir(id, statut) {
+  const avant = etat.choix[id];
+  const ref = etat.db.doc("choix/" + id);
+  if (avant === statut) delete etat.choix[id]; else etat.choix[id] = statut;
+  rendre();
+  try {
+    if (avant === statut) await ref.delete();
+    else await ref.set({statut, maj: new Date().toISOString()});
+  } catch (e) {
+    if (avant) etat.choix[id] = avant; else delete etat.choix[id];
+    rendre();
+    message("Ton choix n'a pas été enregistré. Réessaie dans un instant.");
+  }
+}
+
+document.addEventListener("click", (ev) => {
+  const b = ev.target.closest("button");
+  if (!b) return;
+  if (b.dataset.filtre) { etat.filtre = b.dataset.filtre; rendre(); }
+  else if (b.dataset.statut) { etat.statut = etat.statut === b.dataset.statut ? null : b.dataset.statut; rendre(); }
+  else if (b.dataset.choix && etat.db) choisir(b.dataset.id, b.dataset.choix);
+});
+$("semaine").addEventListener("change", (ev) => { etat.semaine = ev.target.value; rendre(); });
+
+function suivre(nom, appliquer) {
+  etat.db.collection(nom).onSnapshot((snap) => { appliquer(snap.docs); rendre(); },
+    () => vide("La sélection ne se charge pas.", "Recharge la page dans un moment. Si ça continue, demande à Claude de vérifier la veille."));
+}
+
+(async () => {
+  rendre();
+  const db = window.claude && window.claude.use ? await window.claude.use("db") : null;
+  if (!db) {
+    vide("Ouvre cette page sur claude.ai.", "La sélection et tes choix sont enregistrés sur claude.ai : connecte-toi pour les voir.");
+    document.querySelectorAll("[data-statut]").forEach((b) => b.disabled = true);
+    return;
+  }
+  etat.db = db;
+  suivre("reels", (docs) => { etat.reels = docs.map((d) => ({id: d.id, ...d.data()})); });
+  suivre("semaines", (docs) => { etat.semaines = Object.fromEntries(docs.map((d) => [d.id, d.data()])); });
+  suivre("choix", (docs) => { etat.choix = Object.fromEntries(docs.map((d) => [d.id, d.data().statut])); });
+})();
+</script>
