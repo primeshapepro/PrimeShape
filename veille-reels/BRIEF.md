@@ -1,6 +1,8 @@
 # Veille reels PrimeShape : le brief
 
 Ce dossier n'est pas publié sur le site (`build.sh` ne copie que les fichiers du site).
+Le skill `primeshape-veille-reels` (source dans `skill/`, à réempaqueter après
+chaque modification) résume ce brief pour Claude et y renvoie.
 
 ## Objectif
 
