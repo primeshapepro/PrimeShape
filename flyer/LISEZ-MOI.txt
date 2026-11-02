@@ -1,0 +1,22 @@
+PRIMESHAPE · FLYER A5 RECTO-VERSO
+==================================
+
+Fichiers
+- primeshape-flyer-a5.pdf : le fichier à envoyer à l'imprimeur (2 pages, recto puis verso).
+  Format fini A5 (148 × 210 mm) avec 3 mm de fond perdu tout autour (154 × 216 mm).
+  À l'imprimeur : « A5 recto-verso, fond perdu 3 mm inclus, sans traits de coupe ».
+- apercu-recto.png, apercu-verso.png : aperçus au format fini, pour les réseaux ou un envoi rapide.
+- flyer-a5.html : la source du flyer (charte « Noir massif », Clash Display + Nippo).
+- qr-prime-shape.svg : QR code vers https://prime-shape.fr
+- rendre.js : régénère le PDF et les aperçus.
+
+AJOUTER TA PHOTO
+----------------
+1. Mets ta photo dans ce dossier, nommée exactement : photo-andy.jpg
+   (verticale ou horizontale, visage plutôt dans le haut, 2000 px de large minimum).
+2. Depuis la racine du dépôt, lance : node flyer/rendre.js
+3. Le PDF et les aperçus sont mis à jour avec ta photo à la place du cadre en pointillés.
+
+Plus simple : envoie la photo à Claude et demande-lui de l'intégrer.
+
+Le dossier flyer/ n'est pas publié sur le site (build.sh ne le copie pas).
