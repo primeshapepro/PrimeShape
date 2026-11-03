@@ -55,6 +55,12 @@ qu'Andy dit ou écrit lui-même passe avant les comptages de `gouts.py`.
   @thomas__r7 et @jointhehurd suivis (formats gardés) ; hashtags
   #exercicesalamaison et #beginnerworkout remplacés par #sommeil et
   #conseilsante.
+- **Sélection du 03/11 (#014 à #023) :** 7 conseils santé et nutrition
+  (schéma, question aux abonnés, classement, verdict aliment par aliment,
+  tableau, liste) et 3 exercices expliqués (surestimé ou sous-estimé,
+  5 exercices de base, erreur et bonne version). À vérifier au prochain bilan :
+  les formats nouveaux (verdict, surestimé ou sous-estimé, erreur et bonne
+  version) lui plaisent-ils autant que les tableaux et classements ?
 
 ## Règles appliquées à la sélection
 
