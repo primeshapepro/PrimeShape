@@ -43,7 +43,6 @@ body { font-family: 'Nippo', 'Trebuchet MS', sans-serif; color: var(--ps-blanc-o
 .trim { position: absolute; inset: var(--bleed); pointer-events: none; }
 
 /* Éléments communs */
-.labels { position: absolute; top: var(--edge); left: var(--edge); right: var(--edge); display: flex; justify-content: space-between; gap: 6mm; font-weight: 500; font-size: 6pt; line-height: 1; letter-spacing: 0.28em; color: var(--ps-gris); text-transform: uppercase; white-space: nowrap; }
 .title { font-family: 'Clash Display', 'Trebuchet MS', sans-serif; font-weight: 500; line-height: 1.02; letter-spacing: 0.01em; text-transform: uppercase; display: flex; flex-direction: column; align-items: flex-start; }
 .title .k { color: var(--ps-vert-clair); }
 .title .hl { background: var(--ps-vert-sapin); color: #FFFFFF; padding: 0.03em 0.2em 0.09em; margin: 0.08em 0 0 -0.2em; }
@@ -57,9 +56,9 @@ body { font-family: 'Nippo', 'Trebuchet MS', sans-serif; color: var(--ps-blanc-o
 .ridge { position: absolute; left: 0; width: 100%; display: block; }
 
 /* ---------- RECTO ---------- */
-.photo { position: absolute; left: 0; right: 0; top: 20.5mm; height: 102mm; background: var(--ps-graphite); overflow: hidden; }
+.photo { position: absolute; left: 0; right: 0; top: 0; height: 122.5mm; background: var(--ps-graphite); overflow: hidden; }
 .photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 28%; }
-.ph { position: absolute; left: var(--edge); right: var(--edge); top: 7mm; bottom: 31mm; border: 0.35mm dashed rgba(74, 163, 110, 0.7); border-radius: 3mm; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.6mm; text-align: center; }
+.ph { position: absolute; left: var(--edge); right: var(--edge); top: var(--edge); bottom: 31mm; border: 0.35mm dashed rgba(74, 163, 110, 0.7); border-radius: 3mm; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.6mm; text-align: center; }
 .ph svg { width: 15mm; height: 15mm; display: block; }
 .ph-t { font-weight: 600; font-size: 8.5pt; line-height: 1; letter-spacing: 0.3em; color: var(--ps-blanc-os); margin-right: -0.3em; }
 .ph-s { font-weight: 400; font-size: 6.5pt; line-height: 1.5; color: var(--ps-gris); }
@@ -69,24 +68,24 @@ body { font-family: 'Nippo', 'Trebuchet MS', sans-serif; color: var(--ps-blanc-o
 
 .recto .lower { position: absolute; left: var(--edge); right: var(--edge); top: 126.5mm; bottom: var(--edge); display: flex; flex-direction: column; }
 .recto .title { font-size: 40pt; }
-.recto .lead { margin-top: 5mm; max-width: 116mm; font-weight: 400; font-size: 9pt; line-height: 1.45; color: var(--ps-texte); }
+.recto .lead { margin-top: 5mm; max-width: none; font-weight: 400; font-size: 9pt; line-height: 1.45; color: var(--ps-texte); }
 .recto .foot { margin-top: auto; }
 .next { display: flex; align-items: center; gap: 2mm; }
 .next svg { width: 4.4mm; height: 4.4mm; display: block; }
 
 /* ---------- VERSO ---------- */
-.verso .ridge { bottom: -0.1mm; height: 29.2mm; }
-.verso .body { position: absolute; left: var(--edge); right: var(--edge); top: calc(var(--edge) + 9mm); bottom: var(--edge); display: flex; flex-direction: column; }
-.verso .title { font-size: 28pt; }
-.who { margin-top: 8.5mm; }
-.who ul { list-style: none; margin-top: 2.6mm; display: flex; flex-direction: column; gap: 1.5mm; }
+.verso .body { position: absolute; left: var(--edge); right: var(--edge); top: var(--edge); display: flex; flex-direction: column; }
+.verso .title { font-size: 26pt; }
+.sec { font-family: 'Clash Display', 'Trebuchet MS', sans-serif; font-weight: 500; font-size: 12pt; line-height: 1.1; letter-spacing: 0.01em; color: var(--ps-blanc-os); }
+.who { margin-top: 7mm; }
+.who ul { list-style: none; margin-top: 2.6mm; display: flex; flex-direction: column; gap: 1.4mm; }
 .who li { display: flex; align-items: baseline; gap: 2.2mm; font-weight: 400; font-size: 8.5pt; line-height: 1.35; color: var(--ps-texte); }
 .who li svg { flex-shrink: 0; width: 3.2mm; height: 3.2mm; transform: translateY(0.45mm); }
 
-.plans { margin-top: 8.5mm; }
+.plans { margin-top: 7mm; }
 .cards { margin-top: 2.6mm; display: grid; grid-template-columns: 1fr 1fr; gap: 3mm; }
-.card { border-radius: 2.7mm; padding: 4.2mm 4mm 4.4mm; display: flex; flex-direction: column; }
-.card.ess { border: 0.5mm solid var(--ps-bordure); background: var(--ps-graphite); }
+.card { border-radius: 2.7mm; padding: 4mm 4mm 4.2mm; display: flex; flex-direction: column; }
+.card.ess { border: 0.5mm solid var(--ps-bordure); }
 .card.pre { background: var(--ps-vert-sapin); color: #FFFFFF; }
 .card h3 { font-family: 'Clash Display', 'Trebuchet MS', sans-serif; font-weight: 500; font-size: 14pt; line-height: 1; letter-spacing: 0.01em; text-transform: uppercase; }
 .card .type { margin-top: 1.8mm; font-weight: 600; font-size: 5.4pt; line-height: 1.3; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ps-vert-clair); }
@@ -98,16 +97,21 @@ body { font-family: 'Nippo', 'Trebuchet MS', sans-serif; color: var(--ps-blanc-o
 .card.pre li::before { background: #FFFFFF; }
 .note { margin-top: 2.6mm; font-weight: 400; font-size: 6.4pt; line-height: 1.45; color: var(--ps-gris); }
 
-.contact { margin-top: auto; margin-bottom: 7mm; display: flex; align-items: flex-end; justify-content: space-between; gap: 6mm; }
+/* Bas du verso : un champ graphite dont le bord haut est la crête de la Sainte-Victoire */
+.band { position: absolute; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; }
+.band .crest { display: block; width: 100%; height: 26mm; }
+.band-in { margin-top: -0.2mm; background: var(--ps-graphite); padding: 0.5mm var(--edge) var(--edge); }
+.contact { display: flex; align-items: flex-end; justify-content: space-between; gap: 6mm; }
 .c-lines { display: flex; flex-direction: column; }
-.c-site { margin-top: 2.4mm; font-family: 'Clash Display', 'Trebuchet MS', sans-serif; font-weight: 500; font-size: 19pt; line-height: 1; letter-spacing: 0.01em; color: var(--ps-blanc-os); }
-.c-rows { margin-top: 3mm; display: flex; flex-direction: column; gap: 1.1mm; font-weight: 400; font-size: 8.5pt; line-height: 1.3; color: var(--ps-texte); }
+.c-phone { margin-top: 2.6mm; font-family: 'Clash Display', 'Trebuchet MS', sans-serif; font-weight: 500; font-size: 24pt; line-height: 1; letter-spacing: 0.01em; color: var(--ps-blanc-os); white-space: nowrap; }
+.c-rows { margin-top: 2.8mm; display: flex; flex-wrap: wrap; column-gap: 4mm; row-gap: 1mm; font-weight: 400; font-size: 8pt; line-height: 1.3; color: var(--ps-texte); }
 .c-rows b { font-weight: 600; color: var(--ps-blanc-os); }
 .qr { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 1.8mm; }
 .qr-box { width: 23mm; height: 23mm; padding: 2mm; background: var(--ps-blanc-os); border-radius: 1.6mm; }
 .qr-box img { width: 100%; height: 100%; display: block; }
 .qr span { font-weight: 500; font-size: 5pt; line-height: 1; letter-spacing: 0.28em; color: var(--ps-gris); margin-right: -0.28em; }
-.verso .foot .who-am { text-transform: uppercase; font-weight: 500; font-size: 5.6pt; line-height: 1; letter-spacing: 0.26em; color: var(--ps-gris); white-space: nowrap; }
+.band .foot { margin-top: 6mm; }
+.who-am { text-transform: uppercase; font-weight: 500; font-size: 5.6pt; line-height: 1; letter-spacing: 0.26em; color: var(--ps-gris); white-space: nowrap; }
 </style>
 </head>
 <body>
@@ -130,15 +134,13 @@ body { font-family: 'Nippo', 'Trebuchet MS', sans-serif; color: var(--ps-blanc-o
     <div class="chip">ANDY SCHERB <i>·</i> TON COACH</div>
   </div>
 
-  <div class="labels"><span>Coaching sportif</span><span>Aix-en-Provence et alentours</span></div>
-
   <div class="lower">
     <h1 class="title">
       <span>Ton coach,</span>
       <span class="k">à deux pas</span>
       <span class="hl">de chez toi.</span>
     </h1>
-    <p class="lead">Tu débutes ou tu reprends&nbsp;? Un programme pensé pour toi, un coach que tu peux joindre, une étape après l'autre. Sans promesse miracle.</p>
+    <p class="lead">Coaching sportif à Aix-en-Provence et alentours, pour débuter ou reprendre.<br>Un programme pensé pour toi, un coach que tu peux joindre.</p>
     <div class="foot">
       <div class="logo">
         <svg viewBox="0 0 100 100" role="img" aria-label="Icône PrimeShape"><defs><linearGradient id="pfill1" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#2E7D4F"/><stop offset="0.54" stop-color="#2E7D4F"/><stop offset="0.54" stop-color="#2E7D4F" stop-opacity="0"/><stop offset="1" stop-color="#2E7D4F" stop-opacity="0"/></linearGradient></defs><rect width="100" height="100" rx="25.6" fill="#1A1E1C"/><rect x="7.3" y="7.3" width="85.4" height="85.4" rx="18.3" fill="none" stroke="#4AA36E" stroke-opacity="0.55" stroke-width="1.3"/><text x="50" y="48.8" text-anchor="middle" dominant-baseline="central" font-family="Nippo" font-weight="700" font-size="70.7" fill="url(#pfill1)" stroke="#4AA36E" stroke-width="3.2" paint-order="stroke">P</text></svg>
@@ -155,12 +157,6 @@ body { font-family: 'Nippo', 'Trebuchet MS', sans-serif; color: var(--ps-blanc-o
 
 <!-- ======================= VERSO ======================= -->
 <section class="page verso" id="verso" aria-label="Flyer PrimeShape, verso">
-  <svg class="ridge" viewBox="0 0 1440 275" preserveAspectRatio="none" aria-hidden="true">
-    <path fill="#141816" d="M0 245 L160 236 L300 224 L420 210 L520 196 L600 182 L670 168 L730 152 L780 137 L822 122 L852 107 L876 94 L893 84 L903 88 L914 76 L928 82 L940 78 L954 87 L970 104 L988 128 L1006 150 L1026 166 L1050 174 L1072 176 L1094 169 L1116 175 L1150 190 L1200 205 L1270 220 L1350 232 L1440 240 L1440 275 L0 275 Z"/>
-  </svg>
-
-  <div class="labels"><span>Le coaching PrimeShape</span><span>Andy Scherb</span></div>
-
   <div class="body">
     <h2 class="title">
       <span>Un programme</span>
@@ -170,7 +166,7 @@ body { font-family: 'Nippo', 'Trebuchet MS', sans-serif; color: var(--ps-blanc-o
     </h2>
 
     <div class="who">
-      <div class="label-v">C'est pour toi si</div>
+      <h3 class="sec">C'est pour toi si&hellip;</h3>
       <ul>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="#4AA36E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>tu veux te mettre au sport sans savoir par où commencer&nbsp;;</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="#4AA36E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>tu reprends après une longue pause&nbsp;;</li>
@@ -179,7 +175,7 @@ body { font-family: 'Nippo', 'Trebuchet MS', sans-serif; color: var(--ps-blanc-o
     </div>
 
     <div class="plans">
-      <div class="label-v">Deux formules, un seul sommet</div>
+      <h3 class="sec">Deux formules, un seul sommet</h3>
       <div class="cards">
         <article class="card ess">
           <h3>Essentiel</h3>
@@ -202,29 +198,33 @@ body { font-family: 'Nippo', 'Trebuchet MS', sans-serif; color: var(--ps-blanc-o
       </div>
       <p class="note">En formation CQP Instructeur Fitness dès décembre 2026&nbsp;: les formules ouvrent après mon diplôme. Tarifs annoncés au lancement.</p>
     </div>
+  </div>
 
-    <div class="contact">
-      <div class="c-lines">
-        <div class="label-v">Pour ne rien rater du lancement</div>
-        <div class="c-site">prime-shape.fr</div>
-        <div class="c-rows">
-          <span><b>06 61 40 34 66</b></span>
-          <span>andyscherb10@gmail.com</span>
-          <span>@primeshapefr</span>
+  <div class="band">
+    <!-- Même profil de la Sainte-Victoire qu'au recto -->
+    <svg class="crest" viewBox="0 0 1440 275" preserveAspectRatio="none" aria-hidden="true">
+      <path fill="#1A1E1C" d="M0 245 L160 236 L300 224 L420 210 L520 196 L600 182 L670 168 L730 152 L780 137 L822 122 L852 107 L876 94 L893 84 L903 88 L914 76 L928 82 L940 78 L954 87 L970 104 L988 128 L1006 150 L1026 166 L1050 174 L1072 176 L1094 169 L1116 175 L1150 190 L1200 205 L1270 220 L1350 232 L1440 240 L1440 275 L0 275 Z"/>
+      <path fill="none" stroke="#4AA36E" stroke-width="1.6" stroke-linejoin="round" vector-effect="non-scaling-stroke" d="M0 245 L160 236 L300 224 L420 210 L520 196 L600 182 L670 168 L730 152 L780 137 L822 122 L852 107 L876 94 L893 84 L903 88 L914 76 L928 82 L940 78 L954 87 L970 104 L988 128 L1006 150 L1026 166 L1050 174 L1072 176 L1094 169 L1116 175 L1150 190 L1200 205 L1270 220 L1350 232 L1440 240"/>
+    </svg>
+    <div class="band-in">
+      <div class="contact">
+        <div class="c-lines">
+          <h3 class="sec">Pour ne rien rater du lancement</h3>
+          <div class="c-phone">06 61 40 34 66</div>
+          <div class="c-rows"><b>prime-shape.fr</b><span>andyscherb10@gmail.com</span><span>@primeshapefr</span></div>
+        </div>
+        <div class="qr">
+          <div class="qr-box"><img src="qr-prime-shape.svg" alt="QR code vers prime-shape.fr"></div>
+          <span>SCANNE-MOI</span>
         </div>
       </div>
-      <div class="qr">
-        <div class="qr-box"><img src="qr-prime-shape.svg" alt="QR code vers prime-shape.fr"></div>
-        <span>SCANNE-MOI</span>
+      <div class="foot">
+        <div class="logo">
+          <svg viewBox="0 0 100 100" role="img" aria-label="Icône PrimeShape"><defs><linearGradient id="pfill2" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#2E7D4F"/><stop offset="0.54" stop-color="#2E7D4F"/><stop offset="0.54" stop-color="#2E7D4F" stop-opacity="0"/><stop offset="1" stop-color="#2E7D4F" stop-opacity="0"/></linearGradient></defs><rect width="100" height="100" rx="25.6" fill="#0C0E0D"/><rect x="7.3" y="7.3" width="85.4" height="85.4" rx="18.3" fill="none" stroke="#4AA36E" stroke-opacity="0.55" stroke-width="1.3"/><text x="50" y="48.8" text-anchor="middle" dominant-baseline="central" font-family="Nippo" font-weight="700" font-size="70.7" fill="url(#pfill2)" stroke="#4AA36E" stroke-width="3.2" paint-order="stroke">P</text></svg>
+          <div><div class="word">PRIME<span>SHAPE</span></div><div class="sig">COACHING SPORTIF</div></div>
+        </div>
+        <span class="who-am">Basé à Vauvenargues</span>
       </div>
-    </div>
-
-    <div class="foot">
-      <div class="logo">
-        <svg viewBox="0 0 100 100" role="img" aria-label="Icône PrimeShape"><defs><linearGradient id="pfill2" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#2E7D4F"/><stop offset="0.54" stop-color="#2E7D4F"/><stop offset="0.54" stop-color="#2E7D4F" stop-opacity="0"/><stop offset="1" stop-color="#2E7D4F" stop-opacity="0"/></linearGradient></defs><rect width="100" height="100" rx="25.6" fill="#1A1E1C"/><rect x="7.3" y="7.3" width="85.4" height="85.4" rx="18.3" fill="none" stroke="#4AA36E" stroke-opacity="0.55" stroke-width="1.3"/><text x="50" y="48.8" text-anchor="middle" dominant-baseline="central" font-family="Nippo" font-weight="700" font-size="70.7" fill="url(#pfill2)" stroke="#4AA36E" stroke-width="3.2" paint-order="stroke">P</text></svg>
-        <div><div class="word">PRIME<span>SHAPE</span></div><div class="sig">COACHING SPORTIF</div></div>
-      </div>
-      <span class="who-am">Basé à Vauvenargues</span>
     </div>
   </div>
   <div class="trim" data-trim></div>
