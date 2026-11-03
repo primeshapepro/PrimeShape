@@ -31,6 +31,31 @@ qu'Andy dit ou écrit lui-même passe avant les comptages de `gouts.py`.
   plutôt le format « séance à suivre » ou le ciblage « plus de 40 ans ». À
   confirmer avec ses prochains choix.
 
+## Bilan du 03/11/2026 (13 choix sur les 13 reels de la première sélection)
+
+- **Gardés (6) :** #006 liste d'astuces santé, #004 tableau du sommeil,
+  #009 extrait de podcast « muscle après 40 ans », #007 test de la poigne appuyé
+  sur une étude, #012 classement des boissons (en anglais), #011 question aux
+  abonnés « sport le matin ou le soir ».
+- **Écartés (7) :** #001 routine du matin, #003 séance de marche à suivre,
+  #008 défi abdos à deux, #002 phrase choc sur l'énergie, #005 appel à
+  rejoindre un groupe local, #010 test des pompes, #013 recette.
+- **Raison écrite :** « j'aime bien les recettes mais pas celle-ci, j'en ferai
+  sûrement mais pas maintenant ». Écrite sur la fiche #010, mais elle parle
+  des recettes (#013).
+- **Ce que ça dit :** Andy cherche surtout des conseils santé expliqués et
+  faciles à enregistrer (listes, tableaux, classements, tests appuyés sur une
+  étude, extraits de podcast), et les questions simples aux abonnés. Les
+  démonstrations d'exercices à suivre (routine, séance, défi) ne l'intéressent
+  pas comme modèles.
+- **Changé pour la sélection du 03/11 :** conseils santé en priorité ;
+  exercice à la maison gardé (c'est un pilier) mais seulement sous un angle
+  qui explique (pourquoi, test, erreur à éviter), 2 ou 3 reels au plus ; pas
+  de recettes pour l'instant ; @yurythefury ne sort plus (2 écartés) ;
+  @thomas__r7 et @jointhehurd suivis (formats gardés) ; hashtags
+  #exercicesalamaison et #beginnerworkout remplacés par #sommeil et
+  #conseilsante.
+
 ## Règles appliquées à la sélection
 
 - Un sujet, un format ou un compte écarté au moins 2 fois sans jamais être

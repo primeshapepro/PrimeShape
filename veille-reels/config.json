@@ -12,10 +12,11 @@
     "rudycoiasp",
     "kineparnature",
     "equipe.active",
-    "yurythefury",
     "good_mouv",
     "le_studio_de_gabin",
-    "metamorphosepodcast"
+    "metamorphosepodcast",
+    "thomas__r7",
+    "jointhehurd"
   ],
   "hashtags": [
     "remiseenforme",
@@ -26,21 +27,21 @@
     "perdredupoids",
     "sportapres40ans",
     "10000pas",
-    "exercicesalamaison",
+    "sommeil",
     "motivationsport",
     "hygienedevie",
     "nutritionsante",
     "reequilibragealimentaire",
     "fitnessfrance",
     "bienfaitsdusport",
-    "beginnerworkout"
+    "conseilsante"
   ],
-  "reels_par_compte": 12,
-  "reels_par_hashtag": 20,
+  "reels_par_compte": 10,
+  "reels_par_hashtag": 18,
   "jours_max": 30,
   "jours_max_hashtag": 120,
   "score_min": 3,
   "vues_min_hashtag": 20000,
-  "comptes_hashtag_max": 8,
+  "comptes_hashtag_max": 6,
   "vues_min_viral": 100000
 }
