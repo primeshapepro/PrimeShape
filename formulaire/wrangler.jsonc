@@ -8,10 +8,10 @@
   // Adresse servie par le Worker, appelée par les formulaires du site
   "routes": [{ "pattern": "formulaire.prime-shape.fr", "custom_domain": true }],
   // Envoi d'email : uniquement vers l'adresse vérifiée dans Email Routing
-  "send_email": [{ "name": "MAILER", "destination_address": "andyscherb10@gmail.com" }],
+  "send_email": [{ "name": "MAILER", "destination_address": "primeshapepro@gmail.com" }],
   "vars": {
     "FROM": "formulaire@prime-shape.fr",
-    "TO": "andyscherb10@gmail.com",
+    "TO": "primeshapepro@gmail.com",
     "SITE": "https://prime-shape.fr"
   },
   "workers_dev": false,
