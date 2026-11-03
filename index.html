@@ -395,8 +395,34 @@ footer { background: var(--bg); color: var(--fg); border-top: 1px solid var(--ru
 .f-legal span { margin-left: auto; color: var(--silver); }
 @media (max-width: 767px) { .f-legal span { margin-left: 0; width: 100%; } }
 
+/* =========================================================
+   ÉCRAN « BIEN ENVOYÉ » : la crête se trace jusqu'au sommet
+   ========================================================= */
+.sent { position: fixed; inset: 0; z-index: 250; display: grid; place-items: center; background: var(--bg); padding: calc(var(--bar) + env(safe-area-inset-top, 0px)) var(--margin) calc(2rem + env(safe-area-inset-bottom, 0px)); animation: sentIn 0.45s var(--quint) both; }
+.sent[hidden] { display: none; }
+.sent.out { animation: sentOut 0.45s var(--quint) both; }
+@keyframes sentIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes sentOut { to { opacity: 0; } }
+.sent-in { width: 100%; max-width: 34rem; text-align: center; }
+.sent-mark { width: 150px; height: 80px; margin: 0 auto 2.4rem; overflow: visible; }
+.sent-mark .ridge { fill: none; stroke: var(--accent); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: ridge 1.3s var(--quint) 0.25s forwards; }
+.sent-mark .flag { fill: var(--accent); transform-box: fill-box; transform-origin: center; transform: scale(0); animation: flag 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 1.35s forwards; }
+@keyframes ridge { to { stroke-dashoffset: 0; } }
+@keyframes flag { to { transform: scale(1); } }
+.sent-title { font-family: var(--font-display); font-weight: 300; text-transform: uppercase; font-size: clamp(2.4rem, 7vw, 4rem); line-height: 1; letter-spacing: -0.01em; margin-bottom: 1.2rem; outline: none; }
+.sent-title em { font-style: normal; font-weight: 600; }
+.sent-text { color: var(--text-2); font-size: 1.08rem; line-height: 1.8; margin: 0 auto 2.6rem; max-width: 26rem; }
+.sent-back { display: flex; flex-direction: column; align-items: center; gap: 0.8rem; margin-bottom: 2rem; }
+.sent-back .meta { white-space: nowrap; }
+.sent-bar { width: 120px; height: 1px; background: var(--rule); overflow: hidden; }
+.sent-bar i { display: block; height: 100%; width: 100%; background: var(--fg); transform-origin: left; transform: scaleX(0); }
+.sent.run .sent-bar i { animation: bar var(--wait, 5s) linear forwards; }
+@keyframes bar { to { transform: scaleX(1); } }
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .sent-mark .ridge { stroke-dashoffset: 0; animation: none; }
+  .sent-mark .flag { transform: none; animation: none; }
   *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
   .profile .trail { stroke-dashoffset: 0 !important; }
 }
@@ -557,7 +583,7 @@ footer { background: var(--bg); color: var(--fg); border-top: 1px solid var(--ru
         <div>
           <div class="rv-box">
             <h3>Ton avis</h3>
-            <form id="avisForm" name="avis" method="POST" action="merci/" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+            <form id="avisForm" name="avis" method="POST" action="https://formulaire.prime-shape.fr/" novalidate>
               <input type="hidden" name="form-name" value="avis">
               <p class="hp"><label>Ne pas remplir <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
 
@@ -650,7 +676,7 @@ footer { background: var(--bg); color: var(--fg); border-top: 1px solid var(--ru
       <a class="c-mail" href="mailto:andyscherb10@gmail.com" data-track="cta_click" data-loc="email">andyscherb10@gmail.com</a>
     </div>
     <div class="c-form">
-      <form id="contactForm" name="contact" method="POST" action="merci/" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+      <form id="contactForm" name="contact" method="POST" action="https://formulaire.prime-shape.fr/" novalidate>
         <input type="hidden" name="form-name" value="contact">
         <p class="hp"><label>Ne pas remplir <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
 
@@ -700,12 +726,27 @@ footer { background: var(--bg); color: var(--fg); border-top: 1px solid var(--ru
         </div>
       </form>
 
-      <div class="done" id="ok" role="status" tabindex="-1"><h3>Reçu&nbsp;!</h3><p>Merci pour ton message, je te recontacte très vite.</p></div>
+      <div class="done" id="ko" role="alert" tabindex="-1"><h3>Oups</h3><p>L'envoi n'a pas fonctionné. Réessaie dans un instant ou écris-moi directement à <a href="mailto:andyscherb10@gmail.com">andyscherb10@gmail.com</a>.</p></div>
     </div>
   </div>
 </section>
 
 </main>
+<div class="sent" id="sent" role="dialog" aria-modal="true" aria-labelledby="sentTitle" hidden>
+  <div class="sent-in">
+    <svg class="sent-mark" viewBox="0 0 120 64" aria-hidden="true">
+      <path class="ridge" pathLength="1" d="M4 58 L26 53 L44 46 L58 37 L68 29 L74 23 L78 26 L82 19 L88 25 L94 35 L100 40 L106 39 L116 46"/>
+      <circle class="flag" cx="82" cy="19" r="3.2"/>
+    </svg>
+    <h2 class="sent-title" id="sentTitle" tabindex="-1"><span id="sentWhat">Message</span> <em>envoyé.</em></h2>
+    <p class="sent-text" id="sentText">Merci, je te réponds très vite.</p>
+    <div class="sent-back">
+      <span class="sent-bar" aria-hidden="true"><i></i></span>
+      <span class="meta" id="sentCount">Retour à l'accueil dans 5 s</span>
+    </div>
+    <button type="button" class="btn btn-ink" id="sentHome">Revenir à l'accueil <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </div>
+</div>
 
 <footer>
   <div class="wrap">
@@ -736,6 +777,36 @@ footer { background: var(--bg); color: var(--fg); border-top: 1px solid var(--ru
     if (el) track(el.getAttribute('data-track'), { location: el.getAttribute('data-loc') || '' });
   });
   function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+
+  /* ---------- Liens internes : défilement fiable vers la section ----------
+     Sur téléphone, la page peut encore bouger pendant le défilement (polices, barre d'adresse) :
+     on vérifie l'arrivée et on corrige si la section n'est pas en haut de l'écran. */
+  function goTo(id, done) {
+    var el = d.getElementById(id); if (!el) return;
+    var tries = 0, timer;
+    el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    function check() {
+      clearTimeout(timer);
+      var off = parseFloat(getComputedStyle(el).scrollMarginTop) || 0, top = el.getBoundingClientRect().top;
+      if (Math.abs(top - off) > 6 && tries++ < 4) { el.scrollIntoView({ behavior: 'auto', block: 'start' }); timer = setTimeout(check, 200); }
+      else if (done) done();
+    }
+    timer = setTimeout(check, reduce ? 60 : 1100);
+  }
+  window.goTo = goTo;
+  d.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href^="./#"], a[href^="#"]');
+    if (!a || a.hasAttribute('data-motif') || e.metaKey || e.ctrlKey) return;
+    var id = a.getAttribute('href').split('#')[1];
+    if (!id || !d.getElementById(id) || id === 'main') return;
+    e.preventDefault();
+    if (history.pushState) history.pushState(null, '', '#' + id);
+    goTo(id);
+  });
+  window.addEventListener('load', function () {
+    var id = location.hash.slice(1);
+    if (id && /^[a-z-]+$/.test(id) && d.getElementById(id)) goTo(id);
+  });
 
   /* ---------- Barre : fond et masquage au défilement ---------- */
   var bar = d.getElementById('bar'), lastY = 0;
@@ -905,11 +976,50 @@ footer { background: var(--bg); color: var(--fg); border-top: 1px solid var(--ru
       /* Anti-spam : un humain met plus de 4 secondes */
       if (Date.now() - t0 < 4000) { fAv.hidden = true; d.getElementById('rvOk').classList.add('show'); return; }
       busy = true;
-      fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(new FormData(fAv)).toString() })
-        .then(function (r) { if (!r.ok) throw new Error(r.status); fAv.hidden = true; var ok = d.getElementById('rvOk'); ok.classList.add('show'); ok.focus(); track('review_submit_success', { note: cur }); })
-        .catch(function () { fAv.hidden = true; var ko = d.getElementById('rvKo'); ko.classList.add('show'); ko.focus(); track('review_submit_error', {}); });
+      var avBtn = fAv.querySelector('[type="submit"]'); avBtn.setAttribute('aria-busy', 'true'); avBtn.style.opacity = '0.6';
+      send(fAv)
+        .then(function () {
+          track('review_submit_success', { note: cur });
+          window.showSent('Avis', 'Merci ' + fPre.value.trim() + ' ! Il sera publié après vérification, et en cas de refus je t\'expliquerai pourquoi.', function () {
+            fAv.reset(); cur = 0; paint(0); busy = false; avBtn.removeAttribute('aria-busy'); avBtn.style.opacity = ''; t0 = Date.now();
+          });
+        })
+        .catch(function () { busy = false; avBtn.removeAttribute('aria-busy'); avBtn.style.opacity = ''; var ko = d.getElementById('rvKo'); fAv.hidden = true; ko.classList.add('show'); ko.focus(); track('review_submit_error', {}); });
     });
   })();
+
+  /* ---------- Envoi des formulaires et écran « bien envoyé » ---------- */
+  var FORM_URL = 'https://formulaire.prime-shape.fr/';
+  function send(f) {
+    return fetch(FORM_URL, { method: 'POST', headers: { Accept: 'application/json' }, body: new FormData(f) })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || !j.ok) throw new Error(j.error || r.status); }); });
+  }
+  var sent = d.getElementById('sent'), sentTimer, sentTick, sentReset;
+  function closeSent() {
+    if (sent.hidden) return;
+    clearTimeout(sentTimer); clearInterval(sentTick);
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    if (history.replaceState) history.replaceState(null, '', location.pathname);
+    if (sentReset) sentReset();
+    sent.classList.add('out');
+    setTimeout(function () { sent.hidden = true; sent.classList.remove('out', 'run'); d.getElementById('h1').setAttribute('tabindex', '-1'); d.getElementById('h1').focus({ preventScroll: true }); }, reduce ? 0 : 450);
+  }
+  window.showSent = function (what, text, reset) {
+    var wait = 5;
+    sentReset = reset;
+    d.getElementById('sentWhat').textContent = what;
+    d.getElementById('sentText').textContent = text;
+    sent.style.setProperty('--wait', wait + 's');
+    sent.hidden = false;
+    void sent.offsetWidth; sent.classList.add('run');
+    d.getElementById('sentTitle').focus({ preventScroll: true });
+    var left = wait, count = d.getElementById('sentCount');
+    count.textContent = "Retour à l'accueil dans " + left + ' s';
+    sentTick = setInterval(function () { left--; if (left > 0) count.textContent = "Retour à l'accueil dans " + left + ' s'; }, 1000);
+    sentTimer = setTimeout(closeSent, wait * 1000 + 300);
+  };
+  d.getElementById('sentHome').addEventListener('click', closeSent);
+  d.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeSent(); });
 
   /* ---------- Formulaire ---------- */
   var form = d.getElementById('contactForm');
@@ -921,8 +1031,7 @@ footer { background: var(--bg); color: var(--fg); border-top: 1px solid var(--ru
       var v = b.getAttribute('data-motif');
       radios.forEach(function (r) { r.checked = (r.value === v); });
       track('prefill_motif', { motif: v });
-      d.getElementById('contact').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
-      setTimeout(function () { prenom.focus({ preventScroll: true }); }, reduce ? 0 : 800);
+      goTo('contact', function () { prenom.focus({ preventScroll: true }); });
     });
   });
   function setErr(input, id, bad) { input.setAttribute('aria-invalid', bad ? 'true' : 'false'); d.getElementById(id).hidden = !bad; }
@@ -939,13 +1048,18 @@ footer { background: var(--bg); color: var(--fg); border-top: 1px solid var(--ru
     setErr(prenom, 'e-prenom', b1); setErr(email, 'e-email', b2); setErr(tel, 'e-tel', b4); setErr(consent, 'e-consent', b3);
     if (b1) return prenom.focus(); if (b2) return email.focus(); if (b4) return tel.focus(); if (b3) return consent.focus();
     /* Anti-spam : un humain met plus de 3 secondes à remplir le formulaire */
-    if (Date.now() - formT0 < 3000) { form.hidden = true; d.getElementById('ok').classList.add('show'); return; }
+    if (Date.now() - formT0 < 3000) { window.showSent('Message', 'Merci, je te réponds très vite.', function () { form.reset(); formT0 = Date.now(); }); return; }
     sending = true;
     var submitBtn = form.querySelector('[type="submit"]'); submitBtn.setAttribute('aria-busy', 'true'); submitBtn.style.opacity = '0.6';
     var motif = (form.querySelector('input[name="motif"]:checked') || {}).value || '';
-    fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(new FormData(form)).toString() })
-      .then(function (r) { if (!r.ok) throw new Error(r.status); form.hidden = true; var ok = d.getElementById('ok'); ok.classList.add('show'); ok.focus(); track('form_submit_success', { motif: motif }); })
-      .catch(function () { form.hidden = true; var ko = d.getElementById('ko'); ko.classList.add('show'); ko.focus(); track('form_submit_error', { motif: motif }); });
+    function unlock() { sending = false; submitBtn.removeAttribute('aria-busy'); submitBtn.style.opacity = ''; }
+    d.getElementById('ko').classList.remove('show');
+    send(form)
+      .then(function () {
+        track('form_submit_success', { motif: motif });
+        window.showSent('Message', 'Merci ' + prenom.value.trim() + ', je te réponds très vite.', function () { form.reset(); unlock(); formT0 = Date.now(); });
+      })
+      .catch(function () { unlock(); var ko = d.getElementById('ko'); ko.classList.add('show'); ko.focus(); track('form_submit_error', { motif: motif }); });
   });
 })();
 </script>

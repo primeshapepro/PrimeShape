@@ -18,7 +18,7 @@ PrimeShape est l'activité de coaching sportif d'Andy Scherb, en cours de format
 La proximité : un coach local (basé à Vauvenargues), joignable, qui suit vraiment chaque personne, en présentiel à Aix et alentours. Pas une app ni une salle anonyme.
 
 ## Operating Context
-Visite surtout sur téléphone, depuis un lien partagé ou une recherche locale. Rien n'est en vente : on laisse son contact. Les formulaires (contact, avis) dépendent pour l'instant de Netlify Forms, non fonctionnels sur GitHub Pages ; un email direct sert de repli.
+Visite surtout sur téléphone, depuis un lien partagé ou une recherche locale. Rien n'est en vente : on laisse son contact. Les formulaires (contact, avis) sont envoyés au Worker Cloudflare `formulaire/` (formulaire.prime-shape.fr), qui les transmet par email à Andy via Email Routing ; un email direct sert de repli.
 
 ## Capabilities and Constraints
 - Site statique HTML/CSS/JS, publié sur Cloudflare Pages (construit par `build.sh` depuis ce dépôt GitHub), sur le domaine `prime-shape.fr` (acheté chez Infomaniak, DNS chez Cloudflare).
@@ -26,7 +26,6 @@ Visite surtout sur téléphone, depuis un lien partagé ou une recherche locale.
 - Parcours : formation CQP, puis diplôme et carte pro, puis ouverture des formules.
 - Avis clients : système de collecte et de publication modérée (avis.json), aucun avis pour l'instant.
 - Polices auto-hébergées (Nippo, Raleway), aucun appel externe, aucun cookie.
-- Ouvert : solution de formulaires hors Netlify.
 
 ## Brand Commitments
 - Nom PrimeShape et logo (trait de crête de montagne).

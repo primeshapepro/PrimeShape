@@ -1,0 +1,19 @@
+// Worker Cloudflare qui reçoit les formulaires du site (contact et avis)
+// et les transmet par email à Andy, via la messagerie Cloudflare (Email Routing).
+// Déployé par Cloudflare Workers Builds depuis ce dossier.
+{
+  "name": "primeshape-formulaire",
+  "main": "src/index.js",
+  "compatibility_date": "2026-10-01",
+  // Adresse servie par le Worker, appelée par les formulaires du site
+  "routes": [{ "pattern": "formulaire.prime-shape.fr", "custom_domain": true }],
+  // Envoi d'email : uniquement vers l'adresse vérifiée dans Email Routing
+  "send_email": [{ "name": "MAILER", "destination_address": "andyscherb10@gmail.com" }],
+  "vars": {
+    "FROM": "formulaire@prime-shape.fr",
+    "TO": "andyscherb10@gmail.com",
+    "SITE": "https://prime-shape.fr"
+  },
+  "workers_dev": false,
+  "observability": { "enabled": true }
+}
