@@ -1,0 +1,24 @@
+{
+  "serie": "Série · Reprendre le sport",
+  "accroche": [
+    {"texte": "4 exos", "style": "aplat"},
+    {"texte": "pour"},
+    {"texte": "reprendre", "style": "vert"},
+    {"texte": "chez toi"}
+  ],
+  "dureeAccroche": 2.2,
+  "plans": [
+    {"video": "rushes/exo1-squat.mp4", "debut": 1.5, "duree": 5, "nom": "Squat sur chaise", "consigne": "3 × 10"},
+    {"video": "rushes/exo2-pompes.mp4", "debut": 0.8, "duree": 5, "nom": "Pompes contre le mur", "consigne": "3 × 8"},
+    {"video": "rushes/exo3-fentes.mp4", "debut": 2, "duree": 5, "nom": "Fentes arrière", "consigne": "3 × 6 / jambe"},
+    {"video": "rushes/exo4-gainage.mp4", "debut": 1, "duree": 5, "nom": "Gainage sur genoux", "consigne": "3 × 20 s"}
+  ],
+  "look": "noir",
+  "musique": "musique/ma-musique.mp3",
+  "volumeMusique": 0.6,
+  "fin": {
+    "lignes": [{"texte": "Tu veux"}, {"texte": "reprendre ?"}, {"texte": "Écris-moi", "style": "aplat"}],
+    "texte": "Envoie-moi un message en DM, on regarde ensemble par où commencer.",
+    "duree": 3
+  }
+}

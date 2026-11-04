@@ -1,0 +1,12 @@
+node_modules/
+out/
+# Rushes, musiques et références téléchargées : trop lourds pour Git, à garder en local
+public/rushes/*
+!public/rushes/.gitkeep
+public/musique/*
+!public/musique/.gitkeep
+public/demo/
+refs/
+hyperframes/renders/
+hyperframes/.thumbnails/
+hyperframes/.hyperframes/

@@ -1,0 +1,22 @@
+{
+  "video": "rushes/face-cam.mp4",
+  "debut": 0.4,
+  "sousTitres": "sous-titres/face-cam.json",
+  "motsCles": ["lâches", "rythme", "deux"],
+  "titre": {
+    "label": "Série · Reprendre le sport · Ép. 1",
+    "lignes": [{"texte": "Pourquoi"}, {"texte": "tu lâches", "style": "aplat"}],
+    "a": 1.2,
+    "duree": 2.5
+  },
+  "inserts": [
+    {"video": "rushes/broll-salle.mp4", "a": 6, "duree": 2.5, "debut": 0},
+    {"video": "rushes/broll-sainte-victoire.mp4", "a": 12, "duree": 3, "debut": 4}
+  ],
+  "look": "noir",
+  "fin": {
+    "lignes": [{"texte": "Tu veux"}, {"texte": "reprendre ?"}, {"texte": "Écris-moi", "style": "aplat"}],
+    "texte": "Si tu es motivé pour reprendre le sport, viens en DM.",
+    "duree": 3
+  }
+}

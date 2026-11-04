@@ -1,0 +1,173 @@
+<!doctype html>
+<html
+  lang="fr"
+  data-resolution="portrait"
+  data-composition-variables='[
+    {"id":"label","type":"string","label":"Label de série","default":"SÉRIE · REPRENDRE LE SPORT"},
+    {"id":"ligne1","type":"string","label":"Ligne 1 (aplat vert)","default":"3 erreurs"},
+    {"id":"ligne2","type":"string","label":"Ligne 2","default":"quand tu"},
+    {"id":"ligne3","type":"string","label":"Ligne 3 (vert clair)","default":"reprends"},
+    {"id":"ligne4","type":"string","label":"Ligne 4","default":"le sport"}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <!-- GSAP copié en local : le CDN n'est pas joignable depuis le conteneur cloud -->
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      /* Charte PrimeShape « Noir massif » */
+      @font-face {
+        font-family: 'Clash Display';
+        src: url('assets/fonts/clash-display-variable.woff2') format('woff2');
+        font-weight: 200 700;
+        font-display: block;
+      }
+      @font-face {
+        font-family: 'Nippo';
+        src: url('assets/fonts/nippo-variable.woff2') format('woff2');
+        font-weight: 200 700;
+        font-display: block;
+      }
+      :root {
+        --ps-noir: #0c0e0d;
+        --ps-vert-sapin: #2e7d4f;
+        --ps-vert-clair: #4aa36e;
+        --ps-blanc-os: #edeee9;
+        --ps-gris: #9aa09b;
+        --ps-blanc: #ffffff;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: var(--ps-noir);
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        font-family: 'Nippo', 'Trebuchet MS', sans-serif;
+        color: var(--ps-blanc-os);
+      }
+      /* zones sûres reel : 260 px en haut, 380 px en bas */
+      #carte {
+        position: absolute;
+        inset: 0;
+        padding: 260px 72px 380px;
+        display: flex;
+        flex-direction: column;
+        gap: 48px;
+      }
+      #label {
+        font-weight: 500;
+        font-size: 28px;
+        line-height: 1;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        color: var(--ps-gris);
+      }
+      #accroche {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        font-family: 'Clash Display', 'Trebuchet MS', sans-serif;
+        font-weight: 500;
+        font-size: 150px;
+        line-height: 1.02;
+        letter-spacing: 0.01em;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+      .ligne {
+        color: var(--ps-blanc-os);
+      }
+      .aplat {
+        color: var(--ps-blanc);
+        background: var(--ps-vert-sapin);
+        padding: 4px 26px 12px;
+        margin-left: -26px;
+      }
+      .vert {
+        color: var(--ps-vert-clair);
+      }
+      #pied {
+        position: absolute;
+        left: 72px;
+        right: 72px;
+        bottom: 380px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      #logo {
+        font-weight: 700;
+        font-size: 28px;
+        line-height: 1;
+        letter-spacing: 0.12em;
+      }
+      #logo span {
+        color: var(--ps-vert-clair);
+      }
+      #compte {
+        font-weight: 500;
+        font-size: 28px;
+        line-height: 1;
+        letter-spacing: 0.2em;
+        color: var(--ps-gris);
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="3"
+      data-width="1080"
+      data-height="1920"
+    >
+      <div id="carte" class="clip" data-start="0" data-duration="3" data-track-index="0">
+        <div id="label"></div>
+        <div id="accroche">
+          <div class="ligne aplat" id="l1"></div>
+          <div class="ligne" id="l2"></div>
+          <div class="ligne vert" id="l3"></div>
+          <div class="ligne" id="l4"></div>
+        </div>
+      </div>
+      <div id="pied" class="clip" data-start="0" data-duration="3" data-track-index="1">
+        <div id="logo">PRIME<span>SHAPE</span></div>
+        <div id="compte">@PRIMESHAPEFR</div>
+      </div>
+    </div>
+    <script>
+      const v = window.__hyperframes ? window.__hyperframes.getVariables() : {};
+      document.getElementById('label').textContent = v.label || '';
+      ['ligne1', 'ligne2', 'ligne3', 'ligne4'].forEach((cle, i) => {
+        document.getElementById('l' + (i + 1)).textContent = v[cle] || '';
+      });
+
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      // même entrée que l'accroche Remotion : le label et la ligne 1 sont là dès l'image 0
+      // (c'est l'image du fil Instagram), les autres lignes arrivent toutes les 4 images.
+      tl.fromTo(
+        '.ligne:not(#l1)',
+        { opacity: 0, y: 28 },
+        { opacity: 1, y: 0, duration: 0.33, ease: 'power3.out', stagger: 0.133 },
+        0.05
+      );
+      tl.fromTo('#pied', { opacity: 0 }, { opacity: 1, duration: 0.3, ease: 'power2.out' }, 0.6);
+      window.__timelines['main'] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

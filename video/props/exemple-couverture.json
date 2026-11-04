@@ -1,0 +1,10 @@
+{
+  "serie": "Série · Reprendre le sport",
+  "lignes": [
+    {"texte": "3 erreurs", "style": "aplat"},
+    {"texte": "quand tu"},
+    {"texte": "reprends", "style": "vert"},
+    {"texte": "le sport"}
+  ],
+  "image": "rushes/couverture.jpg"
+}

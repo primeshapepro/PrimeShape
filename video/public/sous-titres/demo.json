@@ -1,0 +1,65 @@
+[
+ {
+  "text": " Tu",
+  "startMs": 0,
+  "endMs": 250,
+  "timestampMs": 125,
+  "confidence": 1
+ },
+ {
+  "text": " reprends",
+  "startMs": 250,
+  "endMs": 650,
+  "timestampMs": 450,
+  "confidence": 1
+ },
+ {
+  "text": " le",
+  "startMs": 650,
+  "endMs": 800,
+  "timestampMs": 725,
+  "confidence": 1
+ },
+ {
+  "text": " sport",
+  "startMs": 800,
+  "endMs": 1250,
+  "timestampMs": 1025,
+  "confidence": 1
+ },
+ {
+  "text": " ?",
+  "startMs": 1250,
+  "endMs": 1300,
+  "timestampMs": 1275,
+  "confidence": 1
+ },
+ {
+  "text": " Cette",
+  "startMs": 1500,
+  "endMs": 1750,
+  "timestampMs": 1625,
+  "confidence": 1
+ },
+ {
+  "text": " fois,",
+  "startMs": 1750,
+  "endMs": 2100,
+  "timestampMs": 1925,
+  "confidence": 1
+ },
+ {
+  "text": " tu",
+  "startMs": 2250,
+  "endMs": 2450,
+  "timestampMs": 2350,
+  "confidence": 1
+ },
+ {
+  "text": " tiens.",
+  "startMs": 2450,
+  "endMs": 3300,
+  "timestampMs": 2875,
+  "confidence": 1
+ }
+]
