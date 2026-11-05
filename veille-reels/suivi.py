@@ -18,7 +18,7 @@ plan.json, une entrée par nouveau reel, écrite par Claude après l'avoir regar
 
 Relevé des chiffres (vues, j'aime, commentaires ; le reste n'est visible que dans les statistiques
 Instagram d'Andy) : à la publication, puis une dernière fois dès 7 jours, comme le demande l'onglet
-Statistiques. Une note contenant « relevé final » ne bouge plus.
+Statistiques. Une note qui se termine par « relevé final » ne bouge plus.
 """
 
 import json
@@ -54,6 +54,12 @@ def heure_paris(reel):
 
 def vues(reel):
     return reel.get("videoPlayCount") or reel.get("videoViewCount") or 0
+
+
+def est_final(note):
+    # Seule une note qui se termine par « relevé final » est figée : une note provisoire
+    # peut citer la date du relevé final à venir (« … relevé final le 05/11 »).
+    return (note or "").rstrip().endswith(FINAL)
 
 
 def charger_reels(fichier):
@@ -95,8 +101,8 @@ def etat(xlsx, fichier_reels):
     a_relever = []
     for n, c in corr.items():
         r = ligne_du_numero(s, int(n), 7)
-        note = (s.cell(r, 13).value or "") if r else ""
-        if c in reels and FINAL not in note:
+        note = s.cell(r, 13).value if r else ""
+        if c in reels and not est_final(note):
             age = (datetime.now(PARIS).date() - heure_paris(reels[c]).date()).days
             if r is None or age >= 7:
                 a_relever.append(f"N°{n} (J+{age})")
@@ -145,7 +151,7 @@ def appliquer(xlsx, sortie, fichier_reels, fichier_plan=None):
             s.cell(r, 1).value = int(n)
             for col, f in STATS.items():
                 s.cell(r, col).value = f.format(r=r)
-        elif FINAL in (s.cell(r, 13).value or ""):
+        elif est_final(s.cell(r, 13).value):
             continue
         reel = reels[c]
         age = (aujourdhui - heure_paris(reel).date()).days
@@ -156,7 +162,7 @@ def appliquer(xlsx, sortie, fichier_reels, fichier_plan=None):
             s.cell(r, 13).value = f"Vues, j'aime et commentaires relevés le {aujourdhui:%d/%m} sur Instagram (J+{age}) : {FINAL}"
         else:
             s.cell(r, 13).value = (f"Vues, j'aime et commentaires relevés le {aujourdhui:%d/%m} (J+{age}) : "
-                                   f"relevé final le {heure_paris(reel).date() + timedelta(days=7):%d/%m}")
+                                   f"dernier relevé le {heure_paris(reel).date() + timedelta(days=7):%d/%m}")
         print(f"N°{n} : {vues(reel)} vues, {reel.get('likesCount')} j'aime, {reel.get('commentsCount')} commentaires (J+{age})")
 
     wb.save(sortie)

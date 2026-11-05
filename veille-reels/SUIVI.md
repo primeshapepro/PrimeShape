@@ -58,4 +58,4 @@ Les colonnes qu'Andy remplit (comptes touchés, partages, enregistrements,
 nouveaux abonnés, abonnés du lundi), l'onglet Stories, Séries & idées et
 Routine & checklist. Les chiffres relevés par Claude (vues, j'aime,
 commentaires) le sont à la publication puis une dernière fois à 7 jours ;
-une note contenant « relevé final » ne bouge plus.
+une note qui se termine par « relevé final » ne bouge plus.
