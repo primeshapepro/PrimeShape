@@ -406,10 +406,16 @@ footer { background: var(--bg); color: var(--fg); border-top: 1px solid var(--ru
 .sent-in { width: 100%; max-width: 34rem; text-align: center; }
 .sent-mark { width: 150px; height: 80px; margin: 0 auto 2.4rem; overflow: visible; }
 .sent-mark .ridge { fill: none; stroke: var(--accent); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: ridge 1.3s var(--quint) 0.25s forwards; }
+.sent-mark[hidden], .sent-stars[hidden] { display: none; }
+/* Avis : les étoiles s'allument une à une jusqu'à la note donnée */
+.sent-stars { display: flex; justify-content: center; gap: 10px; margin: 0 auto 2.4rem; }
+.sent-stars svg { width: 40px; height: 40px; fill: none; stroke: rgba(242,241,238,0.28); stroke-width: 1.2; stroke-linejoin: round; overflow: visible; }
+.sent.run .sent-stars svg.on { animation: starOn 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) calc(0.3s + var(--i) * 0.17s) forwards; }
+@keyframes starOn { 0% { transform: scale(0.7); } 55% { transform: scale(1.28); fill: var(--accent); stroke: var(--accent); } 100% { transform: scale(1); fill: var(--fg); stroke: var(--fg); } }
 .sent-mark .flag { fill: var(--accent); transform-box: fill-box; transform-origin: center; transform: scale(0); animation: flag 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 1.35s forwards; }
 @keyframes ridge { to { stroke-dashoffset: 0; } }
 @keyframes flag { to { transform: scale(1); } }
-.sent-title { font-family: var(--font-display); font-weight: 300; text-transform: uppercase; font-size: clamp(2.4rem, 7vw, 4rem); line-height: 1; letter-spacing: -0.01em; margin-bottom: 1.2rem; outline: none; }
+.sent-title { font-family: var(--font-display); font-weight: 300; text-transform: uppercase; font-size: clamp(2.4rem, 7vw, 4rem); line-height: 1; letter-spacing: -0.01em; margin-bottom: 1.2rem; outline: none; text-wrap: balance; }
 .sent-title em { font-style: normal; font-weight: 600; }
 .sent-text { color: var(--text-2); font-size: 1.08rem; line-height: 1.8; margin: 0 auto 2.6rem; max-width: 26rem; }
 .sent-back { display: flex; flex-direction: column; align-items: center; gap: 0.8rem; margin-bottom: 2rem; }
@@ -423,6 +429,7 @@ footer { background: var(--bg); color: var(--fg); border-top: 1px solid var(--ru
   html { scroll-behavior: auto; }
   .sent-mark .ridge { stroke-dashoffset: 0; animation: none; }
   .sent-mark .flag { transform: none; animation: none; }
+  .sent.run .sent-stars svg.on { animation: none; fill: var(--fg); stroke: var(--fg); }
   *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
   .profile .trail { stroke-dashoffset: 0 !important; }
 }
@@ -738,7 +745,8 @@ footer { background: var(--bg); color: var(--fg); border-top: 1px solid var(--ru
       <path class="ridge" pathLength="1" d="M4 58 L26 53 L44 46 L58 37 L68 29 L74 23 L78 26 L82 19 L88 25 L94 35 L100 40 L106 39 L116 46"/>
       <circle class="flag" cx="82" cy="19" r="3.2"/>
     </svg>
-    <h2 class="sent-title" id="sentTitle" tabindex="-1"><span id="sentWhat">Message</span> <em>envoyé.</em></h2>
+    <div class="sent-stars" id="sentStars" aria-hidden="true" hidden><svg style="--i:0" viewBox="0 0 24 24"><path d="M12 2.6l2.86 5.8 6.4.93-4.63 4.51 1.09 6.37L12 17.2l-5.72 3.01 1.09-6.37L2.74 9.33l6.4-.93z"/></svg><svg style="--i:1" viewBox="0 0 24 24"><path d="M12 2.6l2.86 5.8 6.4.93-4.63 4.51 1.09 6.37L12 17.2l-5.72 3.01 1.09-6.37L2.74 9.33l6.4-.93z"/></svg><svg style="--i:2" viewBox="0 0 24 24"><path d="M12 2.6l2.86 5.8 6.4.93-4.63 4.51 1.09 6.37L12 17.2l-5.72 3.01 1.09-6.37L2.74 9.33l6.4-.93z"/></svg><svg style="--i:3" viewBox="0 0 24 24"><path d="M12 2.6l2.86 5.8 6.4.93-4.63 4.51 1.09 6.37L12 17.2l-5.72 3.01 1.09-6.37L2.74 9.33l6.4-.93z"/></svg><svg style="--i:4" viewBox="0 0 24 24"><path d="M12 2.6l2.86 5.8 6.4.93-4.63 4.51 1.09 6.37L12 17.2l-5.72 3.01 1.09-6.37L2.74 9.33l6.4-.93z"/></svg></div>
+    <h2 class="sent-title" id="sentTitle" tabindex="-1"><span id="sentWhat">Message</span> <em id="sentEm">envoyé.</em></h2>
     <p class="sent-text" id="sentText">Merci, je te réponds très vite.</p>
     <div class="sent-back">
       <span class="sent-bar" aria-hidden="true"><i></i></span>
@@ -980,9 +988,9 @@ footer { background: var(--bg); color: var(--fg); border-top: 1px solid var(--ru
       send(fAv)
         .then(function () {
           track('review_submit_success', { note: cur });
-          window.showSent('Avis', 'Merci ' + fPre.value.trim() + ' ! Il sera publié après vérification, et en cas de refus je t\'expliquerai pourquoi.', function () {
+          window.showSent('Merci pour', 'Merci ' + fPre.value.trim() + ', ça compte beaucoup pour moi. Je le relis, puis il apparaîtra sur le site.', function () {
             fAv.reset(); cur = 0; paint(0); busy = false; avBtn.removeAttribute('aria-busy'); avBtn.style.opacity = ''; t0 = Date.now();
-          });
+          }, { note: cur, em: 'ton avis.' });
         })
         .catch(function () { busy = false; avBtn.removeAttribute('aria-busy'); avBtn.style.opacity = ''; var ko = d.getElementById('rvKo'); fAv.hidden = true; ko.classList.add('show'); ko.focus(); track('review_submit_error', {}); });
     });
@@ -1004,10 +1012,16 @@ footer { background: var(--bg); color: var(--fg); border-top: 1px solid var(--ru
     sent.classList.add('out');
     setTimeout(function () { sent.hidden = true; sent.classList.remove('out', 'run'); d.getElementById('h1').setAttribute('tabindex', '-1'); d.getElementById('h1').focus({ preventScroll: true }); }, reduce ? 0 : 450);
   }
-  window.showSent = function (what, text, reset) {
-    var wait = 5;
+  window.showSent = function (what, text, reset, opts) {
+    opts = opts || {};
+    var wait = opts.note ? 6 : 5;
     sentReset = reset;
     d.getElementById('sentWhat').textContent = what;
+    d.getElementById('sentEm').textContent = opts.em || 'envoyé.';
+    var stars = d.getElementById('sentStars');
+    stars.hidden = !opts.note;
+    sent.querySelector('.sent-mark').toggleAttribute('hidden', !!opts.note);
+    stars.querySelectorAll('svg').forEach(function (sv, k) { sv.classList.toggle('on', k < (opts.note || 0)); });
     d.getElementById('sentText').textContent = text;
     sent.style.setProperty('--wait', wait + 's');
     sent.hidden = false;

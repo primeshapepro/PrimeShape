@@ -37,6 +37,7 @@ Le vert reste rare : logo, P des valeurs, trace du parcours, sous-titre Premium,
 - Pied de page : grand logotype PrimeShape en filigrane (calcaire à 7 %, décoratif, masqué aux lecteurs d'écran).
 - Seule animation de défilement : la trace du parcours. Micro-interactions au survol uniquement : filet sous les liens du menu, soulignement des liens qui se retrace, bouton vert foncé à l'appui.
 - Écran « bien envoyé » après un formulaire : plein écran encre, la crête du logo se trace en vert jusqu'au sommet (point vert), titre « Message envoyé. » en Nippo léger / gras, compte à rebours de 5 s avec un filet qui se remplit, puis retour en haut de l'accueil. Statique avec « réduire les animations ».
+- Variante avis : à la place de la crête, 5 étoiles qui s'allument une à une jusqu'à la note donnée (éclat vert puis calcaire), titre « Merci pour ton avis. », 6 s avant le retour à l'accueil.
 - Surfaces du navigateur : barre de défilement fine aux couleurs du thème, curseur de saisie et cases en vert.
 
 ## Espacements
