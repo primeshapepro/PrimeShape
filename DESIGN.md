@@ -1,45 +1,49 @@
 # Design PrimeShape
 
-Direction : premium épuré, en thème sombre. Beaucoup d'espace, Nippo en graisse légère et en grand, une seule image forte (la vidéo de coaching), filets fins, boutons rectangulaires. Aucun effet : pas de verre, pas de halo, pas de dégradé, pas de néon, pas d'animation d'apparition.
+Direction « Noir massif », la même que la charte Instagram : fond noir, vert sapin et vert clair, Clash Display pour les titres, Nippo pour le texte. Site entièrement sombre (Andy ne veut pas de sections claires). Le thème : la montée de la Sainte-Victoire, à deux.
 
-## Couleurs (imposées)
+## Couleurs
 
-Jetons sémantiques dans `:root`, inversés localement dans la section claire (`.values`).
+Jetons dans `:root` de `index.html`.
 
-| Jeton | Sombre (défaut) | Section claire |
+| Jeton | Valeur | Usage |
 |---|---|---|
-| `--bg` fond | `#16191f` encre | `#f2f1ee` calcaire |
-| `--bg-2` fond alterné (formules, contact) | `#1e2330` ardoise | — |
-| `--fg` texte, filets forts, bouton principal | `#f2f1ee` | `#16191f` |
-| `--text-2` texte courant | `#b8bcc8` | `#464b57` |
-| `--text-3` texte discret | `#979cab` | `#5f6474` |
-| `--rule` filets fins | calcaire à 16 % | encre à 16 % |
-| `--accent` vert | `#4aa36e` | `#29714a` |
+| `--bg` | `#0c0e0d` noir | Fond de toutes les sections |
+| `--card` | `#1a1e1c` graphite | Cartes (valeurs, formule Essentiel, avis, formulaires) |
+| `--rule` | `#2a2f2c` | Contours de cartes et filets entre sections |
+| `--fg` | `#edeee9` blanc os | Titres, texte fort, bouton principal |
+| `--text-2` | `#c4c8c3` | Texte courant |
+| `--text-3` | `#9aa09b` | Texte discret, étiquettes |
+| `--accent` | `#4aa36e` vert clair | Mots-clés, étoiles, traces, petits titres |
+| `--green` | `#2e7d4f` vert sapin | Aplat de la formule Premium |
 
-Ordre des sections : ouverture (encre) → qui je suis (encre) → valeurs (calcaire) → parcours (encre) → formules (ardoise) → avis (encre) → contact (ardoise) → pied de page (encre).
+## Typographie
 
-Le vert reste rare : logo, P des valeurs, trace du parcours, sous-titre Premium, survol des boutons.
-
-## Typographie (imposée)
-
-- Titres : Nippo 300, capitales. `h1` `clamp(2.8rem, 5.6vw, 5.4rem)` interlignage 1, dernière ligne en Nippo 600. `.h2` `clamp(2rem, 4vw, 3.4rem)`.
-- Petits titres (faits, étapes) : Nippo 500, capitales, interlettrage 0.06em.
-- Étiquettes et menu (`.meta`, `.nav`) : Nippo 500, 0.74rem, capitales, interlettrage 0.14em.
-- Texte : Raleway, 1.08rem, interlignage 1.8.
+- Titres : Clash Display 500, en minuscules (casse normale), interlettrage serré (-0.02em). `h1` jusqu'à 7.8rem, « à deux. » en vert. `.h2` `clamp(2.4rem, 5.6vw, 5rem)`.
+- Petits titres au-dessus des titres (`.kick`) : Nippo 500, capitales, vert, interlettrage 0.3em.
+- Étiquettes (`.meta`, menu, boutons) : Nippo 500 à 600, capitales, interlettrage 0.14 à 0.22em.
+- Texte : Nippo 400, interlignage 1.75.
 
 ## Composants
 
-- Bouton principal : rectangle calcaire, texte encre, rayon 2px ; au survol, fond vert, texte blanc. Secondaire : contour 1px. Lien : texte souligné d'un filet.
-- Ouverture : texte à gauche, vidéo pleine hauteur à droite sous la barre ; en mobile, la vidéo passe dessous en pleine largeur.
-- Colonnes séparées par des filets de 1px ; jamais de cartes ni d'ombres.
-- Vidéo : muette, en boucle, lecture seulement à l'écran, arrêtée avec « réduire les animations ».
-- Légende de la vidéo : étiquette encre en bas à gauche (« En séance · Première traction »), style cartel de galerie.
-- Pied de page : grand logotype PrimeShape en filigrane (calcaire à 7 %, décoratif, masqué aux lecteurs d'écran).
-- Seule animation de défilement : la trace du parcours. Micro-interactions au survol uniquement : filet sous les liens du menu, soulignement des liens qui se retrace, bouton vert foncé à l'appui.
-- Écran « bien envoyé » après un formulaire : plein écran encre, la crête du logo se trace en vert jusqu'au sommet (point vert), titre « Message envoyé. » en Nippo léger / gras, compte à rebours de 5 s avec un filet qui se remplit, puis retour en haut de l'accueil. Statique avec « réduire les animations ».
-- Variante avis : à la place de la crête, 5 étoiles qui s'allument une à une jusqu'à la note donnée (éclat vert puis calcaire), titre « Merci pour ton avis. », 6 s avant le retour à l'accueil.
-- Surfaces du navigateur : barre de défilement fine aux couleurs du thème, curseur de saisie et cases en vert.
+- Boutons en pastille (rayon 999px) : principal blanc os, vert au survol ; secondaire en contour fin, vert au survol. Pendant un envoi, un cercle tourne à la place de la flèche.
+- Cartes graphite à contour 1 ou 2 px, rayon 20 à 22 px. Formule Premium en aplat vert sapin.
+- Logo : crête verte + PRIMESHAPE (SHAPE en vert) + « Coaching sportif » en gris, sans trait entre les deux.
+- Grain d'impression très léger sur tout le site.
+- Grands mots en pointillés (PRIMESHAPE dans l'ouverture et en pied de page).
+
+## Animations
+
+- Ouverture : le titre monte mot par mot ; la crête du logo, en très grand, se trace en vert ; deux points (la cordée) montent jusqu'au sommet avec un compteur d'altitude jusqu'à 1011 m ; un drapeau se plante et un cercle pulse. Le relief bouge légèrement avec la souris et au défilement.
+- Jauge d'altitude fixe à droite (0 m en haut de la page, 1011 m en bas) ; sur téléphone et tablette, fine barre verte en haut de l'écran.
+- Au défilement : titres mot par mot, textes en fondu, vidéo qui s'ouvre de bas en haut, cartes qui arrivent en décalé, formules qui basculent puis s'inclinent sous la souris, avis qui arrivent un par un.
+- Parcours : la trace verte se dessine avec le défilement et allume chaque étape.
+- Formulaires : trait vert qui se trace sous le champ actif, pastilles qui rebondissent, champ en erreur qui tremble, étoiles qui grossissent au survol.
+- Écran « Message envoyé » : halo vert, la crête se trace, le drapeau se plante au sommet, des éclats partent du sommet, le titre monte, compte à rebours de 5 s puis retour en haut de l'accueil.
+- Écran « Merci pour ton avis » : les étoiles s'allument une à une jusqu'à la note donnée, puis des éclats en partent ; 6 s avant le retour.
+- Bandeau « Chaque sommet se gravit à deux » qui défile sous le contact.
+- Tout est figé avec « réduire les animations ».
 
 ## Espacements
 
-Sections `.section` : `clamp(6rem, 16vh, 10.5rem)` en haut et en bas. Marges latérales 56px, 40px en tablette, 22px en mobile. Contenu limité à 1280px. Gouttière 32px.
+Sections : `clamp(90px, 16vh, 170px)` en haut et en bas, filet entre chaque section. Marges latérales 56px, 40px en tablette, 20px en mobile. Contenu limité à 1280px.

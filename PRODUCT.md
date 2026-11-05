@@ -25,7 +25,7 @@ Visite surtout sur téléphone, depuis un lien partagé ou une recherche locale.
 - Deux formules futures : Essentiel (suivi en ligne) et Premium (séances à domicile + suivi complet). Tarifs non fixés.
 - Parcours : formation CQP, puis diplôme et carte pro, puis ouverture des formules.
 - Avis clients : système de collecte et de publication modérée (avis.json), aucun avis pour l'instant.
-- Polices auto-hébergées (Nippo, Raleway), aucun appel externe, aucun cookie.
+- Polices auto-hébergées (Clash Display et Nippo sur l'accueil ; Raleway reste sur les pages légales), aucun appel externe, aucun cookie.
 
 ## Brand Commitments
 - Nom PrimeShape et logo (trait de crête de montagne).
