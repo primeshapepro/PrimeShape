@@ -80,6 +80,16 @@ qu'Andy dit ou écrit lui-même passe avant les comptages de `gouts.py`.
   question ; questions aux abonnés et @jointhehurd en priorité ; hashtag
   #reequilibragealimentaire (surtout des recettes) remplacé par
   #habitudessaines.
+- **Sélection du 09/11 (#024 à #033) :** 6 conseils santé et nutrition
+  (liste en texte de @jointhehurd, féculents, gras du ventre au feutre,
+  classement et verdict sur les protéines, sketch sur le craquage du soir),
+  2 exercices expliqués (fréquence d'entraînement, objet du quotidien) et
+  2 reels de motivation (régularité, texte sur images de course). Peu de
+  reels viraux cette fois dans ses formats préférés (tableaux, questions) :
+  deux formats nouveaux à tester, le sketch avec un conseil et le texte posé
+  sur des images de course. Écartés d'office : séances à suivre (même
+  expliquées en légende), signes médicaux sur la peau, calculs de calories,
+  extraits de médias, humour sans conseil, promotions.
 
 ## Règles appliquées à la sélection
 
