@@ -62,6 +62,25 @@ qu'Andy dit ou écrit lui-même passe avant les comptages de `gouts.py`.
   les formats nouveaux (verdict, surestimé ou sous-estimé, erreur et bonne
   version) lui plaisent-ils autant que les tableaux et classements ?
 
+## Bilan du 09/11/2026 (3 choix sur les 10 reels du 03/11)
+
+- **Gardé :** #015 question « 3 sources de protéines pour toute ta vie »
+  (@jointhehurd, en anglais, 2e reel gardé de ce compte).
+- **Écartés :** #014 schéma des morceaux de bœuf, #016 classement des plats
+  réunionnais.
+- **Sans avis :** #017 à #023 (verdicts au supermarché, tableau des organes,
+  réveils nocturnes, cardio, 5 exercices, erreur au tirage vertical, liste de
+  courses).
+- **Ce que ça dit :** avec la recette écartée le 03/11, les contenus centrés
+  sur la cuisine (plats, recettes, morceaux de viande) ne l'intéressent pas,
+  même dans un format qu'il aime (classement, tableau). Les questions aux
+  abonnés et les conseils santé généraux restent gagnants.
+- **Changé pour la sélection du 09/11 :** plus de reels sur des plats ou de
+  la cuisine ; la nutrition seulement sous forme de conseil général ou de
+  question ; questions aux abonnés et @jointhehurd en priorité ; hashtag
+  #reequilibragealimentaire (surtout des recettes) remplacé par
+  #habitudessaines.
+
 ## Règles appliquées à la sélection
 
 - Un sujet, un format ou un compte écarté au moins 2 fois sans jamais être
