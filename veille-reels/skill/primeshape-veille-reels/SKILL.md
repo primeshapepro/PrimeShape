@@ -22,7 +22,7 @@ te parle en français, tout le reste est pour toi.
 | Registre des numéros | `veille-reels/references.json` |
 | Catalogue (page privée d'Andy) | https://claude.ai/artifact/QyyrrDEwYMtQdhEnSLV5wz, source `veille-reels/catalogue.html`, base à trois collections : `reels`, `semaines`, `choix` |
 | Collecte | Apify (compte gratuit d'Andy, 5 $ de crédit par mois), acteurs `apify~instagram-reel-scraper` et `apify~instagram-hashtag-scraper` |
-| Rythme | tâche programmée « Veille reels PrimeShape » (`trig_015cWPRdEiM4xoD1q9LUzqvM`) : chaque lundi à 9 h 38, heure de Paris ; sélection un lundi sur deux à partir du 9 novembre 2026, les autres lundis elle s'arrête tout de suite |
+| Rythme | tâche programmée « Veille reels PrimeShape » (`trig_015cWPRdEiM4xoD1q9LUzqvM`) : chaque lundi à 9 h 38, heure de Paris ; sélection un lundi sur deux à partir du 30 novembre 2026, les autres lundis elle s'arrête tout de suite |
 
 Le site PrimeShape vit dans le même dépôt. `build.sh` ne publie que les fichiers
 du site : `veille-reels/` n'est jamais mis en ligne, et la veille ne touche à
@@ -122,7 +122,7 @@ langue : l'anglais lui va autant que le français.
 - **Comptes et hashtags :** `config.json`. Viser environ 600 reels par collecte
   pour rester vers 1,60 $.
 - **Jour, heure, rythme :** la tâche programmée (`update_trigger`). Son message
-  contient la règle « un lundi sur deux à partir du 9 novembre 2026 » : la mettre
+  contient la règle « un lundi sur deux à partir du 30 novembre 2026 » : la mettre
   à jour si le rythme change.
 - **Le catalogue :** modifier `veille-reels/catalogue.html`, puis republier à
   l'adresse du catalogue (lire d'abord l'artefact si la session ne l'a pas

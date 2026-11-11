@@ -109,7 +109,8 @@ Quand Andy dit « fais le montage du #007 » et envoie ses rushs :
 
 Une tâche programmée réveille la session Claude de la veille chaque lundi à
 9 h 38 (heure de Paris). La sélection n'a lieu qu'un lundi sur deux, à partir
-du 9 novembre 2026 ; les autres lundis, la tâche s'arrête tout de suite.
+du 30 novembre 2026 (décalée le 11/11 pour attendre le crédit Apify du 26/11) ;
+les autres lundis, la tâche s'arrête tout de suite.
 
 1. `python3 veille-reels/collecte.py` (ou `--essai` pour un test à quelques
    centimes) récupère via Apify les reels récents des comptes suivis et des
