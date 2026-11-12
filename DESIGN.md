@@ -31,6 +31,7 @@ Jetons dans `:root` de `index.html`.
 - Logo : crête verte + PRIMESHAPE (SHAPE en vert) + « Coaching sportif » en gris, sans trait entre les deux.
 - Grain d'impression très léger sur tout le site.
 - Grands mots en pointillés (PRIMESHAPE dans l'ouverture et en pied de page).
+- Section « En séance » : titre et texte à gauche (collés en haut au défilement), vidéos au format reel 9/16 à droite, en cartes arrondies ; aperçu muet qui se lance à l'écran, bouton lecture rond, titre en bas de la carte. Au clic, la vidéo s'ouvre en grand sur fond noir. Sur téléphone, défilement horizontal au doigt. Entrée en éventail au défilement.
 
 ## Animations
 
