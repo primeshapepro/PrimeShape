@@ -80,6 +80,7 @@ Pour ajouter une référence : `scripts/reference.sh <lien du reel>`, regarde `r
 |---|---|---|
 | **Remotion** 4.0.540 | Monter les reels en code (les 4 compositions ci-dessus) | `npm run studio`, `npx remotion render …` |
 | **HyperFrames** 0.9.11 | Cartons et animations en HTML (`hyperframes/index.html` : accroche animée). Export `--format mov` avec fond transparent pour les poser dans CapCut | `cd hyperframes && npx hyperframes preview`, `npx hyperframes render` |
+| **HyperFrames** · stories | Les 3 stories de l'offre (`stories-offre/index.html` : accroche, formules, démarrage, 32 s en tout). Mise en page selon le skill `landing-page-design` d'elayadesign/ai-design-skills, adapté à la charte | `cd stories-offre && npx hyperframes render`, puis couper à 10 s et 22 s |
 | **ffmpeg** | Couper, convertir, extraire le son | `ffmpeg -ss 12 -to 18 -i rush.mp4 -c copy extrait.mp4` |
 | **Whisper** | Transcrire pour les sous-titres | `python3 scripts/sous-titres.py <vidéo>` |
 | **yt-dlp** | Télécharger un reel de référence | `scripts/reference.sh <lien>` |

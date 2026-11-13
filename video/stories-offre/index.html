@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="fr" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <!--
+      Trois stories Instagram pour présenter l'offre PrimeShape (cahier des charges du 13 novembre 2026).
+        Story 1 · 0 à 10 s  : accroche + présentation
+        Story 2 · 10 à 22 s : les deux formules, Essentiel et Premium
+        Story 3 · 22 à 32 s : comment on démarre + appel à répondre en DM
+      Charte « Noir massif » (Clash Display + Nippo). Règles de mise en page reprises du skill
+      landing-page-design (elayadesign/ai-design-skills) : tailles de texte sur l'échelle 30/36/48/60/96/128,
+      espacements 4/8/12/16/24/32/48/64/80, courbe de mouvement cubic-bezier(0.22, 1, 0.36, 1),
+      seulement transform et opacity animés, pas de tiret dans le texte, une seule action demandée.
+      Aucun prix : les formules sont présentées « à venir » tant que le CQP n'est pas obtenu.
+    -->
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: 'Clash Display';
+        src: url('assets/fonts/clash-display-variable.woff2') format('woff2');
+        font-weight: 200 700;
+        font-display: block;
+      }
+      @font-face {
+        font-family: 'Nippo';
+        src: url('assets/fonts/nippo-variable.woff2') format('woff2');
+        font-weight: 200 700;
+        font-display: block;
+      }
+      :root {
+        --noir: #0c0e0d;
+        --vert-sapin: #2e7d4f;
+        --vert-clair: #4aa36e;
+        --blanc-os: #edeee9;
+        --gris: #9aa09b;
+        --texte: #c4c8c3;
+        --graphite: #1a1e1c;
+        --bordure: #2a2f2c;
+        --blanc: #ffffff;
+        --cote: 80px; /* marges latérales */
+        --haut: 260px; /* zone sûre story : profil et barre de progression */
+        --bas: 380px; /* zone sûre story : champ « Envoyer un message » */
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: var(--noir);
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        font-family: 'Nippo', 'Trebuchet MS', sans-serif;
+        color: var(--blanc-os);
+      }
+      .story {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        background: var(--noir);
+      }
+      .zone {
+        position: absolute;
+        top: var(--haut);
+        left: var(--cote);
+        right: var(--cote);
+        bottom: var(--bas);
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ── Textes ─────────────────────────────────────────── */
+      .entete {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .label {
+        font-weight: 500;
+        font-size: 30px;
+        line-height: 1;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        color: var(--gris);
+        white-space: nowrap;
+      }
+      .titre {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        font-family: 'Clash Display', 'Trebuchet MS', sans-serif;
+        font-weight: 500;
+        line-height: 1.02;
+        letter-spacing: 0.01em;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+      .t96 {
+        font-size: 96px;
+      }
+      .t128 {
+        font-size: 128px;
+      }
+      .aplat {
+        color: var(--blanc);
+        background: var(--vert-sapin);
+        padding: 4px 24px 12px;
+        margin-left: -24px;
+      }
+      .corps {
+        font-weight: 400;
+        font-size: 30px;
+        line-height: 1.45;
+        color: var(--texte);
+        text-wrap: pretty;
+      }
+      .corps b {
+        font-weight: 600;
+        color: var(--blanc-os);
+      }
+      .ico {
+        width: 40px;
+        height: 40px;
+        flex: none;
+        fill: currentColor;
+      }
+
+      /* ── Grille des séances : 12 semaines × 2 séances ───── */
+      .grille {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .colonnes {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        column-gap: 12px;
+      }
+      .semaine {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .case {
+        position: relative;
+        height: 48px;
+        border: 2px solid var(--bordure);
+        border-radius: 12px;
+      }
+      .case i {
+        position: absolute;
+        inset: 0;
+        border-radius: 10px; /* 12 px − 2 px de bordure */
+        background: var(--vert-clair);
+        opacity: 0;
+        transform: scale(0.6);
+      }
+      .repere {
+        grid-column: 4 / -1;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        font-weight: 500;
+        font-size: 30px;
+        line-height: 1;
+        color: var(--blanc-os);
+        white-space: nowrap;
+      }
+      .repere span:last-child {
+        width: 2px;
+        height: 24px;
+        margin-left: 31px; /* centre de la colonne de la semaine 4 */
+        background: var(--blanc-os);
+      }
+      .bornes {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      /* ── Pied : logo + suite ────────────────────────────── */
+      .pied {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        font-weight: 700;
+        font-size: 30px;
+        line-height: 1;
+        letter-spacing: 0.12em;
+      }
+      .logo em {
+        font-style: normal;
+        color: var(--vert-clair);
+      }
+      .suite {
+        font-weight: 500;
+        font-size: 30px;
+        line-height: 1;
+        letter-spacing: 0.2em;
+        color: var(--vert-clair);
+      }
+
+      /* ── Story 2 : les deux formules ────────────────────── */
+      #s2-panneau {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 900px;
+        bottom: 0;
+        background: var(--vert-sapin);
+      }
+      #s2-ou {
+        position: absolute;
+        top: 836px;
+        right: var(--cote);
+        width: 128px;
+        height: 128px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 9999px;
+        border: 2px solid var(--vert-clair);
+        background: var(--noir);
+        font-family: 'Clash Display', 'Trebuchet MS', sans-serif;
+        font-weight: 500;
+        font-size: 48px;
+        letter-spacing: 0.01em;
+        text-transform: uppercase;
+      }
+      .formule {
+        position: absolute;
+        left: var(--cote);
+        right: var(--cote);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      #f1 {
+        top: 338px;
+      }
+      #f2 {
+        top: 964px;
+      }
+      .formule .label {
+        color: var(--vert-clair);
+      }
+      .formule .titre {
+        margin-top: 16px;
+      }
+      .points {
+        list-style: none;
+        margin-top: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .points li {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        font-size: 36px;
+        line-height: 1.4;
+        color: var(--texte);
+        white-space: nowrap;
+      }
+      .points li .ico {
+        color: var(--vert-clair);
+      }
+      .points b {
+        font-weight: 600;
+        color: var(--blanc-os);
+      }
+      .points .sep {
+        color: var(--vert-clair);
+        padding: 0 8px;
+      }
+      .pastille {
+        margin-top: 32px;
+        padding: 12px 24px;
+        border: 2px solid var(--gris);
+        border-radius: 9999px;
+      }
+      /* sur l'aplat vert sapin : texte blanc pur */
+      .premium .titre,
+      .premium .points b,
+      .premium .points .sep,
+      .premium .points .ico {
+        color: var(--blanc);
+      }
+      .premium .label,
+      .premium .points li {
+        color: rgba(255, 255, 255, 0.84);
+      }
+      .premium .pastille {
+        border-color: rgba(255, 255, 255, 0.84);
+      }
+
+      /* ── Story 3 : comment on démarre ───────────────────── */
+      .etapes {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+      }
+      .etape {
+        display: grid;
+        grid-template-columns: 96px 1fr;
+        align-items: start;
+        padding: 24px 0;
+      }
+      .filet {
+        height: 2px;
+        background: var(--bordure);
+      }
+      .num {
+        font-family: 'Clash Display', 'Trebuchet MS', sans-serif;
+        font-weight: 500;
+        font-size: 60px;
+        line-height: 1;
+        color: var(--vert-clair);
+      }
+      .etape h3 {
+        font-weight: 600;
+        font-size: 36px;
+        line-height: 1.2;
+        color: var(--blanc-os);
+      }
+      .etape p {
+        margin-top: 8px;
+      }
+      .appel {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+      .appel h4 {
+        font-weight: 600;
+        font-size: 48px;
+        line-height: 1.2;
+        white-space: nowrap;
+      }
+      .appel h4 em {
+        font-style: normal;
+        color: var(--vert-clair);
+      }
+      .fleche {
+        width: 96px;
+        height: 96px;
+        flex: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 9999px;
+        background: var(--vert-sapin);
+        color: var(--blanc);
+      }
+      .fleche .ico {
+        width: 48px;
+        height: 48px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="32" data-width="1080" data-height="1920">
+      <!-- ═════════════ STORY 1 · ACCROCHE ═════════════ -->
+      <div id="s1" class="clip story" data-start="0" data-duration="10" data-track-index="0" data-hold>
+        <div class="zone">
+          <div class="entete">
+            <span class="label">Pour toi qui reprends</span>
+            <span class="label">1 / 3</span>
+          </div>
+          <h1 class="titre t96" style="margin-top: 48px">
+            <span class="s1-q">Tu veux te</span>
+            <span class="s1-q">sentir mieux</span>
+            <span class="s1-q">dans ta peau&nbsp;?</span>
+          </h1>
+          <div class="titre t128" style="margin-top: 32px" data-layout-allow-overflow>
+            <span class="aplat s1-r">Suis mon</span>
+            <span class="aplat s1-r">programme.</span>
+          </div>
+
+          <div class="grille" id="s1-grille" style="margin-top: auto">
+            <div class="colonnes">
+              <div class="repere" id="s1-repere"><span>d’habitude, ça s’arrête là</span><span></span></div>
+            </div>
+            <div class="colonnes" data-grille="12" data-pleines="6" data-estompe="oui"></div>
+            <div class="bornes"><span class="label">Semaine 1</span><span class="label">Semaine 12</span></div>
+          </div>
+
+          <p class="corps" id="s1-bio" style="margin-top: 48px">
+            Moi, c’est <b>Andy</b>, futur personal trainer en formation CQP à Aix. J’ai accompagné bénévolement deux
+            coureurs jusqu’à leur semi&nbsp;: objectif atteint pour les deux.
+          </p>
+
+          <div class="pied" id="s1-pied" style="margin-top: 48px">
+            <div class="logo">
+              <svg width="64" height="64" viewBox="0 0 100 100" aria-hidden="true">
+                <defs>
+                  <linearGradient id="ps-remplissage-p" x1="0" y1="1" x2="0" y2="0">
+                    <stop offset="0" stop-color="#2e7d4f" />
+                    <stop offset="0.54" stop-color="#2e7d4f" />
+                    <stop offset="0.54" stop-color="#2e7d4f" stop-opacity="0" />
+                    <stop offset="1" stop-color="#2e7d4f" stop-opacity="0" />
+                  </linearGradient>
+                </defs>
+                <rect x="0" y="0" width="100" height="100" rx="25.6" fill="#0c0e0d" />
+                <rect x="7.3" y="7.3" width="85.4" height="85.4" rx="18.3" fill="none" stroke="#4aa36e" stroke-opacity="0.55" stroke-width="1.3" />
+                <text x="50" y="48.8" text-anchor="middle" dominant-baseline="central" font-family="Nippo" font-weight="700" font-size="70.7" fill="url(#ps-remplissage-p)" stroke="#4aa36e" stroke-width="3.2" paint-order="stroke">P</text>
+              </svg>
+              <span>PRIME<em>SHAPE</em></span>
+            </div>
+            <span class="suite">LA SUITE →</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═════════════ STORY 2 · LES DEUX FORMULES ═════════════ -->
+      <div id="s2" class="clip story" data-start="10" data-duration="12" data-track-index="0" data-hold>
+        <div id="s2-panneau"></div>
+        <div class="zone">
+          <div class="entete" id="s2-entete">
+            <span class="label">Ce que je te propose</span>
+            <span class="label">2 / 3</span>
+          </div>
+        </div>
+
+        <section class="formule" id="f1">
+          <span class="label s2-a">En ligne · toute la France</span>
+          <h2 class="titre t128 s2-a">Essentiel</h2>
+          <ul class="points">
+            <li class="s2-a"><svg class="ico" data-icone="device-mobile" viewBox="0 0 256 256"></svg><span><b>Sur mesure</b><span class="sep">·</span>ton programme sur ton téléphone</span></li>
+            <li class="s2-a"><svg class="ico" data-icone="video-camera" viewBox="0 0 256 256"></svg><span><b>Bons gestes</b><span class="sep">·</span>ta technique corrigée en vidéo</span></li>
+            <li class="s2-a"><svg class="ico" data-icone="chat-circle-text" viewBox="0 0 256 256"></svg><span><b>Suivi</b><span class="sep">·</span>sur WhatsApp, réponse sous 24&nbsp;h</span></li>
+            <li class="s2-a"><svg class="ico" data-icone="chart-line-up" viewBox="0 0 256 256"></svg><span><b>Progrès</b><span class="sep">·</span>1 à 2 bilans vidéo par mois</span></li>
+          </ul>
+          <span class="label pastille s2-a">Ouverture juillet 2027</span>
+        </section>
+
+        <div id="s2-ou">ou</div>
+
+        <section class="formule premium" id="f2">
+          <span class="label s2-b">À domicile · Aix et Marseille</span>
+          <h2 class="titre t128 s2-b">Premium</h2>
+          <ul class="points">
+            <li class="s2-b"><svg class="ico" data-icone="house" viewBox="0 0 256 256"></svg><span><b>Zéro trajet</b><span class="sep">·</span>2 séances chez toi par semaine</span></li>
+            <li class="s2-b"><svg class="ico" data-icone="barbell" viewBox="0 0 256 256"></svg><span><b>Rien à acheter</b><span class="sep">·</span>j’apporte le matériel</span></li>
+            <li class="s2-b"><svg class="ico" data-icone="eye" viewBox="0 0 256 256"></svg><span><b>En direct</b><span class="sep">·</span>je corrige chaque mouvement</span></li>
+            <li class="s2-b"><svg class="ico" data-icone="clock" viewBox="0 0 256 256"></svg><span><b>Disponible</b><span class="sep">·</span>réponse dans la journée</span></li>
+          </ul>
+          <span class="label pastille s2-b">Ouverture janvier 2028</span>
+        </section>
+      </div>
+
+      <!-- ═════════════ STORY 3 · COMMENT ON DÉMARRE ═════════════ -->
+      <div id="s3" class="clip story" data-start="22" data-duration="10" data-track-index="0" data-hold>
+        <div class="zone">
+          <div class="entete" id="s3-entete">
+            <span class="label">Comment on démarre</span>
+            <span class="label">3 / 3</span>
+          </div>
+
+          <ol class="etapes" style="margin-top: 24px">
+            <li class="etape s3-e">
+              <span class="num">01</span>
+              <div>
+                <h3>Tu me réponds ici</h3>
+                <p class="corps">Quelques messages pour faire connaissance.</p>
+              </div>
+            </li>
+            <li class="filet s3-e"></li>
+            <li class="etape s3-e">
+              <span class="num">02</span>
+              <div>
+                <h3>Appel découverte gratuit</h3>
+                <p class="corps">45 min en visio, sans engagement.</p>
+              </div>
+            </li>
+            <li class="filet s3-e"></li>
+            <li class="etape s3-e">
+              <span class="num">03</span>
+              <div>
+                <h3>On démarre ensemble</h3>
+                <p class="corps">Bilan de départ, ton programme sur mesure, un suivi chaque semaine.</p>
+              </div>
+            </li>
+          </ol>
+
+          <div class="grille" id="s3-grille" style="margin-top: 32px">
+            <span class="label">3 mois pour que ça tienne</span>
+            <div class="colonnes" data-grille="12" data-pleines="24"></div>
+            <div class="bornes"><span class="label">Semaine 1</span><span class="label">Semaine 12</span></div>
+          </div>
+
+          <div class="titre t96" id="s3-slogan" style="margin-top: 48px" data-layout-allow-overflow>
+            <span><span class="mot">Cette</span> <span class="mot">fois,</span></span>
+            <span class="aplat"><span class="mot">tu</span> <span class="mot">tiens.</span></span>
+          </div>
+
+          <div class="appel" id="s3-appel" style="margin-top: auto">
+            <div>
+              <h4>Réponds <em>«&nbsp;GO&nbsp;»</em> ici</h4>
+              <p class="corps" style="margin-top: 8px">Je te préviens à l’ouverture, et on en parle.</p>
+            </div>
+            <div class="fleche" id="s3-fleche"><svg class="ico" data-icone="arrow-down" viewBox="0 0 256 256"></svg></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Icônes Phosphor (regular, MIT) : https://phosphoricons.com
+      const ICONES = {
+        'device-mobile': 'M176,16H80A24,24,0,0,0,56,40V216a24,24,0,0,0,24,24h96a24,24,0,0,0,24-24V40A24,24,0,0,0,176,16ZM72,64H184V192H72Zm8-32h96a8,8,0,0,1,8,8v8H72V40A8,8,0,0,1,80,32Zm96,192H80a8,8,0,0,1-8-8v-8H184v8A8,8,0,0,1,176,224Z',
+        'video-camera': 'M251.77,73a8,8,0,0,0-8.21.39L208,97.05V72a16,16,0,0,0-16-16H32A16,16,0,0,0,16,72V184a16,16,0,0,0,16,16H192a16,16,0,0,0,16-16V159l35.56,23.71A8,8,0,0,0,248,184a8,8,0,0,0,8-8V80A8,8,0,0,0,251.77,73ZM192,184H32V72H192V184Zm48-22.95-32-21.33V116.28L240,95Z',
+        'chat-circle-text': 'M168,112a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,112Zm-8,24H96a8,8,0,0,0,0,16h64a8,8,0,0,0,0-16Zm72-8A104,104,0,0,1,79.12,219.82L45.07,231.17a16,16,0,0,1-20.24-20.24l11.35-34.05A104,104,0,1,1,232,128Zm-16,0A88,88,0,1,0,51.81,172.06a8,8,0,0,1,.66,6.54L40,216,77.4,203.53a7.85,7.85,0,0,1,2.53-.42,8,8,0,0,1,4,1.08A88,88,0,0,0,216,128Z',
+        'chart-line-up': 'M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V156.69l50.34-50.35a8,8,0,0,1,11.32,0L128,132.69,180.69,80H160a8,8,0,0,1,0-16h40a8,8,0,0,1,8,8v40a8,8,0,0,1-16,0V91.31l-58.34,58.35a8,8,0,0,1-11.32,0L96,123.31l-56,56V200H224A8,8,0,0,1,232,208Z',
+        house: 'M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48V120l80-80,80,80Z',
+        barbell: 'M248,120h-8V88a16,16,0,0,0-16-16H208V64a16,16,0,0,0-16-16H168a16,16,0,0,0-16,16v56H104V64A16,16,0,0,0,88,48H64A16,16,0,0,0,48,64v8H32A16,16,0,0,0,16,88v32H8a8,8,0,0,0,0,16h8v32a16,16,0,0,0,16,16H48v8a16,16,0,0,0,16,16H88a16,16,0,0,0,16-16V136h48v56a16,16,0,0,0,16,16h24a16,16,0,0,0,16-16v-8h16a16,16,0,0,0,16-16V136h8a8,8,0,0,0,0-16ZM32,168V88H48v80Zm56,24H64V64H88V192Zm104,0H168V64h24V175.82c0,.06,0,.12,0,.18s0,.12,0,.18V192Zm32-24H208V88h16Z',
+        eye: 'M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,192.43,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z',
+        clock: 'M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z',
+        'arrow-down': 'M205.66,149.66l-72,72a8,8,0,0,1-11.32,0l-72-72a8,8,0,0,1,11.32-11.32L120,196.69V40a8,8,0,0,1,16,0V196.69l58.34-58.35a8,8,0,0,1,11.32,11.32Z',
+      };
+      document.querySelectorAll('[data-icone]').forEach((svg) => {
+        svg.setAttribute('aria-hidden', 'true');
+        svg.innerHTML = '<path d="' + ICONES[svg.dataset.icone] + '"/>';
+      });
+
+      // Grilles de séances : 12 semaines × 2 séances. data-pleines = cases remplies,
+      // data-estompe = les semaines vides s'effacent peu à peu (on lâche).
+      document.querySelectorAll('[data-grille]').forEach((grille) => {
+        const semaines = Number(grille.dataset.grille);
+        const pleines = Number(grille.dataset.pleines);
+        let k = 0;
+        for (let s = 0; s < semaines; s++) {
+          const col = document.createElement('div');
+          col.className = 'semaine';
+          for (let j = 0; j < 2; j++, k++) {
+            const c = document.createElement('div');
+            c.className = 'case';
+            const premiereVide = Math.ceil(pleines / 2);
+            c.dataset.vide = k >= pleines ? 'oui' : 'non';
+            c.dataset.opacite = s < premiereVide ? 1 : (0.75 - ((s - premiereVide) / (semaines - 1 - premiereVide)) * 0.55).toFixed(3);
+            const plein = document.createElement('i');
+            c.appendChild(plein);
+            col.appendChild(c);
+          }
+          grille.appendChild(col);
+        }
+      });
+
+      // Courbe de mouvement du skill : cubic-bezier(0.22, 1, 0.36, 1), qui ralentit en se posant.
+      function bezier(x1, y1, x2, y2) {
+        const cx = 3 * x1, bx = 3 * (x2 - x1) - cx, ax = 1 - cx - bx;
+        const cy = 3 * y1, by = 3 * (y2 - y1) - cy, ay = 1 - cy - by;
+        const sx = (t) => ((ax * t + bx) * t + cx) * t;
+        const sy = (t) => ((ay * t + by) * t + cy) * t;
+        return (x) => {
+          if (x <= 0) return 0;
+          if (x >= 1) return 1;
+          let lo = 0, hi = 1, t = x;
+          for (let i = 0; i < 40; i++) {
+            if (sx(t) < x) lo = t;
+            else hi = t;
+            t = (lo + hi) / 2;
+          }
+          return sy(t);
+        };
+      }
+      const BASE = bezier(0.22, 1, 0.36, 1);
+
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const entree = (cible, t, o = {}) =>
+        tl.fromTo(
+          cible,
+          { opacity: 0, y: o.y ?? 24 },
+          { opacity: 1, y: 0, duration: o.duree ?? 0.5, ease: BASE, stagger: o.pas ?? 0 },
+          t
+        );
+
+      // ── Story 1 (0 à 10 s). Image 0 : le label et la 1re ligne sont déjà là.
+      entree('.s1-q:not(:first-child)', 0.05, { pas: 0.06 });
+      entree('.s1-r', 0.3, { pas: 0.06, y: 32 });
+      entree('#s1-grille .case', 0.9, { pas: 0.012, y: 0, duree: 0.4 });
+      entree('#s1-grille .bornes', 0.9, { y: 0, duree: 0.4 });
+      tl.to('#s1-grille .case[data-vide="non"] i', { opacity: 1, scale: 1, duration: 0.35, ease: BASE, stagger: 0.12 }, 1.3);
+      tl.to('#s1-grille .case[data-vide="oui"]', { opacity: (i, el) => Number(el.dataset.opacite), duration: 0.6, ease: BASE, stagger: 0.03 }, 2.1);
+      entree('#s1-repere', 2.3);
+      entree('#s1-bio', 2.9);
+      entree('#s1-pied', 3.2, { y: 0 });
+
+      // ── Story 2 (10 à 22 s), en-tête visible dès la 1re image : l'Essentiel arrive, puis l'aplat vert monte avec le Premium.
+      entree('.s2-a', 10.05, { pas: 0.06 });
+      tl.fromTo('#s2-panneau', { yPercent: 100 }, { yPercent: 0, duration: 0.6, ease: BASE }, 10.6);
+      tl.fromTo('#s2-ou', { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.5, ease: BASE }, 11.05);
+      entree('.s2-b', 11.1, { pas: 0.06 });
+
+      // ── Story 3 (22 à 32 s), en-tête visible dès la 1re image : les étapes, la grille qui se remplit, le slogan mot à mot.
+      entree('.s3-e', 22.05, { pas: 0.06 });
+      entree('#s3-grille > .label, #s3-grille .bornes', 22.5, { y: 0 });
+      entree('#s3-grille .case', 22.5, { pas: 0.012, y: 0, duree: 0.4 });
+      tl.to('#s3-grille .case i', { opacity: 1, scale: 1, duration: 0.3, ease: BASE, stagger: 0.05 }, 22.9);
+      // slogan : d'abord en retrait (30 %), puis chaque mot s'allume dans l'ordre de lecture
+      tl.fromTo('#s3-slogan', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.5, ease: BASE }, 23.9);
+      tl.fromTo('#s3-slogan .mot', { opacity: 0.3 }, { opacity: 1, duration: 0.5, ease: BASE, stagger: 0.18 }, 24.3);
+      entree('#s3-appel', 25.2);
+      tl.to('#s3-fleche .ico', { y: 12, duration: 0.45, ease: 'sine.inOut', yoyo: true, repeat: 7 }, 25.8);
+
+      tl.set({}, {}, 32);
+      window.__timelines['main'] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
