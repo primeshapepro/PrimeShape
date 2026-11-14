@@ -34,7 +34,7 @@ Visite surtout sur téléphone, depuis un lien partagé ou une recherche locale.
 - Le slogan « Chaque sommet se gravit à deux » n'est pas imposé.
 
 ## Evidence on Hand
-- Email : andyscherb10@gmail.com. Lieu : Vauvenargues / Aix-en-Provence.
+- Email : primeshapepro@gmail.com. Lieu : Vauvenargues / Aix-en-Provence.
 - Vidéos (dans `media/`, allégées en 720p sans son) : Andy qui accompagne un sportif à la barre de traction (`coaching.mp4`, section Qui je suis) ; « Séance débutant avec juste un banc » (`seance-debutant-banc.mp4`) et « 3 exercices pour réussir ta première pompe » (`premiere-pompe.mp4`), section En séance. Les textes sont incrustés dans les vidéos.
 - Vidéos non utilisées sur le site : tuto « première traction » (écarté par Andy), reel « bosser 8 h », fentes de dos.
 - Instagram : @PrimeShapeFR (lien depuis la section En séance).
