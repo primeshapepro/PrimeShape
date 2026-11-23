@@ -539,10 +539,11 @@ footer { background: var(--bg); color: var(--fg); border-top: 1px solid var(--ru
 /* =========================================================
    EN SÉANCE : les vidéos Instagram, au format reel
    ========================================================= */
-.reels-grid { row-gap: 2.4rem; }
-.reels-head { grid-column: 1 / span 5; align-self: start; position: sticky; top: calc(var(--bar) + 24px); }
-.reels-foot { display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap; margin-top: 2rem; }
-.reel-track { grid-column: 7 / span 6; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(14px, 2vw, 24px); perspective: 1400px; }
+.reels-grid { align-items: end; }
+.reels-ttl { grid-column: 1 / span 7; }
+.reels-intro { grid-column: 8 / span 5; padding-bottom: 1.6rem; }
+.reels-foot { display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap; margin-top: 1.6rem; }
+.reel-track { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 2vw, 28px); width: 100%; max-width: 1080px; justify-self: center; margin-top: clamp(36px, 7vh, 70px); perspective: 1400px; }
 .reel { position: relative; display: block; width: 100%; text-align: left; cursor: pointer; border-radius: 22px; transition: transform 0.5s var(--quint); }
 .reel-media { position: relative; display: block; aspect-ratio: 9 / 16; border-radius: 22px; overflow: hidden; background: var(--card); border: 1px solid var(--rule); transition: border-color 0.4s, box-shadow 0.5s; }
 .reel video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.9); transition: filter 0.5s; }
@@ -570,12 +571,12 @@ footer { background: var(--bg); color: var(--fg); border-top: 1px solid var(--ru
 .reel-x { position: absolute; top: 20px; right: 24px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.7rem 1.1rem; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--rule); background: var(--bg); }
 .reel-x:hover { box-shadow: inset 0 0 0 1px var(--accent); }
 @media (max-width: 1023px) {
-  .reels-head { grid-column: 1 / -1; position: static; }
-  .reel-track { grid-column: 1 / -1; grid-template-columns: repeat(2, minmax(0, 320px)); }
+  .reels-ttl, .reels-intro { grid-column: 1 / -1; }
+  .reels-intro { padding-bottom: 0; }
 }
 @media (max-width: 767px) {
   /* Sur téléphone : on fait défiler les reels au doigt */
-  .reel-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin: 0 calc(-1 * var(--margin)); padding: 0 var(--margin) 12px; }
+  .reel-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; width: auto; max-width: none; justify-self: stretch; margin: 36px calc(-1 * var(--margin)) 0; padding: 0 var(--margin) 12px; }
   .reel-track::-webkit-scrollbar { display: none; }
   .reel { flex: 0 0 72%; scroll-snap-align: center; }
 }
@@ -691,11 +692,13 @@ footer { background: var(--bg); color: var(--fg); border-top: 1px solid var(--ru
 
 <section class="section reels" id="seance" aria-labelledby="t-sea">
   <div class="wrap g12 reels-grid">
-    <div class="reels-head">
+    <div class="reels-ttl">
       <span class="kick">En séance</span>
       <h2 class="h2 split" id="t-sea">Comme si tu y étais.</h2>
+    </div>
+    <div class="reels-intro">
       <div class="fade">
-        <p class="lead">Deux séances filmées pour les débutants&nbsp;: une avec juste un banc, et une pour réussir ta première pompe. Clique sur une vidéo pour la voir en grand.</p>
+        <p class="lead">Trois vidéos pour les débutants&nbsp;: une séance avec juste un banc, ta première pompe et ta première traction. Clique sur une vidéo pour la voir en grand.</p>
         <div class="reels-foot">
           <a class="btn btn-line" href="https://www.instagram.com/primeshapefr/" target="_blank" rel="noopener" data-track="cta_click" data-loc="instagram">Plus de vidéos sur Instagram<span class="sr-only"> (nouvel onglet)</span> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           <span class="meta">@PrimeShapeFR</span>
@@ -710,6 +713,10 @@ footer { background: var(--bg); color: var(--fg); border-top: 1px solid var(--ru
       <button type="button" class="reel" data-src="media/premiere-pompe.mp4" aria-label="Voir en grand : Ta première pompe en 3 exercices">
         <span class="reel-media"><video src="media/premiere-pompe.mp4" poster="media/premiere-pompe.jpg" muted loop playsinline preload="none" aria-hidden="true"></video></span>
         <span class="reel-info" aria-hidden="true"><span class="reel-play"><svg viewBox="0 0 10 12"><path d="M0 0L10 6L0 12Z"/></svg></span><span><span class="meta">Technique</span><span class="reel-t">Ta première pompe en 3&nbsp;exercices</span></span></span>
+      </button>
+      <button type="button" class="reel" data-src="media/premiere-traction.mp4" aria-label="Voir en grand : Ta première traction en 3 exercices">
+        <span class="reel-media"><video src="media/premiere-traction.mp4" poster="media/premiere-traction.jpg" muted loop playsinline preload="none" aria-hidden="true"></video></span>
+        <span class="reel-info" aria-hidden="true"><span class="reel-play"><svg viewBox="0 0 10 12"><path d="M0 0L10 6L0 12Z"/></svg></span><span><span class="meta">Technique</span><span class="reel-t">Ta première traction en 3&nbsp;exercices</span></span></span>
       </button>
     </div>
   </div>
