@@ -467,6 +467,7 @@ footer { position: relative; z-index: 2; background: var(--noir); border-top: 1p
 .f-col a { display: block; padding: 4px 0; color: var(--soft); transition: color 0.2s; }
 .f-col a:hover { color: var(--fg); }
 .f-bottom { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 8px 24px; flex-wrap: wrap; font-size: 14px; color: var(--muted); }
+  footer { overflow: hidden; } .f-mark { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: clamp(3.4rem, 14.6vw, 13.6rem); line-height: 0.8; letter-spacing: -0.04em; margin: 4.5rem 0 -0.2rem -0.04em; white-space: nowrap; user-select: none; color: transparent; background: radial-gradient(circle, rgba(237, 238, 233, 0.2) 1.15px, transparent 1.6px) 0 0 / 6px 6px; -webkit-background-clip: text; background-clip: text; } .f-mark b { font-weight: 700; background: radial-gradient(circle, rgba(74, 163, 110, 0.5) 1.15px, transparent 1.6px) 0 0 / 6px 6px; -webkit-background-clip: text; background-clip: text; }
 @media (max-width: 899px) { .f-grid { grid-template-columns: 1fr 1fr; } .f-grid > :first-child { grid-column: 1 / -1; } }
 
 /* =========================================================
@@ -981,6 +982,7 @@ footer { position: relative; z-index: 2; background: var(--noir); border-top: 1p
       <div class="f-col"><h4>Contact</h4><a href="mailto:primeshapepro@gmail.com">primeshapepro@gmail.com</a><a href="https://www.instagram.com/primeshapefr/" target="_blank" rel="noopener">Instagram @PrimeShapeFR<span class="sr-only"> (nouvel onglet)</span></a></div>
     </div>
     <div class="f-bottom"><span>© 2026 PrimeShape · Andy Scherb · Vauvenargues</span><span>Fait à Aix-en-Provence</span></div>
+    <p class="f-mark" aria-hidden="true">Prime<b>Shape</b></p>
   </div>
 </footer>
 
