@@ -104,6 +104,14 @@ Quand Andy dit « fais le montage du #007 » et envoie ses rushs :
    sous-titres en Nippo Semibold sur pastille noire, zones sûres du format
    reel 1080 × 1920. On reprend la structure, jamais les images ni le son de
    l'original.
+5. Les reels sans tournage (tableau, classement, liste) se font en HyperFrames
+   (`hyperframes@0.8.150`, GSAP en local, Chrome de
+   `/opt/pw-browsers/chromium_headless_shell-1243` via `HYPERFRAMES_BROWSER_PATH`).
+6. Le dossier de travail peut être vidé d'un jour à l'autre : ranger le script
+   qui construit le montage dans `veille-reels/montages/<NNN-sujet>/` (ce dépôt
+   est public : seulement le texte du montage, jamais les rushs d'Andy), et
+   la vidéo finale dans les fichiers du catalogue (Artifact, `asset: true`),
+   en notant son adresse dans le README du montage.
 
 ## La sélection de chaque lundi
 
